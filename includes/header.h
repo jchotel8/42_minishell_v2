@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 int			get_next_line(int fd, char **line);
 size_t		ft_strlen(char *s, int type);

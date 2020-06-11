@@ -72,6 +72,7 @@ lib_make:	${SRCSH}
 clean:
 			@make clean -C libs/libft
 			@make clean -C libs/ft_printf
+			@rm -rf ${OBJS}
 			@echo ${RED}${NAME}" : Removing .o files" ${WHITE}
 
 fclean:		clean

@@ -51,11 +51,12 @@ void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char **redirg, int ty
 
 
 //V2 - N CMDS
-void  do_pipe(char ***all, char ***redird, char ***redirg, int nb_cmd, int *ret)
+void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 {
 	pid_t *pid;
 	int   pipes[nb_cmd * 2 - 2];
 	int   j;
+	char **all;
 
   j = -1;
 	if (!(pid = (pid_t *)malloc(sizeof(int) * nb_cmd + 1)))
@@ -65,9 +66,10 @@ void  do_pipe(char ***all, char ***redird, char ***redirg, int nb_cmd, int *ret)
 	{
 		if (!(pid[j] = fork()))
 		{
+			all = ft_split(cmd[j], ' ');
 			do_dup(j, nb_cmd, pipes, redird[j], redirg[j], 2);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			if(execvp(*all[j], all[j]))
+			if(execvp(*all, all))
 				exit(-1);
 		}
 	}
@@ -80,10 +82,10 @@ int   main(int ac, char **av)
 {
 	int     rep;
 
-	char *cmd1[] = {"grep", "p", NULL};
-	char *cmd2[] = {"cut", "-b", "1-10", NULL};
-	char *cmd3[] = {"cut", "-b", "2-5", NULL};
-	char *cmd4[] = {"head", "-n", "3", NULL};
+	char *cmd1 = "grep p";
+	char *cmd2 = "cut -b 1-10";
+	char *cmd3 = "cut -b 2-5";
+	char *cmd4 = "head -n 3";
 
 	char *redird1[] = {NULL};
 	char *redird2[] = {NULL};
@@ -95,7 +97,7 @@ int   main(int ac, char **av)
 	char *redirg3[] = {NULL};
 	char *redirg4[] = {NULL};
 
-	char **cmd[] = {cmd1, cmd2, cmd3, cmd4};
+	char *cmd[] = {cmd1, cmd2, cmd3, cmd4};
 	char **redird[] = {redird1, redird2, redird3, redird4};
 	char **redirg[] = {redirg1, redirg2, redirg3, redirg4};
 	do_pipe(cmd, redird, redirg, 4, &rep);

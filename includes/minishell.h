@@ -14,6 +14,10 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
+# include "get_next_line.h"
+# include "../libs/libft/libft.h"
+# include "../libs/ft_printf/includes/printf.h"
+
 int			get_next_line(int fd, char **line);
 size_t		ft_strlen(char *s, int type);
 char		*ft_strdup(char *src, char *dst);

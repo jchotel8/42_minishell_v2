@@ -28,10 +28,18 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char **redirg, int typeredir)
 {
 	size_t i;
+	int fd;
 
 	i = 0;
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
+	while (redirg[i] != NULL)
+	{
+		if ((fd = open(redirg[i++], O_RDONLY)) < 0)
+			return ;
+		dup2(fd, 0);
+	}
+	i = 0;	  
 	if (j < nb_cmd - 1 || redird[i] != NULL)
 	{
 		while (redird[i])
@@ -44,9 +52,6 @@ void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char **redirg, int ty
       	}
 		dup2(pipes[j * 2 + 1], 1);
 	}
-	i = 0;
-	while (redirg[i] != NULL)
-	  	dup2(open(redirg[i++], O_RDONLY), 0);
 }
 
 
@@ -58,7 +63,7 @@ void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 	int   j;
 	char **all;
 
-  j = -1;
+  	j = -1;
 	if (!(pid = (pid_t *)malloc(sizeof(int) * nb_cmd + 1)))
 		return ;
 	init_pipes(nb_cmd * 2 - 2, pipes);
@@ -67,7 +72,7 @@ void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 		if (!(pid[j] = fork()))
 		{
 			all = ft_split(cmd[j], ' ');
-			do_dup(j, nb_cmd, pipes, redird[j], redirg[j], 2);
+			do_dup(j, nb_cmd, pipes, redird[j], redirg[j], 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
 			if(execvp(*all, all))
 				exit(-1);
@@ -87,10 +92,13 @@ int   main(int ac, char **av)
 	char *cmd3 = "cut -b 2-5";
 	char *cmd4 = "head -n 3";
 
+	// char *cmd1[] = {"echo", "test", NULL};
+	// char *cmd2[] = {"grep", "test", NULL};
+
 	char *redird1[] = {NULL};
 	char *redird2[] = {NULL};
 	char *redird3[] = {NULL};
-	char *redird4[] = {NULL};
+	char *redird4[] = {"test", NULL};
 
 	char *redirg1[] = {NULL};
 	char *redirg2[] = {NULL};

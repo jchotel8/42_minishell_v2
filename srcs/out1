@@ -1,6 +1,0 @@
-void    ft_putchar(char caract)
-void    ft_putstr(char *str)
-        ft_putchar(str[i++]);
-    ft_putstr("MINISHELL : ");
-        printf("%s\n", stock);
-        ft_putstr("MINISHELL :");

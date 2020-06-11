@@ -1,4 +1,37 @@
-#include "../includes/minishell.h"
+#include "../includes/header.h"
+
+void  ft_putchar(char caract)
+{
+	write(1, &caract, 1);
+}
+
+void  ft_putstr(char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+		ft_putchar(str[i++]);
+}
+
+void  ft_putnbr(int n)
+{
+	long int val;
+
+	val = n;
+	if (val < 0)
+	{
+		ft_putchar('-');
+		val = -val;
+	}
+	if (val > 9)
+	{
+		ft_putnbr(val / 10);
+		ft_putchar((val % 10) + '0');
+	}
+	else
+		ft_putchar(val + '0');
+}
 
 void  init_pipes(int nb_pipes, int *pipes)
 {
@@ -80,7 +113,7 @@ int   main(int ac, char **av)
 {
 	int     rep;
 
-	char *cmd1[] = {"grep", "p", NULL};
+	char *cmd1 = {"grep p"};
 	char *cmd2[] = {"cut", "-b", "1-10", NULL};
 	char *cmd3[] = {"cut", "-b", "2-5", NULL};
 	char *cmd4[] = {"head", "-n", "3", NULL};
@@ -90,7 +123,7 @@ int   main(int ac, char **av)
 	char *redird3[] = {NULL};
 	char *redird4[] = {"out1", "out2", "out4", NULL};
 
-	char *redirg1[] = {"srcs/ft_pipes.c", NULL};
+	char *redirg1[] = {"in1", "ft_pipes.c", NULL};
 	char *redirg2[] = {NULL};
 	char *redirg3[] = {NULL};
 	char *redirg4[] = {NULL};

@@ -1,19 +1,5 @@
 #include "header.h"
 
-void    ft_putchar(char caract)
-{
-    write(1, &caract, 1);
-}
-
-void    ft_putstr(char *str)
-{
-    size_t i;
-
-    i = 0;
-    while (str[i])
-        ft_putchar(str[i++]);
-}
-
 int main()
 {
     char *stock;

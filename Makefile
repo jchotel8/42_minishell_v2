@@ -12,15 +12,14 @@
 
 # GENERAL ******************************************************************** #
 NAME		= minishell
-LIBS 		= libs/ft_printf/printf.a \
-				libs/libft/libft.a
+LIBS 		= ./libs/ft_printf/printf.a\
+			  ./libs/libft/libft.a
 
 # SOURCE ********************************************************************* #			  
 SRCSC		= libs/gnl/get_next_line.c\
 			  libs/gnl/get_next_line_utils.c\
 			  srcs/ft_pipes.c
-SRCSH		= includes/get_next_line.h\
-			  includes/minishell.h
+SRCSH		= includes/minishell.h
 OBJS		= $(SRCSC:%.c=%.o)
 
 # COMMANDES ****************************************************************** #
@@ -52,12 +51,7 @@ all:		${NAME}
 	@printf $(CR)"[FILE : %s]" $@
 	@${CC} ${FLAGS} -c $< -o $@
 
-libs:		${SRCSH}
-			@printf $(CR)
-			@make bonus -C libs/libft
-			@make -C libs/ft_printf
-
-$(NAME):	libs ${OBJS}
+$(NAME):	lib_make ${OBJS}
 			@${CC} ${FLAGS} ${OBJS} ${LIBS} -o ${NAME}
 			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
 			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
@@ -69,6 +63,11 @@ bonus:		${NAME}
 run:
 			@make
 			@./${NAME}
+
+lib_make:	${SRCSH}
+			@printf $(CR)
+			@make bonus -C libs/libft
+			@make -C libs/ft_printf
 
 clean:
 			@make clean -C libs/libft

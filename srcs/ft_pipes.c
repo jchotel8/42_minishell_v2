@@ -82,7 +82,7 @@ int   main(int ac, char **av)
 {
 	int     rep;
 
-	char *cmd1 = "grep p";
+	char *cmd1 = "cat Makefile";
 	char *cmd2 = "cut -b 1-10";
 	char *cmd3 = "cut -b 2-5";
 	char *cmd4 = "head -n 3";
@@ -90,9 +90,9 @@ int   main(int ac, char **av)
 	char *redird1[] = {NULL};
 	char *redird2[] = {NULL};
 	char *redird3[] = {NULL};
-	char *redird4[] = {"out1", "out2", "out4", NULL};
+	char *redird4[] = {NULL};
 
-	char *redirg1[] = {"srcs/ft_pipes.c", NULL};
+	char *redirg1[] = {NULL};
 	char *redirg2[] = {NULL};
 	char *redirg3[] = {NULL};
 	char *redirg4[] = {NULL};

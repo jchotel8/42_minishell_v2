@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../includes/header.h"
 
 void  ft_putchar(char caract)
 {
@@ -58,25 +58,32 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 }
 
 //V2 - functions
-void  do_dup(int j, int nb_cmd, int *pipes, char *redir, int typeredir)
+void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char *redirg, int typeredir)
 {
+	size_t i;
+
+	i = 0;
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	if (j < nb_cmd - 1)
-		dup2(pipes[j * 2 + 1], 1);
-  if (redir != NULL && typeredir > 0)
-  {
-    if (typeredir == 1)
-      pipes[j * 2 + 1] = open(redir, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY,0644);
-    else if (typeredir == 2)
-      pipes[j * 2 + 1] = open(redir, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY,0644);
-  	dup2(pipes[j * 2 + 1], 1);
-  }
+	if (j < nb_cmd - 1 || redird != NULL)
+	{
+		while (redird[i])
+		{
+			if (typeredir == 1 && redird[i] != NULL)
+      			pipes[j * 2 + 1] = open(redird[i], O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
+      		else if (typeredir == 2 && redird[i] != NULL)
+      			pipes[j * 2 + 1] = open(redird[i], O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
+			dup2(pipes[j * 2 + 1], 1);
+			i++;
+		}
+	}
+	if (redirg != NULL)
+	  	dup2(open(redirg, O_RDONLY), 0);
 }
 
 
 //V2 - N CMDS
-void  do_pipe(char ***all, char **redir,int nb_cmd, int *ret)
+void  do_pipe(char ***all, char **redird, char **redirg, int nb_cmd, int *ret)
 {
 	pid_t *pid;
 	int   pipes[nb_cmd * 2 - 2];
@@ -86,11 +93,11 @@ void  do_pipe(char ***all, char **redir,int nb_cmd, int *ret)
 	if (!(pid = (pid_t *)malloc(sizeof(int) * nb_cmd + 1)))
 		return ;
 	init_pipes(nb_cmd * 2 - 2, pipes);
-	while (j++ < nb_cmd)
+	while (j++ < nb_cmd - 1)
 	{
 		if (!(pid[j] = fork()))
 		{
-			do_dup( j, nb_cmd, pipes, redir[j], 2);
+			do_dup(j, nb_cmd, pipes, redird, redirg[j], 2);
 			close_pipes(nb_cmd * 2 - 2, pipes);
 			if(execvp(*all[j], all[j]))
 				exit(-1);
@@ -105,18 +112,20 @@ int   main(int ac, char **av)
 {
 	int     rep;
 
-	char *cat_args[] = {"cat", "main.c", NULL};
-	char *grep_args[] = {"grep", "p", NULL};
-	char *cut_args[] = {"cut", "-b", "1-10", NULL};
-	char *cut_args1[] = {"head", "-n", "3", NULL};
-	char **stock[] = {cat_args, grep_args, cut_args, cut_args1};
+	char *cmd1[] = {"cat", "main.c", NULL};
+	char *cmd2[] = {"grep", "p", NULL};
+	char *cmd3[] = {"cut", "-b", "1-10", NULL};
+	char *cmd4[] = {"head", "-n", "3", NULL};
 
-  char *cat_args2[] = {"out", NULL};
-	char *grep_args2[] = {NULL};
-	char *cut_args2[] = {"out2", NULL};
-	char *cut_args3[] = {NULL};
-	char *redir[] = {"out", NULL, "out2", NULL};
+	// char **cmd[] = {cmd1, cmd2, cmd3, cmd4};
+	// char *redird[] = {NULL, "out1", "out2", NULL};
+	// char *redirg[] = {NULL, NULL, NULL, NULL};
+	// do_pipe(cmd, redird, redirg, 4, &rep);
+	// printf("REP %d\n", rep);
 
-  do_pipe(stock, redir, 4, &rep);
+	char **cmd_[] = {cmd2};    //grep p < main.c
+	char *redird1[] = {"out3"};
+	char *redirg1[] = {"main.c"};
+	do_pipe(cmd_, redird1, redirg1, 1, &rep);
 	printf("REP %d\n", rep);
 }

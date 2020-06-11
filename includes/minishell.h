@@ -18,11 +18,4 @@
 # include "../libs/libft/libft.h"
 # include "../libs/ft_printf/includes/printf.h"
 
-int			get_next_line(int fd, char **line);
-size_t		ft_strlen(char *s, int type);
-char		*ft_strdup(char *src, char *dst);
-void		*ft_calloc(size_t count, size_t size);
-char		*ft_clear(char *s, int type);
-void		ft_before(char **save, char **line);
-
 #	endif

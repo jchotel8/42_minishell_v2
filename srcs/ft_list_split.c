@@ -47,5 +47,4 @@ int main(int ac, char **av)
     t_list *l;
 
     l = ft_list_split("bonjour je suis juliette");
-    
 }

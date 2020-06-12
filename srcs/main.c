@@ -1,17 +1,40 @@
 #include "../includes/minishell.h"
 
-/*int main()
+int     do_exec(char **cmd)
+{
+    if (cmd[0] == "echo")
+    {
+        ft_echo(cmd);
+        return (1);
+    }
+    else if (cmd[0] == "pwd")
+    {
+        ft_pwd();
+        return (1);
+    }
+    else if (execvp(cmd[0], cmd))
+        return (1);
+    return (0);
+}
+
+int     main()
 {
     char *stock;
     ft_printf("MINISHELL : ");
-    while (get_next_line(0, &stock)) 
+    /*while (get_next_line(0, &stock)) 
     {
-        ft_printf("%s\n", stock);
+        ft_printf("%s\n", ft_strtrim_quote(stock));
         ft_printf("MINISHELL :");
-    }
-} */
+    } */
+    char *cmd[] = {
+        "pwd",
+        "Makefile",
+        NULL
+    };
+    do_exec(cmd);
+}
 
-int   main(int ac, char **av)
+/*int   main(int ac, char **av)
 {
     int     rep;
 
@@ -37,5 +60,5 @@ int   main(int ac, char **av)
  	do_pipe(cmd, redird, redirg, 4, &rep);
  	printf("REP %d\n", rep);
 
-     printf("%s CHECK OF TRIM : %s\n", "\\\"bonjour\\\"",ft_strtrim_quote("\\\"bonjour\\\""));
-}
+     printf("%s CHECK OF TRIM : %s\n", "\\\",bonjour,%\\\"",ft_strtrim_quote("\\\",bonjour,%\\\""));
+} */

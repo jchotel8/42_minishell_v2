@@ -54,7 +54,6 @@ void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char **redirg, int ty
 	}
 }
 
-
 //V2 - N CMDS
 void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 {

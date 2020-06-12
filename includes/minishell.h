@@ -21,5 +21,8 @@
 void    do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret);
 char    quote_inside(char *quote, char new, char prev);
 char    *ft_strtrim_quote(char *s);
+int     do_exec(char **cmd);
+void    ft_echo(char **cmd);
+void    ft_pwd();
 
 #	endif

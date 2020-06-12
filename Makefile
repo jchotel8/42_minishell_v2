@@ -20,8 +20,9 @@ SRCSC		= libs/gnl/get_next_line.c\
 			  libs/gnl/get_next_line_utils.c\
 			  srcs/ft_pipes.c\
 			  srcs/ft_quotes.c\
+			  srcs/ft_commands.c\
 			  srcs/main.c
-SRCSH		= includes/minishell.h
+SRCSH		= includes/
 OBJS		= $(SRCSC:%.c=%.o)
 
 # COMMANDES ****************************************************************** #
@@ -54,7 +55,7 @@ all:		${NAME}
 	@${CC} ${FLAGS} -c $< -o $@
 
 $(NAME):	lib_make ${OBJS}
-			@${CC} ${FLAGS} ${OBJS} ${LIBS} -o ${NAME}
+			@${CC} -I ${SRCSH} ${FLAGS} ${OBJS} ${LIBS} -o ${NAME}
 			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
 			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"

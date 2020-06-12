@@ -21,6 +21,7 @@ SRCSC		= libs/gnl/get_next_line.c\
 			  srcs/ft_pipes.c\
 			  srcs/ft_quotes.c\
 			  srcs/ft_commands.c\
+			  srcs/ft_list_split.c\
 			  srcs/main.c
 SRCSH		= includes/
 OBJS		= $(SRCSC:%.c=%.o)

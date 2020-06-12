@@ -21,6 +21,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+
+//-----------MEM------------------------
 void				*ft_memset (void *s, int c, size_t n);
 void				ft_bzero (void *b, size_t len);
 void				*ft_memcpy (void *dest, const void *src, size_t n);
@@ -28,6 +30,8 @@ void				*ft_memccpy (void *dest, const void *src, int c, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
+
+//-------------STRING-------------------
 size_t				ft_strlen(char *str);
 void				ft_putchar(char c);
 void				ft_putstr(char *str);
@@ -62,6 +66,8 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
+
+//------------LISTE-------------- 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **alst, t_list *new);
 int					ft_lstsize(t_list *lst);
@@ -72,5 +78,8 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
+void				ft_lst_print(t_list *ptr, int flag);
+t_list				*ft_lstcrea(int i, ...);
+t_list				*ft_array_to_lst(char **array);
 
 #endif

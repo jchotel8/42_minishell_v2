@@ -17,22 +17,22 @@ int     do_exec(char **cmd)
     return (0);
 }
 
-int     main()
-{
-    char *stock;
-    ft_printf("MINISHELL : ");
-    /*while (get_next_line(0, &stock)) 
-    {
-        ft_printf("%s\n", ft_strtrim_quote(stock));
-        ft_printf("MINISHELL :");
-    } */
-    char *cmd[] = {
-        "pwd",
-        "Makefile",
-        NULL
-    };
-    do_exec(cmd);
-}
+// int     main()
+// {
+//     char *stock;
+//     ft_printf("MINISHELL : ");
+//     /*while (get_next_line(0, &stock)) 
+//     {
+//         ft_printf("%s\n", ft_strtrim_quote(stock));
+//         ft_printf("MINISHELL :");
+//     } */
+//     char *cmd[] = {
+//         "pwd",
+//         "Makefile",
+//         NULL
+//     };
+//     do_exec(cmd);
+// }
 
 /*int   main(int ac, char **av)
 {

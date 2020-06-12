@@ -11,56 +11,59 @@
 # **************************************************************************** #
 
 NAME = libft.a
-SRCS =  ./ft_memset.c \
-		./ft_bzero.c \
-		./ft_memcpy.c \
-		./ft_memccpy.c \
-		./ft_memmove.c \
-		./ft_memchr.c \
-		./ft_memcmp.c \
-		./ft_strlen.c \
-		./ft_islower.c \
-		./ft_isupper.c \
-		./ft_putchar.c \
-		./ft_putstr.c \
-		./ft_isalpha.c \
-		./ft_isdigit.c \
-		./ft_isalnum.c \
-		./ft_isascii.c \
-		./ft_isprint.c \
-		./ft_toupper.c \
-		./ft_tolower.c \
-		./ft_strcount.c \
-		./ft_strchr.c \
-		./ft_strrchr.c \
-		./ft_strncmp.c \
-		./ft_strcmp.c \
-		./ft_strlcpy.c \
-		./ft_strlcat.c \
-		./ft_strnstr.c \
-		./ft_atoi.c \
-		./ft_calloc.c \
-		./ft_strdup.c \
-		./ft_substr.c \
-		./ft_strjoin.c \
-		./ft_strtrim.c \
-		./ft_split.c \
-		./ft_itoa.c \
-		./ft_strmapi.c \
-		./ft_putchar_fd.c \
-		./ft_putstr_fd.c \
-		./ft_putendl_fd.c \
-		./ft_putnbr.c \
-		./ft_putnbr_fd.c
-SRCS_B = ./ft_lstnew.c \
-		./ft_lstadd_front.c \
-		./ft_lstsize.c \
-		./ft_lstlast.c \
-		./ft_lstadd_back.c\
-		./ft_lstdelone.c \
-		./ft_lstclear.c \
-		./ft_lstiter.c \
-		./ft_lstmap.c
+SRCS =  ./mem/ft_memset.c \
+		./mem/ft_bzero.c \
+		./mem/ft_memcpy.c \
+		./mem/ft_memccpy.c \
+		./mem/ft_memmove.c \
+		./mem/ft_memchr.c \
+		./mem/ft_memcmp.c \
+		./mem/ft_calloc.c \
+		./str/ft_atoi.c \
+		./str/ft_strlen.c \
+		./str/ft_islower.c \
+		./str/ft_isupper.c \
+		./str/ft_putchar.c \
+		./str/ft_putstr.c \
+		./str/ft_isalpha.c \
+		./str/ft_isdigit.c \
+		./str/ft_isalnum.c \
+		./str/ft_isascii.c \
+		./str/ft_isprint.c \
+		./str/ft_toupper.c \
+		./str/ft_tolower.c \
+		./str/ft_strcount.c \
+		./str/ft_strchr.c \
+		./str/ft_strrchr.c \
+		./str/ft_strncmp.c \
+		./str/ft_strcmp.c \
+		./str/ft_strlcpy.c \
+		./str/ft_strlcat.c \
+		./str/ft_strnstr.c \
+		./str/ft_strdup.c \
+		./str/ft_substr.c \
+		./str/ft_strjoin.c \
+		./str/ft_strtrim.c \
+		./str/ft_split.c \
+		./str/ft_itoa.c \
+		./str/ft_strmapi.c \
+		./str/ft_putchar_fd.c \
+		./str/ft_putstr_fd.c \
+		./str/ft_putendl_fd.c \
+		./str/ft_putnbr.c \
+		./str/ft_putnbr_fd.c
+SRCS_B = ./lst/ft_lstnew.c \
+		./lst/ft_lstadd_front.c \
+		./lst/ft_lstsize.c \
+		./lst/ft_lstlast.c \
+		./lst/ft_lstadd_back.c\
+		./lst/ft_lstdelone.c \
+		./lst/ft_lstclear.c \
+		./lst/ft_lstiter.c \
+		./lst/ft_lst_print.c \
+		./lst/ft_lstmap.c \
+		./lst/ft_lstcrea.c \
+		./lst/ft_ato_lst.c
 OBJS = ${SRCS:.c=.o}
 OBJS_B = ${SRCS_B:.c=.o}
 FLAGS = -Wall -Wextra -Werror

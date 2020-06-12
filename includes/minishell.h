@@ -18,4 +18,8 @@
 # include "../libs/libft/libft.h"
 # include "../libs/ft_printf/includes/printf.h"
 
+void    do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret);
+char    quote_inside(char *quote, char new, char prev);
+char    *ft_strtrim_quote(char *s);
+
 #	endif

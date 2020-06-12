@@ -19,6 +19,7 @@ LIBS 		= ./libs/ft_printf/printf.a\
 SRCSC		= libs/gnl/get_next_line.c\
 			  libs/gnl/get_next_line_utils.c\
 			  srcs/ft_pipes.c\
+			  srcs/ft_quotes.c\
 			  srcs/main.c
 SRCSH		= includes/minishell.h
 OBJS		= $(SRCSC:%.c=%.o)

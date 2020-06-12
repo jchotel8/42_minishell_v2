@@ -20,12 +20,13 @@ SRCSC		= libs/gnl/get_next_line.c\
 			  libs/gnl/get_next_line_utils.c\
 			  srcs/ft_pipes.c\
 			  srcs/ft_quotes.c\
-			  srcs/main.c
+			  srcs/ft_list_split.c
+			  #srcs/main.c
 SRCSH		= includes/minishell.h
 OBJS		= $(SRCSC:%.c=%.o)
 
 # COMMANDES ****************************************************************** #
-FLAGS		= 
+FLAGS		= #-fsanitize=address
 CC			= gcc
 MKDIR		= mkdir
 

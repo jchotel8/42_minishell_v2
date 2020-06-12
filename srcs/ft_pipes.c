@@ -58,7 +58,7 @@ void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char **redirg, int ty
 //V2 - N CMDS
 void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 {
-	pid_t *pid;
+	pid_t pid[nb_cmd];
 	int   pipes[nb_cmd * 2 - 2];
 	int   j;
 	char **all;
@@ -67,7 +67,7 @@ void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 	if (!(pid = (pid_t *)malloc(sizeof(int) * nb_cmd + 1)))
 		return ;
 	init_pipes(nb_cmd * 2 - 2, pipes);
-	while (j++ < nb_cmd - 1)
+	while (++j < nb_cmd)
 	{
 		if (!(pid[j] = fork()))
 		{
@@ -80,40 +80,32 @@ void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, ret);
-	free(pid);
 }
 
-int   main(int ac, char **av)
-{
-	int     rep;
+// int   main(int ac, char **av)
+// {
+// 	int     rep;
 
-	char *cmd1 = "cat Makefile";
-	char *cmd2 = "cut -b 1-10";
-	char *cmd3 = "cut -b 2-5";
-	char *cmd4 = "head -n 3";
+// 	//cat Makefile bonjour test | head -n 5
+// 	char *cmd1 = "cat Makefile"; [cat Makefile] [>][> bonjour] [> test] 
+// 	char *cmd2 = "cut -b 1-10";
+// 	char *cmd3 = "cut -b 2-5";   
+// 	char *cmd4 = "head -n 3";
 
-	// char *cmd1[] = {"echo", "test", NULL};
-	// char *cmd2[] = {"grep", "test", NULL};
+// 	char *redird1[] = {NULL};
+// 	char *redird2[] = {NULL};
+// 	char *redird3[] = {NULL};
+// 	char *redird4[] = {"test", NULL};
 
-	char *redird1[] = {NULL};
-	char *redird2[] = {NULL};
-	char *redird3[] = {NULL};
-	char *redird4[] = {"test", NULL};
+// 	char *redirg1[] = {NULL};
+// 	char *redirg2[] = {NULL};
+// 	char *redirg3[] = {NULL};
+// 	char *redirg4[] = {NULL};
 
-	char *redirg1[] = {NULL};
-	char *redirg2[] = {NULL};
-	char *redirg3[] = {NULL};
-	char *redirg4[] = {NULL};
+// 	char *cmd[] = {cmd1, cmd2, cmd3, cmd4};
+// 	char **redird[] = {redird1, redird2, redird3, redird4};
+// 	char **redirg[] = {redirg1, redirg2, redirg3, redirg4};
+// 	//do_pipe(cmd, redird, redirg, 4, &rep);
+// 	printf("REP %d\n", rep);
 
-	char *cmd[] = {cmd1, cmd2, cmd3, cmd4};
-	char **redird[] = {redird1, redird2, redird3, redird4};
-	char **redirg[] = {redirg1, redirg2, redirg3, redirg4};
-	do_pipe(cmd, redird, redirg, 4, &rep);
-	printf("REP %d\n", rep);
-
-	// char **cmd_[] = {cmd2};    //grep p < main.c
-	// char *redird1[] = {"out3"};
-	// char *redirg1[] = {"main.c"};
-	// do_pipe(cmd_, redird1, redirg1, 1, &rep);
-	// printf("REP %d\n", rep);
-}
+// }

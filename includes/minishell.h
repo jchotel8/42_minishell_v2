@@ -29,7 +29,7 @@ typedef struct	s_pipe
 
 //FT_PIPE
 //void        do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret);
-void        do_pipe(char **line, int nb_cmd, int *ret);
+void        do_pipe(t_list *list, int nb_cmd, int *ret);
 //FT_QUOTES
 char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);

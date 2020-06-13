@@ -44,6 +44,7 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+int        			ft_isspace(char c);
 int					ft_strcount(const char *s, int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
@@ -66,6 +67,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_putarray(char **array, char *text, int flag);
 
 //------------LISTE-------------- 
 t_list				*ft_lstnew(void *content);
@@ -81,5 +83,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 void				ft_lst_print(t_list *ptr, int flag);
 t_list				*ft_lstcrea(int i, ...);
 t_list				*ft_array_to_lst(char **array);
+t_list				*ft_add_array_to_list(t_list *first, char **array);
+char				**ft_lst_toa(t_list *lst);
 
 #endif

@@ -51,7 +51,9 @@ SRCS =  ./mem/ft_memset.c \
 		./str/ft_putstr_fd.c \
 		./str/ft_putendl_fd.c \
 		./str/ft_putnbr.c \
-		./str/ft_putnbr_fd.c
+		./str/ft_putnbr_fd.c \
+		./str/ft_putarray.c \
+		./str/ft_isspace.c
 SRCS_B = ./lst/ft_lstnew.c \
 		./lst/ft_lstadd_front.c \
 		./lst/ft_lstsize.c \
@@ -63,7 +65,9 @@ SRCS_B = ./lst/ft_lstnew.c \
 		./lst/ft_lst_print.c \
 		./lst/ft_lstmap.c \
 		./lst/ft_lstcrea.c \
-		./lst/ft_ato_lst.c
+		./lst/ft_ato_lst.c \
+		./lst/ft_lstadd_array.c \
+		./lst/ft_lst_toa.c
 OBJS = ${SRCS:.c=.o}
 OBJS_B = ${SRCS_B:.c=.o}
 FLAGS = -Wall -Wextra -Werror

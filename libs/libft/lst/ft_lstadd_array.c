@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 09:42:49 by jchotel           #+#    #+#             */
+/*   Created: 2019/11/07 22:18:24 by jchotel           #+#    #+#             */
 /*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+t_list	*ft_add_array_to_list(t_list *first, char **array)
 {
-	unsigned int	i;
-	unsigned int	count;
+	int		i;
 
-	count = 0;
 	i = 0;
-	while (src[count] != '\0')
-		count++;
-	while (src[i] != '\0' && i < size - 1)
+	while (array && array[i])
 	{
-		dest[i] = src[i];
+		ft_lstadd_back(&first, ft_lstnew(array[i]));
 		i++;
 	}
-	dest[i] = '\0';
-	return (count);
+	return (first);
 }

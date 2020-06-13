@@ -24,43 +24,40 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 		waitpid(pid[i++], ret, 0);
 }
 
-//V2 - functions
-void  do_dup(int j, int nb_cmd, int *pipes, char **redird, char **redirg, int typeredir)
+void  do_dup(int j, int nb_cmd, int *pipes, t_list *redird, t_list *redirg, int typeredir)
 {
-	size_t i;
 	int fd;
 
-	i = 0;
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	while (redirg[i] != NULL)
+	while (redirg)
 	{
-		if ((fd = open(redirg[i++], O_RDONLY)) < 0)
+		if ((fd = open(redirg->content, O_RDONLY)) < 0)
 			return ;
 		dup2(fd, 0);
-	}
-	i = 0;	  
-	if (j < nb_cmd - 1 || redird[i] != NULL)
+		redirg = redirg->next;
+	}  
+	if (j < nb_cmd - 1 || redird)
 	{
-		while (redird[i])
+		while (redird)
 		{
-			if (typeredir == 1 && redird[i] != NULL)
-      			pipes[j * 2 + 1] = open(redird[i], O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
-      		else if (typeredir == 2 && redird[i] != NULL)
-      			pipes[j * 2 + 1] = open(redird[i], O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
-      		i++;
+			if (typeredir == 1)
+      			pipes[j * 2 + 1] = open(redird->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
+      		else if (typeredir == 2)
+      			pipes[j * 2 + 1] = open(redird->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
+			redird = redird->next;
       	}
 		dup2(pipes[j * 2 + 1], 1);
 	}
 }
 
-//V2 - N CMDS
-void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
+void  do_pipe(char **line, int nb_cmd, int *ret)
 {
 	pid_t pid[nb_cmd];
 	int   pipes[nb_cmd * 2 - 2];
 	int   j;
 	char **all;
+	t_pipe pipe;
 
   	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
@@ -68,10 +65,10 @@ void  do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret)
 	{
 		if (!(pid[j] = fork()))
 		{
-			all = ft_split(cmd[j], ' ');
-			do_dup(j, nb_cmd, pipes, redird[j], redirg[j], 1);
+			parse_redir(line[j], &pipe);
+			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			if(execvp(*all, all))
+			if(execvp(*pipe.cmd, pipe.cmd))
 				exit(-1);
 		}
 	}

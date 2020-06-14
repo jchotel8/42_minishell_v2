@@ -17,25 +17,37 @@ int     do_exec(char **cmd)
     return (0);
 }
 
-// int     main()
+// int main(int ac, char **av)
 // {
-//     char *stock;
-//     ft_printf("MINISHELL : ");
-//     /*while (get_next_line(0, &stock)) 
-//     {			
-//         ft_printf("%s\n", ft_strtrim_quote(stock));
-//         ft_printf("MINISHELL :");
-//     } */
+// 	int     rep;
+
+// 	char *read = "grep p < Makefile | head -n 10 | cut -b 1-10 > test";
+// 	t_list *pipe;
+// 	pipe = ft_lst_split(read, "|", 1);
+//     do_pipe(pipe, ft_lstsize(pipe), &rep);
+//     printf("REP %d\n", rep);
 // }
 
-
-int main(int ac, char **av)
+int     main(int ac, char **av, char **env)
 {
-	int     rep;
-
-	char *read = "grep p < Makefile | head -n 10 | cut -b 1-10 > test";
-	t_list *read_lst;
-	read_lst = ft_lst_split(read, "|", 1);
-    do_pipe(read_lst, 3, &rep);
-    printf("REP %d\n", rep);
+    int     rep;
+    if (ac > 0)
+    {
+        char *read;
+        t_list *line;
+        t_list *pipe;
+        miniprintf(PROMPT, "MINISHELL", "workingDir");
+        while (get_next_line(0, &read)) 
+        {			
+            line = ft_lst_split(read, ";", 1);
+            while(line)
+            {
+                pipe = ft_lst_split(line->content, "|", 1);
+                do_pipe(pipe, ft_lstsize(pipe), &rep);
+                line = line->next;
+            }
+            miniprintf(PROMPT, "MINISHELL", "workingDir");
+        }
+        miniprintf("\nEXITING MINISHELL : \"%s\"\n", read);
+    }
 }

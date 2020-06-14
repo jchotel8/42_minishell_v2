@@ -69,6 +69,10 @@ void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putarray(char **array, char *text, int flag);
 
+//------------INT----------------
+int					ft_max(int a, int b);
+int 				ft_min(int a, int b);
+
 //------------LISTE-------------- 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **alst, t_list *new);

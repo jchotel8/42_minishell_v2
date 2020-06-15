@@ -69,6 +69,7 @@ SRCS_B = ./lst/ft_lstnew.c \
 		./lst/ft_lstcrea.c \
 		./lst/ft_ato_lst.c \
 		./lst/ft_lstadd_array.c \
+		./lst/ft_lstremoveif.c \
 		./lst/ft_lst_toa.c
 OBJS = ${SRCS:.c=.o}
 OBJS_B = ${SRCS_B:.c=.o}

@@ -90,5 +90,6 @@ t_list				*ft_array_to_lst(char **array);
 t_list				*ft_add_array_to_list(t_list *first, char **array);
 char				**ft_lst_toa(t_list *lst);
 t_list				*ft_ato_lst(char **array);
+void				ft_lstremove_if(t_list **begin_list, void *data_ref, int (*cmp)());
 
 #endif

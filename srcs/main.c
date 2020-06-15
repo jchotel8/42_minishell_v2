@@ -8,7 +8,7 @@ int     main(int ac, char **av, char **env)
         char *read;
         t_list *line;
         t_list *pipe;
-        miniprintf(PROMPT, "MINISHELL", "workingDir");
+        miniprintf(PROMPT, "MINISHELL", get_wd());
         while (get_next_line(0, &read)) 
         {	
             line = ft_lst_split(read, ";", 1);
@@ -18,7 +18,7 @@ int     main(int ac, char **av, char **env)
                 do_pipe(pipe, ft_lstsize(pipe), &rep);
                 line = line->next;
             }
-            miniprintf(PROMPT, "MINISHELL", "workingDir");
+            miniprintf(PROMPT, "MINISHELL", get_wd());
         }
         miniprintf("\nEXITING MINISHELL : \"%s\"\n", read);
     }

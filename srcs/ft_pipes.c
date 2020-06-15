@@ -51,7 +51,7 @@ void  do_dup(int j, int nb_cmd, int *pipes, t_list *redird, t_list *redirg, int 
 	}
 }
 
-void  do_pipe(t_list *line, int nb_cmd, int *ret)
+void  do_pipe(t_list *line, int nb_cmd, int *ret, char **env)
 {
 	pid_t pid[nb_cmd];
 	int   pipes[nb_cmd * 2 - 2];
@@ -68,7 +68,7 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret)
 			parse_redir(line->content, &pipe);
 			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			do_exec(pipe.cmd);
+			do_exec(pipe.cmd, env);
 			// if(execvp(*pipe.cmd, pipe.cmd))
 			// 	exit(-1);
 		}

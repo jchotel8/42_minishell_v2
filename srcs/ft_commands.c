@@ -61,13 +61,13 @@ char *get_wd()
         return(ft_strdup("no WD"));
 }
 
-int     do_exec(char **cmd)
+int     do_exec(char **cmd, char **env)
 {
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd));
     else if (!ft_strcmp(cmd[0], "pwd"))
         return(ft_pwd());
-    else if (execvp(cmd[0], cmd))
+    else if (execve(cmd[0], cmd, env))
         return (1);
     return (0);
 }

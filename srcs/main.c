@@ -15,7 +15,7 @@ int     main(int ac, char **av, char **env)
             while(line)
             {
                 pipe = ft_lst_split(line->content, "|", 1);
-                do_pipe(pipe, ft_lstsize(pipe), &rep);
+                do_pipe(pipe, ft_lstsize(pipe), &rep, env);
                 line = line->next;
             }
             miniprintf(PROMPT, "MINISHELL", get_wd());

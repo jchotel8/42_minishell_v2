@@ -68,8 +68,9 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret)
 			parse_redir(line->content, &pipe);
 			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			if(execvp(*pipe.cmd, pipe.cmd))
-				exit(-1);
+			do_exec(pipe.cmd);
+			// if(execvp(*pipe.cmd, pipe.cmd))
+			// 	exit(-1);
 		}
 		line = line->next;
 	}

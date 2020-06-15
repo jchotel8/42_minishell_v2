@@ -19,9 +19,6 @@
 # include "../libs/ft_printf/includes/printf.h"
 
 # define PROMPT "\x1b[38;2;232;212;98m✦ %s \033[0;0m\x1b[38;2;232;72;119m(%s) ➜  \x1b[38;2;255;235;202m"
-# define PROMPT2 "✦ %s (%s) ➜  "
-
-
 
 typedef struct	s_pipe
 {
@@ -32,7 +29,6 @@ typedef struct	s_pipe
 
 
 //FT_PIPE
-//void        do_pipe(char **cmd, char ***redird, char ***redirg, int nb_cmd, int *ret);
 void        do_pipe(t_list *list, int nb_cmd, int *ret);
 //FT_QUOTES
 char        quote_inside(char *quote, char new, char prev);

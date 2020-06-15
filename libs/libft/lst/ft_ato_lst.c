@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-t_list	*ft_array_to_lst(char **array)
+t_list	*ft_ato_lst(char **array)
 {
 	t_list	*first = NULL;
 	int		i;

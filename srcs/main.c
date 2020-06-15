@@ -3,6 +3,9 @@
 int     main(int ac, char **av, char **env)
 {
     int     rep;
+    t_list  *lst_env;
+
+    lst_env = ft_ato_lst(env);
     if (ac > 0)
     {
         char *read;
@@ -15,7 +18,7 @@ int     main(int ac, char **av, char **env)
             while(line)
             {
                 pipe = ft_lst_split(line->content, "|", 1);
-                do_pipe(pipe, ft_lstsize(pipe), &rep, env);
+                do_pipe(pipe, ft_lstsize(pipe), &rep, lst_env);
                 line = line->next;
             }
             miniprintf(PROMPT, "MINISHELL", get_wd());

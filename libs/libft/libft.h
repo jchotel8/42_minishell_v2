@@ -89,5 +89,6 @@ t_list				*ft_lstcrea(int i, ...);
 t_list				*ft_array_to_lst(char **array);
 t_list				*ft_add_array_to_list(t_list *first, char **array);
 char				**ft_lst_toa(t_list *lst);
+t_list				*ft_ato_lst(char **array);
 
 #endif

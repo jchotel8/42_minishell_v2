@@ -29,12 +29,12 @@ typedef struct	s_pipe
 
 
 //FT_PIPE
-void  		do_pipe(t_list *line, int nb_cmd, int *ret, char **env);
+void  		do_pipe(t_list *line, int nb_cmd, int *ret, t_list *env);
 //FT_QUOTES
 char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);
 //FT_COMMANDES
-int     	do_exec(char **cmd, char **env);
+int     	do_exec(char **cmd, t_list *env);
 char 		*get_wd();
 //FT_PARSE
 void        parse_redir(char *str, t_pipe *pipe);

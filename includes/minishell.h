@@ -35,7 +35,10 @@ char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);
 //FT_COMMANDES
 int         do_exec(char **cmd);
+<<<<<<< HEAD
 char 		*get_wd();
+=======
+>>>>>>> 37e3e61e888c04b5ad1b3294f62edbd8a0fcc7d1
 //FT_PARSE
 void        parse_redir(char *str, t_pipe *pipe);
 //FT_LIST_SPLIT

@@ -7,13 +7,19 @@ int     ft_echo(char **cmd)
     if (!ft_strcmp(cmd[1], "-n")) 
     {
         i = 2;
-        while (cmd[i])
+        while (cmd[i]) {
+            if (i >= 3)
+                ft_putchar(' ');
             ft_putstr(cmd[i++]);
+        }
         return (1);
     }
     i = 1;
-    while (cmd[i])
+    while (cmd[i]) {
+        if (i >= 2)
+            ft_putchar(' ');
         ft_putstr(cmd[i++]);
+    }
     ft_putchar('\n');
     return (1);
 }

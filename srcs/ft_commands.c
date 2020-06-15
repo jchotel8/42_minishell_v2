@@ -4,6 +4,11 @@ int     ft_echo(char **cmd)
 {
     size_t i;
 
+    if (cmd[1] == NULL)
+    {
+        ft_putchar('\n');
+        return (1);
+    }
     if (!ft_strcmp(cmd[1], "-n")) 
     {
         i = 2;
@@ -21,8 +26,6 @@ int     ft_echo(char **cmd)
         ft_putstr(cmd[i++]);
     }
     ft_putchar('\n');
-    if (cmd[1] == NULL)
-        ft_putchar('\n');
     return (1);
 }
 

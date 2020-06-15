@@ -35,8 +35,6 @@ char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);
 //FT_COMMANDES
 int         do_exec(char **cmd);
-int			ft_echo(char **cmd);
-int	        ft_pwd();
 //FT_PARSE
 void        parse_redir(char *str, t_pipe *pipe);
 //FT_LIST_SPLIT

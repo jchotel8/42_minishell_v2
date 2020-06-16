@@ -33,9 +33,13 @@ void  		do_pipe(t_list *line, int nb_cmd, int *ret, t_list *env);
 //FT_QUOTES
 char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);
-//FT_COMMANDES
-int     	do_exec(char **cmd, t_list *env);
+//COMMANDES
+int     	ft_echo(char **cmd);
+int    		ft_pwd();
 char 		*get_wd();
+int 		ft_env (char **cmd, t_list *env);
+int 		ft_export(char **cmd, t_list *env);
+int     	ft_exec(char **cmd, t_list *env);
 //FT_PARSE
 void        parse_redir(char *str, t_pipe *pipe);
 //FT_LIST_SPLIT

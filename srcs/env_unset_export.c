@@ -72,15 +72,10 @@ void	ft_lstunset(t_list **lst, char *str)
             new->next = new->next->next;
             free(before);
         }
-        printf("%s\n", new->content);
         new = new->next;
 	}
     new = *lst;
-    if (new)
-    {
-        *lst = new->next;
-	    free(new);
-    }
+    *lst = new;
 }
 
 void    ft_clean(char *cmd, t_list *env)

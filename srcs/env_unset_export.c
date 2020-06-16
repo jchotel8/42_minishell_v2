@@ -54,3 +54,46 @@ int ft_export(char **cmd, t_list *env)
     }
     return (0);
 }
+
+void	ft_lstunset(t_list **lst, char *str)
+{
+
+    t_list  *new;
+    t_list  *before;
+
+	if (!lst)
+		return ;
+    new = *lst;
+	while (new->next && new)
+	{
+        if (!ft_strncmp(ft_strjoin(str, "="), new->next->content, ft_strlen(ft_strjoin(str, "="))))
+		{
+            before = new->next;
+            new->next = new->next->next;
+            free(before);
+        }
+        printf("%s\n", new->content);
+        new = new->next;
+	}
+    new = *lst;
+    if (new)
+    {
+        *lst = new->next;
+	    free(new);
+    }
+}
+
+void    ft_clean(char *cmd, t_list *env)
+{
+
+}
+
+int     ft_unset(char **cmd, t_list *env)
+{
+        size_t i;
+
+        i = 1;
+        while (cmd[i])
+            ft_lstunset(&env, cmd[i++]);
+        return (1);
+}

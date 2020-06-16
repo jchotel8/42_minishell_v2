@@ -43,11 +43,13 @@ int     ft_exec(char **cmd, t_list *env)
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd));
     else if (!ft_strcmp(cmd[0], "pwd"))
-        return(ft_pwd());
+        return (ft_pwd());
     else if (!ft_strcmp(cmd[0], "env"))
-        return(ft_env(cmd, env));
+        return (ft_env(cmd, env));
     else if (!ft_strcmp(cmd[0], "export"))
-        return(ft_export(cmd, env));
+        return (ft_export(cmd, env));
+    else if (!ft_strcmp(cmd[0], "unset"))
+        return (ft_unset(cmd, env));
     else
         return(ft_bin(cmd, env));
     return (0);

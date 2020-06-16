@@ -7,7 +7,12 @@ int ft_env (char **cmd, t_list *env)
         miniprintf("env: \"%s\": Aucun fichier ou dossier de ce type\n", cmd[1]);
         return (127);
     }
-    ft_lst_print(env, 0);
+    while (env && env->next)
+    {
+        miniprintf(ft_strjoin(env->content, "\n"));
+        env = env->next;
+    }
+    ft_putstr("\n\n");
     return (0);
 }
 

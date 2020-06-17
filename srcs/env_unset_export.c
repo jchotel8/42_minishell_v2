@@ -16,11 +16,6 @@ int ft_env (char **cmd, t_list *env)
     return (0);
 }
 
-// int ft_unset(char **cmd, t_list *env)
-// {
-
-// }
-
 char	check_export(char *s)
 {
 	if (!(ft_isalpha(*s) || *s == '_'))
@@ -62,7 +57,6 @@ int ft_export(char **cmd, t_list *env)
 
 void	ft_lstunset(t_list **lst, char *str)
 {
-
     t_list  *new;
     t_list  *before;
 
@@ -81,11 +75,6 @@ void	ft_lstunset(t_list **lst, char *str)
 	}
     new = *lst;
     *lst = new;
-}
-
-void    ft_clean(char *cmd, t_list *env)
-{
-
 }
 
 int     ft_unset(char **cmd, t_list *env)

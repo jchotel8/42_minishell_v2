@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include "../ft_printf/includes/printf.h"
 
 typedef struct		s_list
 {

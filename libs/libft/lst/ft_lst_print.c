@@ -20,23 +20,23 @@ void	ft_lst_print(t_list *ptr, int flag)
 	if (ptr)
 	{
 		if (flag == 1)
-			printf("[%d] : %s\n", i, (char *)ptr->content);
+			ft_printf("[%d] : %s\n", i, (char *)ptr->content);
 		else if (flag == 2)
-			printf("\"%s\" ", (char *)ptr->content);
+			ft_printf("\"%s\" ", (char *)ptr->content);
 		else
-			printf("%s\n",(char *) ptr->content);
+			ft_printf("%s\n",(char *) ptr->content);
 		while(ptr->next)
 		{
 			ptr = ptr->next;
 			i++;
 			if (flag == 1)
-				printf("[%d] : %s\n", i, (char *)ptr->content);
+				ft_printf("[%d] : %s\n", i, (char *)ptr->content);
 			else if (flag == 2)
-				printf("\"%s\" ", (char *)ptr->content);
+				ft_printf("\"%s\" ", (char *)ptr->content);
 			else
-				printf("%s\n",(char *) ptr->content);
+				ft_printf("%s\n",(char *) ptr->content);
 		}
 		if (flag == 2)
-			printf("\n");
+			ft_printf("\n");
 	}
 }

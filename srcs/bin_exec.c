@@ -49,7 +49,8 @@ int     ft_exec(char **cmd, t_list *env)
         return (ft_export(cmd, env));
     else if (!ft_strcmp(cmd[0], "unset"))
         return (ft_unset(cmd, env));
+    else if (!ft_strcmp(cmd[0], "exit"))
+        return (ft_exit(cmd, env));
     else
         return(ft_bin(cmd, env));
-    return (0);
 }

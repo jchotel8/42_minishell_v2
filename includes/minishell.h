@@ -29,7 +29,7 @@ typedef struct	s_pipe
 
 
 //FT_PIPE
-void  		do_pipe(t_list *line, int nb_cmd, int *ret, t_list *env);
+int  		do_pipe(t_list *line, int nb_cmd, int *ret, t_list *env);
 //FT_QUOTES
 char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);
@@ -47,5 +47,8 @@ void        parse_redir(char *str, t_pipe *pipe);
 t_list      *ft_lst_split(char *s, char *c, int i);
 //MINIPRINTF
 void 		miniprintf(char *str, ...);
+//EXIT
+int     	ft_exit(char **cmd, t_list *env);
+
 
 #endif

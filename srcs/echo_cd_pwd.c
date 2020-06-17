@@ -1,6 +1,32 @@
 #include "../includes/minishell.h"
 
-int     ft_echo(char **cmd)
+void    ft_putnstr(char *str, size_t start)
+{
+    size_t i;
+
+    i = 0;
+    while (str[i++])
+        if (i >= start)
+        ft_putchar(str[i]);
+}
+
+void    ft_printlstif(char **str, t_list *lst)
+{
+    size_t i;
+
+    i = 1;
+    while (lst && lst->next)
+    {
+        if (!ft_strncmp(ft_strjoin(str[0], "="), lst->content, ft_strlen(ft_strjoin(str[0], "="))))
+        {
+            ft_putnstr(lst->content, ft_strlen(ft_strjoin(str[0], "=")));
+            return ;
+        }
+        lst = lst->next;
+    }
+}
+
+int     ft_echo(char **cmd, t_list *lst)
 {
     size_t i;
 
@@ -15,7 +41,11 @@ int     ft_echo(char **cmd)
         while (cmd[i]) {
             if (i >= 3)
                 ft_putchar(' ');
-            ft_putstr(cmd[i++]);
+            if (cmd[i][0] == '$')
+                ft_printlstif(ft_split(cmd[i], '$'), lst);
+            else
+                ft_putstr(cmd[i]);
+            i++;
         }
         return (1);
     }
@@ -23,7 +53,11 @@ int     ft_echo(char **cmd)
     while (cmd[i]) {
         if (i >= 2)
             ft_putchar(' ');
-        ft_putstr(cmd[i++]);
+        if (cmd[i][0] == '$')
+            ft_printlstif(ft_split(cmd[i], '$'), lst);
+        else
+            ft_putstr(cmd[i]);
+        i++;
     }
     ft_putchar('\n');
     return (0);

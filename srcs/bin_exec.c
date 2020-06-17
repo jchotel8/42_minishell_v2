@@ -37,11 +37,10 @@ int ft_bin(char **cmd, t_list *env)
     return (0);
 }
 
-
 int     ft_exec(char **cmd, t_list *env)
 {
     if (!ft_strcmp(cmd[0], "echo"))
-        return (ft_echo(cmd));
+        return (ft_echo(cmd, env));
     else if (!ft_strcmp(cmd[0], "pwd"))
         return (ft_pwd());
     else if (!ft_strcmp(cmd[0], "env"))

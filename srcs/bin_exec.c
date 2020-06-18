@@ -46,7 +46,7 @@ char **ft_correct(char **cmd, t_list *lst)
     i = 0;
     while (cmd[i])
     {
-        if (cmd[i][0] == '$')
+        if (ft_containvarenv(cmd[i]))
         {
             stmp = ft_split(cmd[i], '$');
             tmp = ft_strdup(ft_findvarenv(stmp[0], lst));

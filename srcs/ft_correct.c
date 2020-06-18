@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-char *ft_findvarenv(char *str, t_list *lst)
+char    *ft_findvarenv(char *str, t_list *lst)
 {
     while (lst && lst->next)
     {
@@ -8,4 +8,20 @@ char *ft_findvarenv(char *str, t_list *lst)
             return (lst->content);
         lst = lst->next;
     }
+}
+
+int     ft_containvarenv(char *str)
+{
+    size_t  i;
+    char    b;
+
+    i = 0;
+    while (str[i])
+    {
+        if (b == '$' && !ft_isspace(str[i]))
+            return (1);
+        b = str[i];
+        i++;
+    }
+    return (0);
 }

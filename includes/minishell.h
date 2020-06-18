@@ -52,5 +52,5 @@ int     	ft_exit(char **cmd, t_list *env);
 //FT_CORRECT
 char		**ft_correct(char **cmd, t_list *lst);
 char		*ft_findvarenv(char *str, t_list *lst);
-char    	*ft_strndup(char *str, size_t len);
+char    	*ft_strndup(char *str);
 #endif

@@ -10,37 +10,48 @@ void    ft_putnstr(char *str, size_t start)
         ft_putchar(str[i]);
 }
 
-char    *ft_strndup(char *str, size_t len)
+size_t  ft_strlenif(char *str, char c)
 {
     size_t  i;
     size_t  j;
+    size_t  s;
+
+    i = 0;
+    j = 0;
+    s = 0;
+    while (str[i])
+    {
+        if (str[i++] == c)
+            s = 1;
+        else if (s == 1)
+            j++;
+        i++;
+    }
+    return (j);
+}
+
+char    *ft_strndup(char *str)
+{
+    size_t  i;
+    size_t  j;
+    size_t  s;
     char    *tmp;
 
     i = 0;
     j = 0;
-    if (!(tmp = ft_calloc(sizeof(char), (len + 1))))
+    s = 0;
+    if (!(tmp = ft_calloc(sizeof(char), (ft_strlenif(str, '=') + 1))))
         return (NULL);
     while (str[i])
     {
-        if (i >= len)
+        if (s == 1)
             tmp[j++] = str[i];
+        else if (str[i] == '=')
+            s = 1;
         i++;
     }
     free(str);
     return (tmp);
-}
-
-void    ft_printlstif(char **str, t_list *lst)
-{
-    while (lst && lst->next)
-    {
-        if (!ft_strncmp(ft_strjoin(str[0], "="), lst->content, ft_strlen(ft_strjoin(str[0], "="))))
-        {
-            ft_putnstr(lst->content, ft_strlen(ft_strjoin(str[0], "=")));
-            return ;
-        }
-        lst = lst->next;
-    }
 }
 
 int     ft_echo(char **cmd, t_list *lst)

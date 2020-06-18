@@ -40,7 +40,6 @@ int ft_bin(char **cmd, t_list *env)
 char **ft_correct(char **cmd, t_list *lst)
 {
     size_t  i;
-    size_t  l;
     char    *tmp;
     char    **stmp;
 
@@ -49,11 +48,10 @@ char **ft_correct(char **cmd, t_list *lst)
     {
         if (cmd[i][0] == '$')
         {
-            l = ft_strlen(cmd[i]);
             stmp = ft_split(cmd[i], '$');
             tmp = ft_strdup(ft_findvarenv(stmp[0], lst));
             free(cmd[i]);
-            cmd[i] = ft_strndup(tmp, l);
+            cmd[i] = ft_strndup(tmp);
         }
         i++;
     }

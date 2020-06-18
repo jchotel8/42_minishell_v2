@@ -10,11 +10,28 @@ void    ft_putnstr(char *str, size_t start)
         ft_putchar(str[i]);
 }
 
+char    *ft_strndup(char *str, size_t len)
+{
+    size_t  i;
+    size_t  j;
+    char    *tmp;
+
+    i = 0;
+    j = 0;
+    if (!(tmp = ft_calloc(sizeof(char), (len + 1))))
+        return (NULL);
+    while (str[i])
+    {
+        if (i >= len)
+            tmp[j++] = str[i];
+        i++;
+    }
+    free(str);
+    return (tmp);
+}
+
 void    ft_printlstif(char **str, t_list *lst)
 {
-    size_t i;
-
-    i = 1;
     while (lst && lst->next)
     {
         if (!ft_strncmp(ft_strjoin(str[0], "="), lst->content, ft_strlen(ft_strjoin(str[0], "="))))
@@ -41,10 +58,7 @@ int     ft_echo(char **cmd, t_list *lst)
         while (cmd[i]) {
             if (i >= 3)
                 ft_putchar(' ');
-            if (cmd[i][0] == '$')
-                ft_printlstif(ft_split(cmd[i], '$'), lst);
-            else
-                ft_putstr(cmd[i]);
+            ft_putstr(cmd[i]);
             i++;
         }
         return (1);
@@ -53,10 +67,7 @@ int     ft_echo(char **cmd, t_list *lst)
     while (cmd[i]) {
         if (i >= 2)
             ft_putchar(' ');
-        if (cmd[i][0] == '$')
-            ft_printlstif(ft_split(cmd[i], '$'), lst);
-        else
-            ft_putstr(cmd[i]);
+        ft_putstr(cmd[i]);
         i++;
     }
     ft_putchar('\n');

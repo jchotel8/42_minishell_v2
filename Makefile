@@ -27,6 +27,7 @@ SRCSC		= libs/gnl/get_next_line.c\
 			  srcs/echo_cd_pwd.c \
 			  srcs/env_unset_export.c\
 			  srcs/ft_exit.c \
+			  srcs/ft_correct.c \
 			  srcs/main.c
 SRCSH		= includes/
 OBJS		= $(SRCSC:%.c=%.o)

@@ -37,8 +37,32 @@ int ft_bin(char **cmd, t_list *env)
     return (0);
 }
 
+char **ft_correct(char **cmd, t_list *lst)
+{
+    size_t  i;
+    size_t  l;
+    char    *tmp;
+    char    **stmp;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i][0] == '$')
+        {
+            l = ft_strlen(cmd[i]);
+            stmp = ft_split(cmd[i], '$');
+            tmp = ft_strdup(ft_findvarenv(stmp[0], lst));
+            free(cmd[i]);
+            cmd[i] = ft_strndup(tmp, l);
+        }
+        i++;
+    }
+    return (cmd);
+}
+
 int     ft_exec(char **cmd, t_list *env)
 {
+    cmd = ft_correct(cmd, env);
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd, env));
     else if (!ft_strcmp(cmd[0], "pwd"))

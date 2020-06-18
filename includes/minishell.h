@@ -49,6 +49,8 @@ t_list      *ft_lst_split(char *s, char *c, int i);
 void 		miniprintf(char *str, ...);
 //EXIT
 int     	ft_exit(char **cmd, t_list *env);
-
-
+//FT_CORRECT
+char		**ft_correct(char **cmd, t_list *lst);
+char		*ft_findvarenv(char *str, t_list *lst);
+char    	*ft_strndup(char *str, size_t len);
 #endif

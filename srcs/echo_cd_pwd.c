@@ -50,7 +50,6 @@ char    *ft_strndup(char *str)
             s = 1;
         i++;
     }
-    free(str);
     return (tmp);
 }
 

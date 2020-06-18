@@ -54,4 +54,5 @@ char		**ft_correct(char **cmd, t_list *lst);
 char		*ft_findvarenv(char *str, t_list *lst);
 char    	*ft_strndup(char *str);
 int     	ft_containvarenv(char *str);
+char		*ft_cleancmd(char **str, t_list *env);
 #endif

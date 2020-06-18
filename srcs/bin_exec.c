@@ -47,12 +47,7 @@ char **ft_correct(char **cmd, t_list *lst)
     while (cmd[i])
     {
         if (ft_containvarenv(cmd[i]))
-        {
-            stmp = ft_split(cmd[i], '$');
-            tmp = ft_strdup(ft_findvarenv(stmp[0], lst));
-            free(cmd[i]);
-            cmd[i] = ft_strndup(tmp);
-        }
+            cmd[i] = ft_cleancmd(ft_lst_toa(ft_lst_split(cmd[i], "$", 0)), lst);
         i++;
     }
     return (cmd);

@@ -51,7 +51,7 @@ void  do_dup(int j, int nb_cmd, int *pipes, t_list *redird, t_list *redirg, int 
 	}
 }
 
-int  do_pipe(t_list *line, int nb_cmd, int *ret, t_list *env)
+int  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 {
 	pid_t pid[nb_cmd];
 	int   pipes[nb_cmd * 2 - 2];

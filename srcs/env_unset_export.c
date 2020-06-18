@@ -7,12 +7,7 @@ int ft_env (char **cmd, t_list *env)
         miniprintf("env: \"%s\": Aucun fichier ou dossier de ce type\n", cmd[1]);
         return (127);
     }
-    while (env && env->next)
-    {
-        miniprintf(ft_strjoin(env->content, "\n"));
-        env = env->next;
-    }
-    ft_putstr("\n\n");
+    ft_lst_print(env, 0);
     return (0);
 }
 
@@ -55,34 +50,19 @@ int ft_export(char **cmd, t_list *env)
     return (0);
 }
 
-void	ft_lstunset(t_list **lst, char *str)
+int     ft_unset(char **cmd, t_list **env)
 {
-    t_list  *new;
-    t_list  *before;
+    size_t i;
+    char   *tmp;
 
-	if (!lst)
-		return ;
-    new = *lst;
-	while (new->next && new)
-	{
-        if (!ft_strncmp(ft_strjoin(str, "="), new->next->content, ft_strlen(ft_strjoin(str, "="))))
-		{
-            before = new->next;
-            new->next = new->next->next;
-            free(before);
-        }
-        new = new->next;
-	}
-    new = *lst;
-    *lst = new;
-}
-
-int     ft_unset(char **cmd, t_list *env)
-{
-        size_t i;
-
-        i = 1;
-        while (cmd[i])
-            ft_lstunset(&env, cmd[i++]);
-        return (1);
+    i = 1;
+    while (cmd[i] && ft_strcmp(cmd[i],  ""))
+    {
+        tmp = cmd[i];
+        cmd[i] = ft_strjoin(cmd[i], "=");
+        free(tmp);
+        ft_lstremove_if(env, cmd[i], ft_strlcmp);
+        i++;
+    }
+    return (1);
 }

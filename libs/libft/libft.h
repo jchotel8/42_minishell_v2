@@ -14,7 +14,6 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
-# include "../ft_printf/includes/printf.h"
 
 typedef struct		s_list
 {
@@ -22,6 +21,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+//---------MINIPRINTF-------------------
+void 				miniprintf(char *str, ...);
 
 //-----------MEM------------------------
 void				*ft_memset (void *s, int c, size_t n);
@@ -51,6 +52,7 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strlcmp(const char *s1, const char *s2);
 size_t				ft_strlcpy(char *dest, char *src, size_t size);
 size_t				ft_strlcat(char *dest, char *src, size_t size);
 char				*ft_strnstr(const char *s1, const char *s2, size_t len);

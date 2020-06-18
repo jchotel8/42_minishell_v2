@@ -36,6 +36,7 @@ SRCS =  ./mem/ft_memset.c \
 		./str/ft_strchr.c \
 		./str/ft_strrchr.c \
 		./str/ft_strncmp.c \
+		./str/ft_strlcmp.c \
 		./str/ft_strcmp.c \
 		./str/ft_strlcpy.c \
 		./str/ft_strlcat.c \
@@ -70,7 +71,8 @@ SRCS_B = ./lst/ft_lstnew.c \
 		./lst/ft_ato_lst.c \
 		./lst/ft_lstadd_array.c \
 		./lst/ft_lstremoveif.c \
-		./lst/ft_lst_toa.c
+		./lst/ft_lst_toa.c \
+		./miniprintf.c
 OBJS = ${SRCS:.c=.o}
 OBJS_B = ${SRCS_B:.c=.o}
 FLAGS = -Wall -Wextra -Werror

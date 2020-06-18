@@ -22,7 +22,6 @@ SRCSC		= libs/gnl/get_next_line.c\
 			  srcs/ft_quotes.c\
 			  srcs/ft_list_split.c\
 			  srcs/ft_parse.c\
-			  srcs/miniprintf.c \
 			  srcs/bin_exec.c \
 			  srcs/echo_cd_pwd.c \
 			  srcs/env_unset_export.c\

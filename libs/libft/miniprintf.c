@@ -1,4 +1,6 @@
-#include "../includes/minishell.h"
+# include "./libft.h"
+# include <stdarg.h>
+# include <stdio.h>
 
 void miniprintf(char *str, ...)
 {

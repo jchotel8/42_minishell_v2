@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_print.c                                     :+:      :+:    :+:   */
+/*   ft_strlcmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 10:01:29 by jchotel           #+#    #+#             */
+/*   Created: 2019/11/05 09:42:49 by jchotel           #+#    #+#             */
 /*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lst_print(t_list *ptr, int flag)
+int ft_strlcmp(const char *s1, const char *s2)
 {
-	int	i = 0;
-
-	if (ptr)
-	{
-		if (flag == 1)
-			miniprintf("[%d] : %s\n", i, (char *)ptr->content);
-		else if (flag == 2)
-			miniprintf("\"%s\" ", (char *)ptr->content);
-		else
-			miniprintf("%s\n",(char *) ptr->content);
-		while(ptr->next)
-		{
-			ptr = ptr->next;
-			i++;
-			if (flag == 1)
-				miniprintf("[%d] : %s\n", i, (char *)ptr->content);
-			else if (flag == 2)
-				miniprintf("\"%s\" ", (char *)ptr->content);
-			else
-				miniprintf("%s\n",(char *) ptr->content);
-		}
-		if (flag == 2)
-			miniprintf("\n");
-	}
+    return (ft_strncmp(s1, s2, (int)ft_strlen((char *)s1)));
 }

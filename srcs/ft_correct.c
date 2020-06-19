@@ -39,7 +39,7 @@ char    *ft_cleancmd(char **str, t_list *env)
     while (str[i])
     {
         if (ft_containvarenv(str[i]))
-                new = ft_strjoin(new, ft_strndup(ft_findvarenv(str[i], env)));
+            new = ft_strjoin(new, ft_strndup(ft_findvarenv(str[i], env)));
         else
             new = ft_strjoin(new, str[i]);
         i++;

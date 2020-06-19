@@ -55,32 +55,24 @@ char    *ft_strndup(char *str)
 
 int     ft_echo(char **cmd, t_list *lst)
 {
-    size_t i;
+    size_t  i;
+    int     n_flag;
 
-    if (cmd[1] == NULL)
-    {
-        ft_putchar('\n');
-        return (1);
-    }
-    if (!ft_strcmp(cmd[1], "-n")) 
+    i = 1;
+    n_flag = 0;
+    if (cmd[1] && !ft_strcmp(cmd[1], "-n")) 
     {
         i = 2;
-        while (cmd[i]) {
-            if (i >= 3)
-                ft_putchar(' ');
-            ft_putstr(cmd[i]);
-            i++;
-        }
-        return (1);
+        n_flag = 1;
     }
-    i = 1;
-    while (cmd[i]) {
-        if (i >= 2)
+    while (cmd[i]) 
+    {
+        if ((i >= 2 && n_flag == 0) || (n_flag == 1 && i >= 3))
             ft_putchar(' ');
-        ft_putstr(cmd[i]);
-        i++;
+        ft_putstr(cmd[i++]);
     }
-    ft_putchar('\n');
+    if (!n_flag)
+        ft_putchar('\n');
     return (0);
 }
 

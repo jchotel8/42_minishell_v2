@@ -11,6 +11,31 @@ char    *ft_findvarenv(char *str, t_list *lst)
             return (lst->content);
         lst = lst->next;
     }
+    return (NULL);
+}
+
+int     ft_isquote(char *str, char caract)
+{
+    size_t i;
+    size_t s;
+
+    i = 0;
+    s = 0;
+    while (str[i])
+    {
+        if (str[i] == '\'' || str[i] == '\\')
+            if (s == 0)
+                s = 1;
+            else
+                s = 2;
+        else if (str[i] == caract)
+            if (s == 1)
+                return (1);
+            else
+                return (0);
+        i++;
+    }
+    return (0);
 }
 
 int     ft_containvarenv(char *str)
@@ -39,7 +64,10 @@ char    *ft_cleancmd(char **str, t_list *env)
     while (str[i])
     {
         if (ft_containvarenv(str[i]))
-            new = ft_strjoin(new, ft_strndup(ft_findvarenv(str[i], env)));
+            if (ft_findvarenv(str[i], env) != NULL)
+                new = ft_strjoin(new, ft_strndup(ft_findvarenv(str[i], env)));
+            else
+                new = NULL;
         else
             new = ft_strjoin(new, str[i]);
         i++;

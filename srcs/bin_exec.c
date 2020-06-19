@@ -14,9 +14,12 @@ int ft_find_bin(char **cmd, t_list *env, t_list *paths)
         paths = paths->next;
     }
     if (!paths)
+    {
         miniprintf("Command not found: %s\n", cmd[0]);
+        return (0);
+    }
     else
-        execve(new, cmd, ft_lst_toa(env));
+        return(execve(new, cmd, ft_lst_toa(env)));
 }
 
 int ft_bin(char **cmd, t_list *env)
@@ -67,7 +70,8 @@ int     ft_exec(char **cmd, t_list **env)
     else if (!ft_strcmp(cmd[0], "unset"))
         return (ft_unset(cmd, env));
     else if (!ft_strcmp(cmd[0], "exit"))
-        return (ft_exit(cmd, *env));
+        return(-1);
     else
         return(ft_bin(cmd, *env));
+    return(0);
 }

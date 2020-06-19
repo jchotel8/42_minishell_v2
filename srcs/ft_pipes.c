@@ -51,7 +51,7 @@ void  do_dup(int j, int nb_cmd, int *pipes, t_list *redird, t_list *redirg, int 
 	}
 }
 
-int  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
+void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 {
 	pid_t pid[nb_cmd];
 	int   pipes[nb_cmd * 2 - 2];
@@ -63,19 +63,22 @@ int  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	while (++j < nb_cmd)
 	{
-		if (!(pid[j] = fork()))
+		if (nb_cmd != 1 && !(pid[j] = fork()))
 		{
 			parse_redir(line->content, &pipe);
 			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			if (ft_exec(pipe.cmd, env) == 2)
-				return (1);
-			// if(execvp(*pipe.cmd, pipe.cmd))
-			// 	exit(-1);
+			if (ft_exec(pipe.cmd, env) == -1)
+				exit(-1);
+		}
+		else
+		{
+			parse_redir(line->content, &pipe);
+			if (ft_exec(pipe.cmd, env) == -1)
+				exit(-1);
 		}
 		line = line->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, ret);
-	return (0);
 }

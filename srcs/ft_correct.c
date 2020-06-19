@@ -32,6 +32,7 @@ char    *ft_rspecials(char *str)
             ft_putchar(str[i]);
         i++;
     }
+    ft_putchar('\n');
     return (str);
 }
 
@@ -40,6 +41,7 @@ char    *ft_findvarenv(char *str, t_list *lst)
     char **split;
 
     split = ft_split(str, '$');
+    //ft_rspecials(str);
     while (lst && lst->next)
     {
         if (!ft_strncmp(ft_strjoin(split[0], "="), lst->content, ft_strlen(ft_strjoin(split[0], "="))))
@@ -102,7 +104,7 @@ char    *ft_cleancmd(char **str, t_list *env)
             if (ft_findvarenv(str[i], env) != NULL)
                 new = ft_strjoin(new, ft_strndup(ft_findvarenv(str[i], env)));
             else
-                new = NULL;
+                new = str[i];
         else
             new = ft_strjoin(new, str[i]);
         i++;

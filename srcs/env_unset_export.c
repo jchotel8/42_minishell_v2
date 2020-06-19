@@ -11,17 +11,22 @@ int ft_env (char **cmd, t_list *env)
     return (0);
 }
 
-char	check_export(char *s)
+int	check_export(char *s)
 {
+    int flag;
+
+    flag = 0;
 	if (!(ft_isalpha(*s) || *s == '_'))
 		return (0);
-	while (*s)
+	while (*s && !flag)
 	{
-		if (!(ft_isalnum(*s) || *s == '-'))
-			return (*s);
+        if (*s == '=')
+            flag = 1;
+		if (!flag && (!(ft_isalnum(*s) || *s == '-')))
+			return (0);
 		s++;
 	}
-	return (*s);
+    return (1);
 }
 
 int ft_export(char **cmd, t_list *env)
@@ -34,7 +39,7 @@ int ft_export(char **cmd, t_list *env)
     {
         while(cmd[i])
         {
-            if (!(c = check_export(cmd[i])))
+            if (check_export(cmd[i]))
                 ft_lstadd_back(&env, ft_lstnew(cmd[i++]));
             else
             {

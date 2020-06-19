@@ -1,5 +1,40 @@
 #include "../includes/minishell.h"
 
+size_t  *ft_strlensp(char *str)
+{
+    size_t i;
+    size_t j;
+
+    i = 0;
+    j = 0;
+    while (str[i])
+    {
+        if (str[i] != '\'' || str[i] != '\\')
+            j++;
+        i++;
+    }
+    return (j);
+}
+
+char    *ft_rspecials(char *str)
+{
+    size_t  i;
+    size_t  j;
+    char    *new;
+
+    i = 0;
+    j = 0;
+    if (!str || !(ft_calloc((ft_strlensp(str) + 1), sizeof(char))))
+        return (NULL);
+    while (str[i])
+    {
+        if (str[i] != '\'' || str[i] != '\\')
+            ft_putchar(str[i]);
+        i++;
+    }
+    return (str);
+}
+
 char    *ft_findvarenv(char *str, t_list *lst)
 {
     char **split;
@@ -14,7 +49,7 @@ char    *ft_findvarenv(char *str, t_list *lst)
     return (NULL);
 }
 
-int     ft_isquote(char *str, char caract)
+int     ft_isinquote(char *str, char caract)
 {
     size_t i;
     size_t s;
@@ -46,7 +81,7 @@ int     ft_containvarenv(char *str)
     i = 0;
     while (str[i])
     {
-        if (b == '$' && !ft_isspace(str[i]))
+        if (b == '$' && !ft_isspace(str[i]) && !ft_isinquote(str, '$'))
             return (1);
         b = str[i];
         i++;

@@ -1,5 +1,66 @@
 #include "../includes/minishell.h"
 
+
+//THINGS TO DO :
+//- add " " when exporting
+//- finish forks
+//- verify redirection when only one
+//- clean $
+//- apply ft_strtrim_quote;
+//- display the export list when no arguments
+
+
+// var="bonjour\toi" -> "bonjour\\toi";
+// var="bonjour\\toi" -> "bonjour\\toi";
+// var="bonjour\"toi" -> "bonjour\"toi";
+// var="bonjour\'toi" -> "bonjour\\'toi";
+// var="bonjour'toi" -> "bonjour'toi";
+
+// var=bonjour\toi -> "bonjourtoi";
+// var=bonjour\\toi -> "bonjour\\toi";
+// var=bonjour\"toi -> "bonjour\"toi";
+// var=bonjour\'toi -> "bonjour'toi";
+// var=bonjour\ toi -> "bonjour toi";
+// var=bonjour"toi -> retour_ligne;
+
+// var='bonjour\toi' -> "bonjour\\toi";
+// var='bonjour\\toi' -> "bonjour\\\\toi";
+// var='bonjour\"toi' -> "bonjour\\\"toi";
+// var='bonjour"toi' -> "bonjour\"toi";
+// var='bonjour\'toi' -> retour a la ligne;
+
+
+
+// char *ft_reverse_quote(char *s)
+// {
+// 	int i;
+// 	int j;
+// 	char quote;
+// 	char prev;
+// 	char *new;
+
+// 	i = 0;
+// 	j = 0;
+// 	prev = 0;
+// 	new = ft_calloc(ft_strlen(s)* 2 + 2, sizeof(char));
+// 	while (s[i])
+// 	{
+// 		if((quote_inside(&quote, s[i], prev)))
+// 			prev = s[i++];
+// 		if (!quote && s[i] == '\\' && prev != '\\')
+// 		 	prev = s[i++];
+// 		else if (quote == '"' && s[i] == '\\' && 
+// 			((s[i + 1] == '\\' && prev != '\\')|| s[i + 1] == '"'))
+// 			prev = s[i++];
+// 		else
+// 		{
+// 			prev = 0;
+// 			new[j++] = s[i++];
+// 		}
+// 	}
+// 	return (new);
+// }
+
 int     main(int ac, char **av, char **env)
 {
     int     rep;

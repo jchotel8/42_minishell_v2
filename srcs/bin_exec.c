@@ -61,7 +61,7 @@ char **ft_correct(char **cmd, t_list *lst)
 
 int     ft_mybin(char **cmd, t_list **env)
 {
-    if ((cmd = ft_correct(cmd, *env)))
+    if (!(cmd = ft_correct(cmd, *env)))
         return (1);
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd, *env));

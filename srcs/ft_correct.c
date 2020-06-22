@@ -1,47 +1,10 @@
 #include "../includes/minishell.h"
 
-size_t  *ft_strlensp(char *str)
-{
-    size_t i;
-    size_t j;
-
-    i = 0;
-    j = 0;
-    while (str[i])
-    {
-        if (str[i] != '\'' || str[i] != '\\')
-            j++;
-        i++;
-    }
-    return (j);
-}
-
-char    *ft_rspecials(char *str)
-{
-    size_t  i;
-    size_t  j;
-    char    *new;
-
-    i = 0;
-    j = 0;
-    if (!str || !(ft_calloc((ft_strlensp(str) + 1), sizeof(char))))
-        return (NULL);
-    while (str[i])
-    {
-        if (str[i] != '\'' || str[i] != '\\')
-            ft_putchar(str[i]);
-        i++;
-    }
-    ft_putchar('\n');
-    return (str);
-}
-
 char    *ft_findvarenv(char *str, t_list *lst)
 {
     char **split;
 
     split = ft_split(str, '$');
-    //ft_rspecials(str);
     while (lst && lst->next)
     {
         if (!ft_strncmp(ft_strjoin(split[0], "="), lst->content, ft_strlen(ft_strjoin(split[0], "="))))
@@ -95,18 +58,20 @@ char    *ft_cleancmd(char **str, t_list *env)
 {
     size_t  i;
     char    *new;
+    char    *tmp;
 
     i = 0;
     new = NULL;
+    tmp = NULL;
     while (str[i])
     {
-        if (ft_containvarenv(str[i]))
-            if (ft_findvarenv(str[i], env) != NULL)
-                new = ft_strjoin(new, ft_strndup(ft_findvarenv(str[i], env)));
-            else
-                new = str[i];
-        else
-            new = ft_strjoin(new, str[i]);
+        tmp = NULL;
+        if (ft_containvarenv(str[i]) && ft_findvarenv(str[i], env))
+            tmp = ft_strndup(ft_findvarenv(str[i], env));
+        else if (!ft_containvarenv(str[i]))
+            tmp = str[i];
+        if (tmp != NULL)
+            new = ft_strjoin(new, tmp);
         i++;
     }
     free(str);

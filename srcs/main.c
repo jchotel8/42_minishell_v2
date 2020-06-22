@@ -2,7 +2,7 @@
 
 
 //THINGS TO DO :
-//- add " " when exporting
+//- add " " when exporting and finish function ft_reverse_quotes
 //- finish forks
 //- verify redirection when only one
 //- clean $
@@ -29,37 +29,58 @@
 // var='bonjour"toi' -> "bonjour\"toi";
 // var='bonjour\'toi' -> retour a la ligne;
 
+int        ft_isspecial(char c)  //a ajouter dans la libft
+{
+    return (c == '\\' || c == '\"');
+}
 
+char *ft_reverse_quote(char *s)
+{
+	int i;
+	int j;
+	char quote;
+	char *new;
 
-// char *ft_reverse_quote(char *s)
-// {
-// 	int i;
-// 	int j;
-// 	char quote;
-// 	char prev;
-// 	char *new;
-
-// 	i = 0;
-// 	j = 0;
-// 	prev = 0;
-// 	new = ft_calloc(ft_strlen(s)* 2 + 2, sizeof(char));
-// 	while (s[i])
-// 	{
-// 		if((quote_inside(&quote, s[i], prev)))
-// 			prev = s[i++];
-// 		if (!quote && s[i] == '\\' && prev != '\\')
-// 		 	prev = s[i++];
-// 		else if (quote == '"' && s[i] == '\\' && 
-// 			((s[i + 1] == '\\' && prev != '\\')|| s[i + 1] == '"'))
-// 			prev = s[i++];
-// 		else
-// 		{
-// 			prev = 0;
-// 			new[j++] = s[i++];
-// 		}
-// 	}
-// 	return (new);
-// }
+	i = 0;
+	j = 0;
+    quote = 0;
+	new = ft_calloc(ft_strlen(s)* 2 + 2, sizeof(char));
+    if (s[0] != '\"')
+        new[j++] = '\"';
+    if (s[0] == '\'')
+        i++;
+    if (s[0] == '\"' || s[0] == '\'')
+        quote = s[0];
+	while (s[i])
+	{
+        if (s[i] == '\\' && quote == '\"')
+        {
+            new[j++] = s[i++];
+            new[j++] = (!ft_isspecial(s[i]) ? '\\' : s[i++]);
+        }
+        else if (ft_isspecial(s[i]) && quote == '\'')
+        {
+            new[j++] = (!ft_isspecial(s[i + 1]) || (s[i + 1] !='\\' && ft_isspecial(s[i + 1]))? '\\' : s[i++]);
+            new[j++] = s[i++];
+        }
+        else if (s[i] == '\'' && quote == '\'')
+            i++;
+        else if (s[i] == '\\')
+        {
+            if (!ft_isspecial(s[i + 1]))
+                i++;
+            else
+            {
+                new[j++] = s[i++];
+                new[j++] = s[i++];
+            }
+        }
+        else
+	        new[j++] = s[i++];
+	}
+    quote != '\"' ? new[j] = '\"' : 0;
+	return (new);
+}
 
 int     main(int ac, char **av, char **env)
 {
@@ -75,6 +96,7 @@ int     main(int ac, char **av, char **env)
         miniprintf(PROMPT, "MINISHELL", get_wd());
         while (get_next_line(0, &read)) 
         {	
+            //miniprintf("%s -> %s\n", read, ft_reverse_quote(read));
             line = ft_lst_split(read, ";", 1);
             while(line)
             {

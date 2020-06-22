@@ -63,20 +63,20 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	while (++j < nb_cmd)
 	{
-		if (nb_cmd != 1 && !(pid[j] = fork()))
+		if (!(pid[j] = fork()))// && nb_cmd != 1
 		{
 			parse_redir(line->content, &pipe);
 			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			if (ft_exec(pipe.cmd, env) == -1)
-				exit(-1);
+			if (ft_exec(pipe.cmd, env) <= 0)
+				exit(0);
 		}
-		else
-		{
-			parse_redir(line->content, &pipe);
-			if (ft_exec(pipe.cmd, env) == -1)
-				exit(-1);
-		}
+		// else
+		// {
+		// 	parse_redir(line->content, &pipe);
+		// 	if (ft_exec(pipe.cmd, env) == -1)
+		// 		exit(-1);
+		// }
 		line = line->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);

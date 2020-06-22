@@ -4,10 +4,8 @@
 //THINGS TO DO :
 //- apply ft_reverse_quotes
 //- finish exit
-//- verify redirection when only one
 //- clean $
 //- apply ft_strtrim_quote;
-//- display the export list when no arguments
 
 
 // var="bonjour\toi" -> "bonjour\\toi";

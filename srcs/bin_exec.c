@@ -43,17 +43,14 @@ int ft_bin(char **cmd, t_list *env)
 char **ft_correct(char **cmd, t_list *lst)
 {
     size_t  i;
-    size_t  j;
     char    *tmp;
     char    **stmp;
 
     i = 0;
-    j = 0;
     while (cmd[i])
     {
         if (ft_containvarenv(cmd[i]))
-            if (!(cmd[j] = ft_cleancmd(ft_lst_toa(ft_lst_split(cmd[i], "$", 0)), lst)))
-                j++;
+            cmd[i] = ft_cleancmd(ft_lst_toa(ft_lst_split(cmd[i], "$", 0)), lst);
         i++;
     }
     return (cmd);
@@ -61,8 +58,7 @@ char **ft_correct(char **cmd, t_list *lst)
 
 int     ft_mybin(char **cmd, t_list **env)
 {
-    if (!(cmd = ft_correct(cmd, *env)))
-        return (1);
+    cmd = ft_correct(cmd, *env);
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd, *env));
     else if (!ft_strcmp(cmd[0], "pwd"))

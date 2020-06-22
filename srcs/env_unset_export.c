@@ -1,14 +1,13 @@
 #include "../includes/minishell.h"
 
-int ft_env (char **cmd, t_list *env)
+int ft_env (char **cmd, t_list **env)
 {   //env /home : erreur 126 denied acces
     if (cmd && cmd[1])
     {
         miniprintf("env: \"%s\": Aucun fichier ou dossier de ce type\n", cmd[1]);
         return (127);
     }
-    ft_lst_print(env, 0);
-    //ft_lstprint_if(env, (void *)'=', ft_strchr);
+    ft_lstprint_if(*env, (void *)'=', ft_strchr);
     return (0);
 }
 
@@ -30,7 +29,7 @@ int	check_export(char *s)
     return (1);
 }
 
-int ft_export(char **cmd, t_list *env)
+int ft_export(char **cmd, t_list **env)
 {
     int     i;
     char    c;
@@ -41,15 +40,13 @@ int ft_export(char **cmd, t_list *env)
         while(cmd[i])
         {
             if (check_export(cmd[i]))
-                ft_lstadd_back(&env, ft_lstnew(cmd[i++]));
+                ft_lstadd_back(env, ft_lstnew(cmd[i++]));
             else
                 miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
         }
-        ft_lst_print(env, 0);
     }
     else
-        ft_lst_print(env, 0);
-		//ft_lst_print(ft_lstsort(env, ft_strcmp), 0);
+		ft_lst_print(ft_lstsort(*env, ft_strcmp), 0);
     return (0);
 }
 

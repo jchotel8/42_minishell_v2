@@ -71,12 +71,12 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 			if (ft_exec(pipe.cmd, env) <= 0)
 				exit(0);
 		}
-		// else
-		// {
-		// 	parse_redir(line->content, &pipe);
-		// 	if (ft_exec(pipe.cmd, env) == -1)
-		// 		exit(-1);
-		// }
+		else
+		{
+			parse_redir(line->content, &pipe);
+			if (ft_exec(pipe.cmd, env) == -1)
+				exit(-1);
+		}
 		line = line->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);

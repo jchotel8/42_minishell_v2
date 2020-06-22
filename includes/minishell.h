@@ -37,8 +37,8 @@ char        *ft_strtrim_quote(char *s);
 int     	ft_echo(char **cmd, t_list *lst);
 int    		ft_pwd();
 char 		*get_wd();
-int 		ft_env (char **cmd, t_list *env);
-int 		ft_export(char **cmd, t_list *env);
+int 		ft_env (char **cmd, t_list **env);
+int 		ft_export(char **cmd, t_list **env);
 int     	ft_unset(char **cmd, t_list **env);
 int     	ft_exec(char **cmd, t_list **env);
 //FT_PARSE

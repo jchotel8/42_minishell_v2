@@ -2,7 +2,7 @@
 
 
 //THINGS TO DO :
-//- add " " when exporting and finish function ft_reverse_quotes
+//- apply ft_reverse_quotes
 //- finish forks
 //- verify redirection when only one
 //- clean $

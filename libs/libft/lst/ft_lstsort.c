@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_print.c                                     :+:      :+:    :+:   */
+/*   ft_lst_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 10:01:29 by jchotel           #+#    #+#             */
+/*   Created: 2019/11/08 10:45:35 by jchotel           #+#    #+#             */
 /*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lst_print(t_list *ptr, int flag)
+t_list	*ft_lstsort(t_list *lst, int (*cmp)())
 {
-	int	i = 0;
+	void	*tmp_data;
+	t_list	*tmp_lst;
 
-	if (ptr)
+	tmp_lst = lst;
+	while (lst->next)
 	{
-		while(ptr)
+		if (((*cmp)(lst->content, lst->next->content)) > 0)
 		{
-			if (flag == 1)
-				miniprintf("[%d] : %s\n", i, (char *)ptr->content);
-			else if (flag == 2)
-				miniprintf("\"%s\" ", (char *)ptr->content);
-			else if (flag == 3)
-				miniprintf("%s %s\n", "declare -x ", (char *)ptr->content);
-			else
-				miniprintf("%s\n",(char *) ptr->content);
-			ptr = ptr->next;
-			i++;
+			tmp_data = lst->content;
+			lst->content = lst->next->content;
+			lst->next->content = tmp_data;
+			lst = tmp_lst;
 		}
-		if (flag == 2)
-			miniprintf("\n");
+		else
+			lst = lst->next;
 	}
+	lst = tmp_lst;
+	return (lst);
 }

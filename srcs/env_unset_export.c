@@ -8,6 +8,7 @@ int ft_env (char **cmd, t_list *env)
         return (127);
     }
     ft_lst_print(env, 0);
+    //ft_lstprint_if(env, (void *)'=', ft_strchr);
     return (0);
 }
 
@@ -42,16 +43,13 @@ int ft_export(char **cmd, t_list *env)
             if (check_export(cmd[i]))
                 ft_lstadd_back(&env, ft_lstnew(cmd[i++]));
             else
-            {
-                miniprintf("export: '%s': not a valid identifier\n", cmd[i]);
-                return (1);
-            }
+                miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
         }
+        ft_lst_print(env, 0);
     }
     else
-    {
-        miniprintf("need to print the list (and sort)\n");
-    }
+        ft_lst_print(env, 0);
+		//ft_lst_print(ft_lstsort(env, ft_strcmp), 0);
     return (0);
 }
 

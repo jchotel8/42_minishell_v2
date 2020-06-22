@@ -94,5 +94,6 @@ t_list				*ft_add_array_to_list(t_list *first, char **array);
 char				**ft_lst_toa(t_list *lst);
 t_list				*ft_ato_lst(char **array);
 void				ft_lstremove_if(t_list **begin_list, void *data_ref, int (*cmp)());
-
+t_list				*ft_lstsort(t_list *lst, int (*cmp)());
+void				ft_lstprint_if(t_list *ptr, void *c, char *(*cmp)());
 #endif

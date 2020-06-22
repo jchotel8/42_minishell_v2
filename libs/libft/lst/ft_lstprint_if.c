@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_print.c                                     :+:      :+:    :+:   */
+/*   ft_lstprint_if.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 10:01:29 by jchotel           #+#    #+#             */
+/*   Created: 2019/11/07 22:04:15 by jchotel           #+#    #+#             */
 /*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lst_print(t_list *ptr, int flag)
+void	ft_lstprint_if(t_list *ptr, void *c, char *(*cmp)())
 {
-	int	i = 0;
-
-	if (ptr)
+	while (ptr)
 	{
-		while(ptr)
-		{
-			if (flag == 1)
-				miniprintf("[%d] : %s\n", i, (char *)ptr->content);
-			else if (flag == 2)
-				miniprintf("\"%s\" ", (char *)ptr->content);
-			else if (flag == 3)
-				miniprintf("%s %s\n", "declare -x ", (char *)ptr->content);
-			else
-				miniprintf("%s\n",(char *) ptr->content);
-			ptr = ptr->next;
-			i++;
-		}
-		if (flag == 2)
-			miniprintf("\n");
+		if ((*cmp)(ptr->content, c))
+			miniprintf("%s\n", ptr->content);
+		ptr = ptr->next;
 	}
 }

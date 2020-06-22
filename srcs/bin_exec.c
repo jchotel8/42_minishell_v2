@@ -56,7 +56,7 @@ char **ft_correct(char **cmd, t_list *lst)
     return (cmd);
 }
 
-int     ft_exec(char **cmd, t_list **env)
+int     ft_mybin(char **cmd, t_list **env)
 {
     cmd = ft_correct(cmd, *env);
     if (!ft_strcmp(cmd[0], "echo"))
@@ -72,6 +72,23 @@ int     ft_exec(char **cmd, t_list **env)
     else if (!ft_strcmp(cmd[0], "exit"))
         return(1);
     else
+        return (-1);
+}
+
+int     ft_exec(char **cmd, t_list **env)
+{
+    if (!ft_mybin(cmd, env))
+        return (0);
+    return (ft_bin(cmd, *env));
+}
+
+int     ft_exec2(char **cmd, t_list **env)
+{//chaque fonction return 0, sauf dans le cas du ft_bin-> -1 si echec
+    pid_t pid;
+
+    if (!ft_mybin(cmd, env))
+        return (0);
+    if (!(pid = fork()))
         return(ft_bin(cmd, *env));
     return(0);
 }

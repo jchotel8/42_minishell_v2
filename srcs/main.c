@@ -3,7 +3,7 @@
 
 //THINGS TO DO :
 //- apply ft_reverse_quotes
-//- finish forks
+//- finish exit
 //- verify redirection when only one
 //- clean $
 //- apply ft_strtrim_quote;

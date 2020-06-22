@@ -46,7 +46,7 @@ int ft_export(char **cmd, t_list **env)
         }
     }
     else
-		ft_lst_print(ft_lstsort(*env, ft_strcmp), 0);
+		ft_lst_print(ft_lstsort(*env, ft_strcmp), 3);
     return (0);
 }
 

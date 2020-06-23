@@ -40,25 +40,11 @@ int ft_bin(char **cmd, t_list *env)
     return (0);
 }
 
-char **ft_correct(char **cmd, t_list *lst)
-{
-    size_t  i;
-    char    *tmp;
-    char    **stmp;
-
-    i = 0;
-    while (cmd[i])
-    {
-        if (ft_containvarenv(cmd[i]))
-            cmd[i] = ft_cleancmd(ft_lst_toa(ft_lst_split(cmd[i], "$", 0)), lst);
-        i++;
-    }
-    return (cmd);
-}
-
 int     ft_mybin(char **cmd, t_list **env)
 {
     //cmd = ft_correct(cmd, *env);
+    if (!cmd && !cmd[0])
+        return (0);
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd, *env));
     else if (!ft_strcmp(cmd[0], "pwd"))

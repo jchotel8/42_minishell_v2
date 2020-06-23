@@ -73,8 +73,11 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 		}
 		else if (nb_cmd == 1 && pipe.redird == NULL)
 		{
-			if (ft_exec2(pipe.cmd, env) < 0)
-				exit(0);
+			if (pipe.cmd[0])
+			{
+				if (ft_exec2(pipe.cmd, env) < 0)
+					exit(0);
+			}
 		}
 		line = line->next;
 	}

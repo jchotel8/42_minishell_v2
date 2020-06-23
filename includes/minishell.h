@@ -49,9 +49,5 @@ t_list      *ft_lst_split(char *s, char *c, int i);
 //EXIT
 int     	ft_exit(char **cmd, t_list *env);
 //FT_CORRECT
-char		**ft_correct(char **cmd, t_list *lst);
-char    	*ft_strndup(char *str); // WESH ELLE EST OU CETTE FONCTION!?
-
-//Ma VERSION
-char *ft_replace_env(char *str, t_list *env);
+char 		*ft_replace_env(char *str, t_list *env);
 #endif

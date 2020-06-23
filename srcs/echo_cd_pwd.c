@@ -30,29 +30,6 @@ size_t  ft_strlenif(char *str, char c)
     return (j);
 }
 
-char    *ft_strndup(char *str)
-{
-    size_t  i;
-    size_t  j;
-    size_t  s;
-    char    *tmp;
-
-    i = 0;
-    j = 0;
-    s = 0;
-    if (!(tmp = ft_calloc(sizeof(char), (ft_strlenif(str, '=') + 1))))
-        return (NULL);
-    while (str[i])
-    {
-        if (s == 1)
-            tmp[j++] = str[i];
-        else if (str[i] == '=')
-            s = 1;
-        i++;
-    }
-    return (tmp);
-}
-
 int     ft_echo(char **cmd, t_list *lst)
 {
     size_t  i;

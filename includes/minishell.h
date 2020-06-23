@@ -43,15 +43,15 @@ int     	ft_unset(char **cmd, t_list **env);
 int     	ft_exec(char **cmd, t_list **env);
 int     	ft_exec2(char **cmd, t_list **env);
 //FT_PARSE
-void        parse_redir(char *str, t_pipe *pipe);
+void        parse_redir(char *str, t_pipe *pipe, t_list *env);
 //FT_LIST_SPLIT
 t_list      *ft_lst_split(char *s, char *c, int i);
 //EXIT
 int     	ft_exit(char **cmd, t_list *env);
 //FT_CORRECT
 char		**ft_correct(char **cmd, t_list *lst);
-char		*ft_findvarenv(char *str, t_list *lst);
-char    	*ft_strndup(char *str);
-int     	ft_containvarenv(char *str);
-char		*ft_cleancmd(char **str, t_list *env);
+char    	*ft_strndup(char *str); // WESH ELLE EST OU CETTE FONCTION!?
+
+//Ma VERSION
+char *ft_replace_env(char *str, t_list *env);
 #endif

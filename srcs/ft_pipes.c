@@ -63,7 +63,7 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	while (++j < nb_cmd)
 	{
-		parse_redir(line->content, &pipe);
+		parse_redir(line->content, &pipe, *env);
 		if ((nb_cmd != 1 || pipe.redird != NULL) && !(pid[j] = fork()))
 		{
 			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);

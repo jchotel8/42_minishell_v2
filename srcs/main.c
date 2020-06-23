@@ -4,8 +4,10 @@
 //THINGS TO DO :
 //- apply ft_reverse_quotes
 //- finish exit
-//- clean $
+//- clean $ -> dans le cas ou la variable n'existe pas
 //- apply ft_strtrim_quote;
+//- bin cd
+//- $?
 
 
 // var="bonjour\toi" -> "bonjour\\toi";
@@ -80,6 +82,10 @@ char *ft_reverse_quote(char *s)
 	return (new);
 }
 
+
+
+
+
 int     main(int ac, char **av, char **env)
 {
     int     rep;
@@ -95,6 +101,7 @@ int     main(int ac, char **av, char **env)
         while (get_next_line(0, &read)) 
         {	
             //miniprintf("%s -> %s\n", read, ft_reverse_quote(read));
+            //miniprintf("%s -> %s\n", read, ft_replace_env(read, lst_env));
             line = ft_lst_split(read, ";", 1);
             while(line)
             {

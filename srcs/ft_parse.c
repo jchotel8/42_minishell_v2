@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-void parse_redir(char *str, t_pipe *pipe)
+void parse_redir(char *str, t_pipe *pipe, t_list *env)
 {
     t_list *tmp;
     t_list *prev;
@@ -11,6 +11,7 @@ void parse_redir(char *str, t_pipe *pipe)
     pipe->cmd = NULL;
     pipe->redird = NULL;
     pipe->redirg = NULL;
+    str = ft_replace_env(str, env);
     tmp = ft_lst_split(str, "> <", 0);
     while (tmp)
     {   

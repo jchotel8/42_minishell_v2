@@ -75,6 +75,9 @@ char    *ft_cleancmd(char **str, t_list *env)
             new = ft_strjoin(new, tmp);
         i++;
     }
+    if (!new)
+        if (!(new = ft_calloc(1, sizeof(char))))
+            return (NULL);
     free(str);
     return (new);
 }

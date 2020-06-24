@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-void  init_pipes(int nb_pipes, int *pipes)
+void	init_pipes(int nb_pipes, int *pipes)
 {
 	int i;
 
@@ -9,13 +9,13 @@ void  init_pipes(int nb_pipes, int *pipes)
 		pipe(pipes + (2 * i++));
 }
 
-void  close_pipes(int nb_pipes, int *pipes)
+void	close_pipes(int nb_pipes, int *pipes)
 {
 	while (nb_pipes--)
 		close(pipes[nb_pipes]);
 }
 
-void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
+void	wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 {
 	int i;
 
@@ -24,9 +24,9 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 		waitpid(pid[i++], ret, 0);
 }
 
-void  do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int typeredir)
+void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int typeredir)
 {
-	int fd;
+	int	fd;
 
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
@@ -42,32 +42,32 @@ void  do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int typeredir)
 		while (p->redird)
 		{
 			if (typeredir == 1)
-      			pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
-      		else if (typeredir == 2)
-      			pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
+				pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
+			else if (typeredir == 2)
+				pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
 			p->redird = p->redird->next;
-      	}
+		}
 		dup2(pipes[j * 2 + 1], 1);
 	}
 }
 
-void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
+void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 {
-	pid_t pid[nb_cmd];
-	int   pipes[nb_cmd * 2 - 2];
-	int   j;
-	char **all;
-	t_pipe pipe;
-	int att;
+	pid_t	pid[nb_cmd];
+	int		pipes[nb_cmd * 2 - 2];
+	int		j;
+	char	**all;
+	t_pipe	pipe;
+	int		att;
 
 	att = 0;
-  	j = -1;
+	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	while (++j < nb_cmd)
 	{
 		parse_redir(line->content, &pipe, *env);
 		if (pipe.cmd[0] && !ft_strcmp(pipe.cmd[0], "exit"))
-        	att = 1;
+			att = 1;
 		else if ((nb_cmd != 1 || pipe.redird != NULL) && !(pid[j] = fork()))
 		{
 			do_dup(j, nb_cmd, pipes, &pipe, 1);

@@ -1,29 +1,29 @@
 #include "../includes/minishell.h"
 
-char* ft_find_env(char *str, t_list *env)
+char	*ft_find_env(char *str, t_list *env)
 {
-    str = ft_strjoin(str, "=");
-    while (env)
-    {
-        if(!ft_strlcmp(str, env->content))
-            return(ft_substr(env->content, ft_strlen(str), ft_strlen(env->content)));
-        env = env->next;
-    }
-    return (0);
+	str = ft_strjoin(str, "=");
+	while (env)
+	{
+		if (!ft_strlcmp(str, env->content))
+			return (ft_substr(env->content, ft_strlen(str), ft_strlen(env->content)));
+		env = env->next;
+	}
+	return (0);
 }
 
-int     ft_strstri(const char *s1, const char *s2)
+int		ft_strstri(const char *s1, const char *s2)
 {
-	size_t	size;   
-    size_t  len;
-	char	*hay;
-	char	*needle;
-    int     i;
+	size_t  size;   
+	size_t  len;
+	char    *hay;
+	char    *needle;
+	int     i;
 
 	hay = (char *)s1;
 	needle = (char *)s2;
-    i = 0;
-    len = ft_strlen(hay);
+	i = 0;
+	len = ft_strlen(hay);
 	size = ft_strlen(needle);
 	while (*hay && len >= size)
 	{
@@ -31,67 +31,67 @@ int     ft_strstri(const char *s1, const char *s2)
 			return (i);
 		hay++;
 		len--;
-        i++;
+		i++;
 	}
 	return (-1);
 }
 
-char* ft_strrep(char *str, char *to_rep, char *rep)
+char	*ft_strrep(char *str, char *to_rep, char *rep)
 {
-    char *new; 
+	char *new; 
 
-    while(ft_strstri(str, to_rep) >= 0)
-    {      
-        new = ft_substr(str, 0, ft_strstri(str, to_rep));
-        new = ft_strjoin(new, rep);
-        new = ft_strjoin(new, ft_substr(str, ft_strstri(str, to_rep) + ft_strlen(to_rep), ft_strlen(str)));
-        str = new;
-    }
-    return (str);
+	while(ft_strstri(str, to_rep) >= 0)
+	{      
+		new = ft_substr(str, 0, ft_strstri(str, to_rep));
+		new = ft_strjoin(new, rep);
+		new = ft_strjoin(new, ft_substr(str, ft_strstri(str, to_rep) + ft_strlen(to_rep), ft_strlen(str)));
+		str = new;
+	}
+	return (str);
 }
 
-int        ft_isend(char c)
+int		ft_isend(char c)
 {
-    return (ft_isspace(c) || !c || c == '"' || c == '\'' || c == '$');
+	return (ft_isspace(c) || !c || c == '"' || c == '\'' || c == '$');
 }
 
-char *ft_find_toreplace(char *str)
+char	*ft_find_toreplace(char *str)
 {
-    char    quote;
-    char    prev;
-    char    *to_replace;
-    int     k;
+	char    quote;
+	char    prev;
+	char    *to_replace;
+	int     k;
 
-    quote = 0;
-    prev = 0;
-    k = 1;
-    while (*str)
-    {
-        quote_inside(&quote, *str, prev);
-        if (prev != '\\' && *str == '$' && quote != '\'')
-        {
-            while (!ft_isend(*(str + k)))
-                k++;
-            return (ft_substr(str, 0, k));
-        }
-        prev = *str;
-        str++;
-    }
-    return(NULL);
+	quote = 0;
+	prev = 0;
+	k = 1;
+	while (*str)
+	{
+		quote_inside(&quote, *str, prev);
+		if (prev != '\\' && *str == '$' && quote != '\'')
+		{
+			while (!ft_isend(*(str + k)))
+				k++;
+			return (ft_substr(str, 0, k));
+		}
+		prev = *str;
+		str++;
+	}
+	return(NULL);
 }
 
-char *ft_replace_env(char *str, t_list *env)
+char	*ft_replace_env(char *str, t_list *env)
 {
-    char *to_rep;
+	char *to_rep;
 
-    while((to_rep = ft_find_toreplace(str)))
-    {
-        if (!ft_strcmp(to_rep, "$?"))
-            str = ft_strrep(str, to_rep, ft_itoa(rep));
-        else if (!ft_strcmp(to_rep, "$"))
-            return (str);
-        else
-            str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
-    }
-    return (str);
+	while((to_rep = ft_find_toreplace(str)))
+	{
+		if (!ft_strcmp(to_rep, "$?"))
+			str = ft_strrep(str, to_rep, ft_itoa(rep));
+		else if (!ft_strcmp(to_rep, "$"))
+			return (str);
+		else
+			str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
+	}
+	return (str);
 }

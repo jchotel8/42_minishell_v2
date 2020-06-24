@@ -11,6 +11,7 @@
 //- export ou env : l'un n'affiche pas si pas de value
 //- apres un "export" les variables d'env ne doivent pas etre triées
 //- tester un dollard tout seul pour voir
+//- ./minishell
 
 int rep;
 

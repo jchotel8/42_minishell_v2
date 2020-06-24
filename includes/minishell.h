@@ -58,4 +58,5 @@ t_list      *ft_lst_split(char *s, char *c, int i);
 int     	ft_exit(char **cmd, t_list *env);
 //FT_CORRECT
 char 		*ft_replace_env(char *str, t_list *env);
+char		*ft_find_env(char *str, t_list *env);
 #endif

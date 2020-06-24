@@ -7,10 +7,8 @@
 //- free & cleanup
 //- $? a finir : si une commande n'est pas trouvée et les valeurs != 0
 //- ctrl-C, ctrl-D, ctrl-/
-//- bin -> path absolu
-//- export ou env : l'un n'affiche pas si pas de value
 //- apres un "export" les variables d'env ne doivent pas etre triées
-//- tester un dollard tout seul pour voir
+//- $ -> doit afficher Command not found
 //- ./minishell
 
 int rep;
@@ -34,7 +32,6 @@ int     main(int ac, char **av, char **env)
             {
                 pipe = ft_lst_split(line->content, "|", 1);
                 do_pipe(pipe, ft_lstsize(pipe), &rep, &lst_env);
-                //miniprintf("return value = %d\n", rep);
                 line = line->next;
             }
             miniprintf((rep == 0 ? PROMPT: PROMPT_), "MINISHELL", get_wd());

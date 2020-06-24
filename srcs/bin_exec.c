@@ -5,21 +5,18 @@ int ft_find_bin(char **cmd, t_list *env, t_list *paths)
     char   *new;
     struct stat	buf;
 
+    if (!stat(cmd[0], &buf))
+        return(execve(cmd[0], cmd, ft_lst_toa(env)));
     while (paths)
     {
         new = ft_strjoin(paths->content, "/");
         new = ft_strjoin(new, cmd[0]);
         if (!stat(new, &buf))
-            execve(new, cmd, ft_lst_toa(env));
+            return(execve(new, cmd, ft_lst_toa(env)));
         paths = paths->next;
     }
-    if (!paths)
-    {
-        miniprintf("Command not found: %s\n", cmd[0]);
-        return (1);
-    }
-    else
-        return(execve(new, cmd, ft_lst_toa(env)));
+    miniprintf("Command not found: %s\n", cmd[0]);
+    return (1);
 }
 
 int ft_bin(char **cmd, t_list *env)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstcrea.c                                       :+:      :+:    :+:   */
+/*   ft_lstcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,18 +11,15 @@
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <stdarg.h>
 
-t_list	*ft_lstcrea(int i, ...)
+t_list	*ft_lstcpy(t_list *lst)
 {
-	va_list		va;
-	t_list 		*first = NULL;
+	t_list 		*cpy = NULL;
 
-	va_start(va, i);
-	while (i-- > 0)
+	while (lst)
 	{
-		ft_lstadd_back(&first, ft_lstnew(va_arg(va, void *)));
+		ft_lstadd_back(&cpy, ft_lstnew(lst->content));
+        lst = lst->next
 	}
-	va_end(va);
-	return (first);
+	return (cpy);
 }

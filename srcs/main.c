@@ -24,6 +24,7 @@ int     main(int ac, char **av, char **env)
         char *read;
         t_list *line;
         t_list *pipe;
+        miniprintf("bonjour Je suis la");
         miniprintf((rep == 0 ? PROMPT: PROMPT_), "MINISHELL", get_wd());
         while (get_next_line(0, &read)) 
         {	

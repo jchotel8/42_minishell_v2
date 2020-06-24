@@ -147,7 +147,7 @@ int ft_export(char **cmd, t_list **env)
             if (check_export(cmd[i]))
             {
                     ft_lstremove_if(env, ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1), ft_strlcmp);
-                    ft_lstadd_back(env, ft_lstnew(test_export(cmd[i++])));
+                    ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(test_export(cmd[i++]))));
             }
             else
             {

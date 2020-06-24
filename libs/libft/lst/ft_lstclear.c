@@ -29,3 +29,20 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	}
 	*lst = NULL;
 }
+
+void	ft_lstclean(t_list **lst)
+{
+	t_list	*to_free;
+	t_list	*next;
+
+	if (!(*lst))
+		return ;
+	to_free = *lst;
+	while (to_free)
+	{
+		next = to_free->next;
+		free(to_free);
+		to_free = next;
+	}
+	*lst = NULL;
+}

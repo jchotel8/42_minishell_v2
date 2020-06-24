@@ -145,9 +145,14 @@ int ft_export(char **cmd, t_list **env)
         while(cmd[i])
         {
             if (check_export(cmd[i]))
-                ft_lstadd_back(env, ft_lstnew(test_quotes(cmd[i++])));
+            {
+                    ft_lstremove_if(env, ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1), ft_strlcmp);
+                    ft_lstadd_back(env, ft_lstnew(test_export(cmd[i++])));
+            }
             else
+            {
                 miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
+            }
         }
     }
     else
@@ -161,7 +166,7 @@ int     ft_unset(char **cmd, t_list **env)
     char   *tmp;
 
     i = 1;
-    while (cmd[i] && ft_strcmp(cmd[i],  ""))
+    while (cmd[i] && ft_strcmp(cmd[i], ""))
     {
         tmp = cmd[i];
         cmd[i] = ft_strjoin(cmd[i], "=");

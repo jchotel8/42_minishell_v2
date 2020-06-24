@@ -16,7 +16,7 @@ int ft_find_bin(char **cmd, t_list *env, t_list *paths)
     if (!paths)
     {
         miniprintf("Command not found: %s\n", cmd[0]);
-        return (0);
+        return (1);
     }
     else
         return(execve(new, cmd, ft_lst_toa(env)));
@@ -26,25 +26,25 @@ int ft_bin(char **cmd, t_list *env)
 {
     t_list *paths;
     t_list *env_;
+    int     ret;
 
     env_ = env;
     while (env_)
     {
-        if(!ft_strncmp(env_->content, "PATH=", 5))
+        if(!ft_strlcmp("PATH=", env_->content))
         {
             paths = ft_lst_split(env_->content + 5, ":", 1);
-            ft_find_bin(cmd, env, paths);
+            if ((ret = ft_find_bin(cmd, env, paths)))
+                return(ret);
         }
         env_ = env_->next;
     }
-    return (0);
+    return (1);
 }
 
 int     ft_mybin(char **cmd, t_list **env)
 {
     //cmd = ft_correct(cmd, *env);
-    if (!cmd && !cmd[0])
-        return (0);
     if (!ft_strcmp(cmd[0], "echo"))
         return (ft_echo(cmd, *env));
     else if (!ft_strcmp(cmd[0], "pwd"))
@@ -55,8 +55,10 @@ int     ft_mybin(char **cmd, t_list **env)
         return (ft_export(cmd, env));
     else if (!ft_strcmp(cmd[0], "unset"))
         return (ft_unset(cmd, env));
+    else if (!ft_strcmp(cmd[0], "cd"))
+        return (ft_cd(cmd, *env));
     else if (!ft_strcmp(cmd[0], "exit"))
-        return(1);
+        return(ft_exit(cmd, *env));
     else
         return (-1);
 }

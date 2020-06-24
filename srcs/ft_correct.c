@@ -2,17 +2,11 @@
 
 char* ft_find_env(char *str, t_list *env)
 {
-    char *value;
-
     str = ft_strjoin(str, "=");
-    value = NULL;
     while (env)
     {
         if(!ft_strlcmp(str, env->content))
-        {
-            value = ft_substr(env->content, ft_strlen(str), ft_strlen(env->content));
-            return(value);
-        }
+            return(ft_substr(env->content, ft_strlen(str), ft_strlen(env->content)));
         env = env->next;
     }
     return (0);
@@ -20,7 +14,7 @@ char* ft_find_env(char *str, t_list *env)
 
 int     ft_strstri(const char *s1, const char *s2)
 {
-	size_t	size;
+	size_t	size;   
     size_t  len;
 	char	*hay;
 	char	*needle;
@@ -44,7 +38,7 @@ int     ft_strstri(const char *s1, const char *s2)
 
 char* ft_strrep(char *str, char *to_rep, char *rep)
 {
-    char *new;
+    char *new; 
 
     while(ft_strstri(str, to_rep) >= 0)
     {      
@@ -91,6 +85,11 @@ char *ft_replace_env(char *str, t_list *env)
     char *to_rep;
 
     while((to_rep = ft_find_toreplace(str)))
-        str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
+    {
+        if (!ft_strcmp(to_rep, "$?"))
+            str = ft_strrep(str, to_rep, ft_itoa(rep));
+        else
+            str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
+    }
     return (str);
 }

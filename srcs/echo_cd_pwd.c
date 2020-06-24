@@ -30,7 +30,7 @@ size_t  ft_strlenif(char *str, char c)
     return (j);
 }
 
-int     ft_echo(char **cmd, t_list *lst)
+int     ft_echo(char **cmd, t_list *env)
 {
     size_t  i;
     int     n_flag;
@@ -82,4 +82,16 @@ char *get_wd()
     }
     else
         return(ft_strdup("no WD"));
+}
+
+int ft_cd(char **cmd, t_list *env)
+{
+	if (cmd[2])
+		miniprintf("cd: too many arguments\n");
+	else if (chdir(cmd[1]) == -1)
+	{
+		miniprintf("cd: no such file or directory : %s\n", cmd[1]);
+		return (1);
+	}
+	return (0);
 }

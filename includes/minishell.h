@@ -18,7 +18,12 @@
 # include "../libs/libft/libft.h"
 # include "../libs/ft_printf/includes/printf.h"
 
-# define PROMPT "\x1b[38;2;232;212;98m✦ %s \033[0;0m\x1b[38;2;232;72;119m(%s) ➜  \x1b[38;2;255;235;202m"
+# define RED "\033[0;0m\x1b[38;2;232;72;119m"
+# define WHI "\x1b[38;2;255;235;202m"
+# define YEL "\x1b[38;2;232;212;98m"
+
+# define PROMPT  YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI
+# define PROMPT_ RED "✦ "YEL "%s "RED"(%s) ➜ "WHI
 
 typedef struct	s_pipe
 {
@@ -26,6 +31,8 @@ typedef struct	s_pipe
 	t_list		*redird;
 	t_list		*redirg;
 }				t_pipe;
+
+int 			rep;
 
 
 //FT_PIPE
@@ -37,11 +44,12 @@ char        *ft_strtrim_quote(char *s);
 int     	ft_echo(char **cmd, t_list *lst);
 int    		ft_pwd();
 char 		*get_wd();
-int 		ft_env (char **cmd, t_list **env);
+int 		ft_env(char **cmd, t_list **env);
 int 		ft_export(char **cmd, t_list **env);
 int     	ft_unset(char **cmd, t_list **env);
 int     	ft_exec(char **cmd, t_list **env);
 int     	ft_exec2(char **cmd, t_list **env);
+int			ft_cd(char **cmd, t_list *env);
 //FT_PARSE
 void        parse_redir(char *str, t_pipe *pipe, t_list *env);
 //FT_LIST_SPLIT

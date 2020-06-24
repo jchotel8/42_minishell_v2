@@ -17,15 +17,20 @@ char	**ft_lst_toa(t_list *lst)
 	char	**new;
 	int		i;
 
+	if (!lst)
+		return (NULL);
 	if (!(new = (char **)malloc(sizeof(char *) * ft_lstsize(lst) + 1)))
 		return(NULL);
 
 	i = 0;
 	while (lst)
 	{
-		new[i] = ft_strdup((char *)lst->content);
+		if (ft_strlcmp(lst->content,""))
+		{
+			new[i] = ft_strdup((char *)lst->content);
+			i++;
+		}
 		lst = lst->next;
-		i++;
 	}
 	new[i] = 0;
 	return (new);

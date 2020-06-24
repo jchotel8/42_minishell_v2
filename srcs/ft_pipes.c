@@ -24,28 +24,28 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 		waitpid(pid[i++], ret, 0);
 }
 
-void  do_dup(int j, int nb_cmd, int *pipes, t_list *redird, t_list *redirg, int typeredir)
+void  do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int typeredir)
 {
 	int fd;
 
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	while (redirg)
+	while (p->redirg)
 	{
-		if ((fd = open(redirg->content, O_RDONLY)) < 0)
+		if ((fd = open(p->redirg->content, O_RDONLY)) < 0)
 			return ;
 		dup2(fd, 0);
-		redirg = redirg->next;
+		p->redirg = p->redirg->next;
 	}  
-	if (j < nb_cmd - 1 || redird)
+	if (j < nb_cmd - 1 || p->redird)
 	{
-		while (redird)
+		while (p->redird)
 		{
 			if (typeredir == 1)
-      			pipes[j * 2 + 1] = open(redird->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
+      			pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
       		else if (typeredir == 2)
-      			pipes[j * 2 + 1] = open(redird->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
-			redird = redird->next;
+      			pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
+			p->redird = p->redird->next;
       	}
 		dup2(pipes[j * 2 + 1], 1);
 	}
@@ -58,24 +58,28 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 	int   j;
 	char **all;
 	t_pipe pipe;
+	int att;
 
+	att = 0;
   	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	while (++j < nb_cmd)
 	{
 		parse_redir(line->content, &pipe, *env);
-		if ((nb_cmd != 1 || pipe.redird != NULL) && !(pid[j] = fork()))
+		if (pipe.cmd[0] && !ft_strcmp(pipe.cmd[0], "exit"))
+        	att = 1;
+		else if ((nb_cmd != 1 || pipe.redird != NULL) && !(pid[j] = fork()))
 		{
-			do_dup(j, nb_cmd, pipes, pipe.redird, pipe.redirg, 1);
+			do_dup(j, nb_cmd, pipes, &pipe, 1);
 			close_pipes(nb_cmd * 2 - 2, pipes);
-			if (ft_exec(pipe.cmd, env) <= 0)
+			if ((*ret = ft_exec(pipe.cmd, env)) <= 0)
 				exit(0);
 		}
 		else if (nb_cmd == 1 && pipe.redird == NULL)
 		{
 			if (pipe.cmd[0])
 			{
-				if (ft_exec2(pipe.cmd, env) < 0)
+				if ((*ret = ft_exec2(pipe.cmd, env)) < 0)
 					exit(0);
 			}
 		}
@@ -83,4 +87,6 @@ void  do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, ret);
+	if (att == 1)
+		ft_exit(pipe.cmd, *env);
 }

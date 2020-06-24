@@ -37,6 +37,8 @@ char *ft_strtrim_quote(char *s)
 		else if (quote == '"' && s[i] == '\\' && 
 			((s[i + 1] == '\\' && prev != '\\')|| s[i + 1] == '"'))
 			prev = s[i++];
+		else if (prev == '"' && s[i] == '"')
+			prev = s[i++];
 		else
 		{
 			prev = 0;

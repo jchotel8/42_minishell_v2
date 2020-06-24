@@ -7,9 +7,9 @@
 //- free & cleanup
 //- $? a finir : si une commande n'est pas trouvée et les valeurs != 0
 //- ctrl-C, ctrl-D, ctrl-/
-//- apres un "export" les variables d'env ne doivent pas etre triées
 //- $ -> doit afficher Command not found
 //- ./minishell
+//- redirection dans les $ : message d'erreur
 
 int rep;
 

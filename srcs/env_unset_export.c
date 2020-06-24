@@ -1,6 +1,5 @@
 #include "../includes/minishell.h"
 
-
 // var="bonjour\toi" -> "bonjour\\toi";
 // var="bonjour\\toi" -> "bonjour\\toi";
 // var="bonjour\"toi" -> "bonjour\"toi";
@@ -19,6 +18,10 @@
 // var='bonjour\"toi' -> "bonjour\\\"toi";
 // var='bonjour"toi' -> "bonjour\"toi";
 // var='bonjour\'toi' -> retour a la ligne;
+
+
+//qd j'exporte, la valeur est stockée avec les quotes
+//
 
 int ft_env (char **cmd, t_list **env)
 {   //env /home : erreur 126 denied acces
@@ -106,7 +109,7 @@ int ft_strfind(char *str, char c)
 {
     int i;
 
-    i = 0;
+    i = 0; 
     while (str && str[i])
     {
         if (str[i] == c)
@@ -133,20 +136,22 @@ int ft_export(char **cmd, t_list **env)
 {
     int     i;
     char    c;
+    t_list  *cpy;
 
     i = 1;
+    cpy = ft_lstcpy(*env);
     if (cmd && cmd[i])
     {
         while(cmd[i])
         {
             if (check_export(cmd[i]))
-                ft_lstadd_back(env, ft_lstnew(test_export(cmd[i++])));
+                ft_lstadd_back(env, ft_lstnew(test_quotes(cmd[i++])));
             else
                 miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
         }
     }
     else
-		ft_lst_print(ft_lstsort(*env, ft_strcmp), 3);
+		ft_lst_print(ft_lstsort(cpy, ft_strcmp), 3);
     return (0);
 }
 

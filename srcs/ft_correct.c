@@ -88,6 +88,8 @@ char *ft_replace_env(char *str, t_list *env)
     {
         if (!ft_strcmp(to_rep, "$?"))
             str = ft_strrep(str, to_rep, ft_itoa(rep));
+        else if (!ft_strcmp(to_rep, "$"))
+            return (str);
         else
             str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
     }

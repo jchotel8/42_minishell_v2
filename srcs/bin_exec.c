@@ -16,7 +16,7 @@ int ft_find_bin(char **cmd, t_list *env, t_list *paths)
 		paths = paths->next;
 	}
 	miniprintf("Command not found: %s\n", cmd[0]);
-	return (1);
+	return (127);
 }
 
 int ft_bin(char **cmd, t_list *env)
@@ -41,7 +41,6 @@ int ft_bin(char **cmd, t_list *env)
 
 int     ft_mybin(char **cmd, t_list **env)
 {
-	//cmd = ft_correct(cmd, *env);
 	if (!ft_strcmp(cmd[0], "echo"))
 		return (ft_echo(cmd, *env));
 	else if (!ft_strcmp(cmd[0], "pwd"))
@@ -69,10 +68,11 @@ int     ft_exec(char **cmd, t_list **env)
 
 int     ft_exec2(char **cmd, t_list **env)
 {//chaque fonction return 0, sauf dans le cas du ft_bin-> -1 si echec
-	pid_t pid;
+	pid_t	pid;
+	int 	ret;
 
-	if (!ft_mybin(cmd, env))
-		return (0);
+	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
+		return (ret);
 	if (!(pid = fork()))
 		return(ft_bin(cmd, *env));
 	return(0);

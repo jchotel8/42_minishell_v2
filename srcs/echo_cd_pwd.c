@@ -91,7 +91,7 @@ int ft_cd(char **cmd, t_list *env)
 	else if (chdir(cmd[1]) == -1)
 	{
 		miniprintf("cd: no such file or directory : %s\n", cmd[1]);
-		return (1);
+		return (8);
 	}
 	return (0);
 }

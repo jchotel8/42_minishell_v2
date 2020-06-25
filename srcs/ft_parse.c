@@ -37,6 +37,34 @@ void parse_redir(char *str, t_pipe *pipe, t_list *env)
 		prev2 = tmp;
 		tmp = tmp->next;
 	}
+	tmp = pipe->redird;
+	prev2 = 0;
+	while (tmp)
+	{
+		tmp->content = ft_replace_env(tmp->content, env);
+		t_list *test = ft_lst_split(tmp->content, " ", 1);
+		if (prev2 && test)
+			prev2->next = test;
+		else if (test)
+			pipe->redird = test;
+		ft_lstadd_back(&test, tmp->next);
+		prev2 = tmp;
+		tmp = tmp->next;
+	}
+	tmp = pipe->redirg;
+	prev2 = 0;
+	while (tmp)
+	{
+		tmp->content = ft_replace_env(tmp->content, env);
+		t_list *test = ft_lst_split(tmp->content, " ", 1);
+		if (prev2 && test)
+			prev2->next = test;
+		else if (test)
+			pipe->redirg = test;
+		ft_lstadd_back(&test, tmp->next);
+		prev2 = tmp;
+		tmp = tmp->next;
+	}
 	pipe->cmd = ft_lst_toa(lst_cmd);
 	int i = -1;
 	while (pipe->cmd[++i])

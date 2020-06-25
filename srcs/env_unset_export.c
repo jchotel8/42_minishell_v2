@@ -152,6 +152,7 @@ int ft_export(char **cmd, t_list **env)
 			else
 			{
 				miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
+				return (8);
 			}
 		}
 	}
@@ -170,6 +171,11 @@ int     ft_unset(char **cmd, t_list **env)
 	{
 		tmp = cmd[i];
 		cmd[i] = ft_strjoin(cmd[i], "=");
+		if(!check_export(cmd[i]))
+		{
+			miniprintf("export: '%s': not a valid identifier\n", tmp);
+			return (8);
+		}
 		free(tmp);
 		ft_lstremove_if(env, cmd[i], ft_strlcmp);
 		i++;

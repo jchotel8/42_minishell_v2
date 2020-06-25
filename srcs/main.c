@@ -6,9 +6,10 @@
 //- free & cleanup
 //- $? a finir : si une commande n'est pas trouvée et les valeurs != 0
 //- ctrl-C, ctrl-D, ctrl-/
-//- $ -> doit afficher Command not found
 //- ./minishell
-//- redirection dans les $ : message d'erreur
+//- check unset before unsetting : return 1 if fail
+//- if one of my bin fails (unset ou export, env ?) in a pipe, check $?
+
 
 int rep;
 

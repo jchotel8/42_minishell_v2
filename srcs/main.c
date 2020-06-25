@@ -5,7 +5,6 @@
 //- ft_exit : free when fail
 //- free & cleanup
 //- ctrl-C, ctrl-D, ctrl-/
-//- if one of my bin fails (unset ou export, env ?) in a pipe, check $?
 //- redir of type 1 or 2
 //- ajouter les quotes qd print export
 

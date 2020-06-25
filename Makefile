@@ -16,25 +16,32 @@ LIBS 		= ./libs/ft_printf/printf.a\
 			  ./libs/libft/libft.a
 
 # SOURCE ********************************************************************* #			  
-SRCSC		= libs/gnl/get_next_line.c\
-			  libs/gnl/get_next_line_utils.c\
-			  srcs/ft_pipes.c\
-			  srcs/ft_quotes.c\
-			  srcs/ft_list_split.c\
-			  srcs/ft_parse.c\
-			  srcs/bin_exec.c \
-			  srcs/echo_cd_pwd.c \
-			  srcs/env_unset_export.c\
-			  srcs/ft_exit.c \
-			  srcs/ft_correct.c \
-			  srcs/main.c
-SRCSH		= includes/
-OBJS		= $(SRCSC:%.c=%.o)
+INC			= includes/
+SRCSDIR		= srcs
+SRCS		= ft_pipes.c\
+			  ft_quotes.c\
+			  ft_list_split.c\
+			  ft_parse.c\
+			  bin_exec.c \
+			  echo_cd_pwd.c \
+			  env_unset_export.c\
+			  ft_exit.c \
+			  ft_correct.c \
+			  main.c
+
+GNLDIR 		= libs/gnl
+GNL 		= get_next_line.c \
+			  get_next_line_utils.c
+
+OBJSDIR		= objs
+OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:%.c=%.o))
+OBJS2		= $(addprefix $(OBJSDIR)/, $(GNL:%.c=%.o))
+
+
 
 # COMMANDES ****************************************************************** #
 FLAGS		= #-fsanitize=address
 CC			= gcc
-MKDIR		= mkdir
 
 # COLORS ********************************************************************* #
 CR			= "\r"$(CLEAR)
@@ -56,12 +63,19 @@ REDB		= "\033[0;41m"
 # RULES ********************************************************************** #
 all:		${NAME}
 
-.c.o:
-	@printf $(CR)"[FILE : %s]" $@
+$(OBJSDIR)/%.o : $(SRCSDIR)/%.c | $(OBJSDIR)
+	@printf ${CR}"[FILE : %s]" $@
 	@${CC} ${FLAGS} -c $< -o $@
 
-$(NAME):	lib_make ${OBJS}
-			@${CC} -I ${SRCSH} ${FLAGS} ${OBJS} ${LIBS} -o ${NAME}
+$(OBJSDIR)/%.o : $(GNLDIR)/%.c | $(OBJSDIR)
+	@printf ${CR}"[FILE : %s]" $@
+	@${CC} ${FLAGS} -c $< -o $@
+
+$(OBJSDIR):
+			mkdir -p ${OBJSDIR}
+
+$(NAME):	lib_make ${OBJS} ${OBJS2}
+			@${CC} -I ${INC} ${FLAGS} ${OBJS} ${OBJS2} ${LIBS} -o ${NAME}
 			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
 			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"
@@ -81,7 +95,7 @@ lib_make:	${SRCSH}
 clean:
 			@make clean -C libs/libft
 			@make clean -C libs/ft_printf
-			@rm -rf ${OBJS}
+			@rm -rf ${OBJS} ${OBJSDIR}
 			@echo ${RED}${NAME}" : Removing .o files" ${WHITE}
 
 fclean:		clean

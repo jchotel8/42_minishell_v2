@@ -88,6 +88,7 @@ char	*ft_replace_env(char *str, t_list *env)
 	rep = (rep == 256 ? 1 : rep); 	//cat ndir ou pipe
 	rep = (rep == 512 ? 2 : rep);	//ls ndir || grep ||
 	rep = (rep == 8 ? 1 : rep);		//one of my bin fails
+									//^C 130
 	//rep = (rep == 2048 ? 1 : rep);		//exit(8), one of my bin fails in pipe
 	while((to_rep = ft_find_toreplace(str)))
 	{

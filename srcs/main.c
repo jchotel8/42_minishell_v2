@@ -4,11 +4,10 @@
 //THINGS TO DO :
 //- ft_exit : free when fail
 //- free & cleanup
-//- $? a finir : si une commande n'est pas trouvée et les valeurs != 0
 //- ctrl-C, ctrl-D, ctrl-/
-//- ./minishell
-//- check unset before unsetting : return 1 if fail
 //- if one of my bin fails (unset ou export, env ?) in a pipe, check $?
+//- redir of type 1 or 2
+//- ajouter les quotes qd print export
 
 
 int rep;

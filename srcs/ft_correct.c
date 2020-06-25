@@ -84,11 +84,11 @@ char	*ft_replace_env(char *str, t_list *env)
 {
 	char *to_rep;
 
-	//miniprintf("ft_replace env : %d\n", rep);
-	rep = (rep == 256 ? 1 : rep); 	//cat ndir
+	rep = (rep == 768 ? 127 : rep);	//cmd not found in pipe
+	rep = (rep == 256 ? 1 : rep); 	//cat ndir ou pipe
 	rep = (rep == 512 ? 2 : rep);	//ls ndir || grep ||
 	rep = (rep == 8 ? 1 : rep);		//one of my bin fails
-	// rep = (rep != 0 && rep != 2 && rep != 512 && rep != 1 && rep != 127 ? 1 : rep);
+	//rep = (rep == 2048 ? 1 : rep);		//exit(8), one of my bin fails in pipe
 	while((to_rep = ft_find_toreplace(str)))
 	{
 		if (!ft_strcmp(to_rep, "$?"))

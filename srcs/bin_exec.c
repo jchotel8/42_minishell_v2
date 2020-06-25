@@ -12,11 +12,11 @@ int ft_find_bin(char **cmd, t_list *env, t_list *paths)
 		new = ft_strjoin(paths->content, "/");
 		new = ft_strjoin(new, cmd[0]);
 		if (!stat(new, &buf))
-			return(execve(new, cmd, ft_lst_toa(env)));
+			return(execve(new, cmd, ft_lst_toa(env)));  //0 if success -1 if fails
 		paths = paths->next;
 	}
 	miniprintf("Command not found: %s\n", cmd[0]);
-	return (127);
+	return (127);										
 }
 
 int ft_bin(char **cmd, t_list *env)
@@ -32,7 +32,7 @@ int ft_bin(char **cmd, t_list *env)
 		{
 			paths = ft_lst_split(env_->content + 5, ":", 1);
 			if ((ret = ft_find_bin(cmd, env, paths)))
-				return(ret);
+				return(ret);	// 0 if success, -1 if fail, 127 if not found	
 		}
 		env_ = env_->next;
 	}
@@ -61,9 +61,11 @@ int     ft_mybin(char **cmd, t_list **env)
 
 int     ft_exec(char **cmd, t_list **env)
 {
-	if (!ft_mybin(cmd, env))
-		return (0);
-	return (ft_bin(cmd, *env));
+	int 	ret;
+
+	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
+		return (ret); //renvoi 0 ou 8 si un des bins (S/F) sinon -1
+	return (ft_bin(cmd, *env));// NA if success, -1 if fail, 127 if not found, 1 if ?
 }
 
 int     ft_exec2(char **cmd, t_list **env)

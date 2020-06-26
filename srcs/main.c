@@ -1,25 +1,27 @@
 #include "../includes/minishell.h"
 
-//THINGS TO DO :
-//- ft_exit : free when fail
-//- free & cleanup
-//- ctrl-C, ctrl-D, ctrl-/
-//- redir of type 1 or 2
-//- ajouter les quotes qd print export
-//- redirections ambigues
+/*
+** THINGS TO DO :
+** - ft_exit : free when fail
+** - free & cleanup
+** - ctrl-C, ctrl-D, ctrl-/
+** - redir of type 1 or 2
+** - ajouter les quotes qd print export
+** - redirections ambigues
+*/
 
-int rep;
+int		rep;
 
-void ft_prompt()
+void	ft_prompt(void)
 {
 	char *dir;
 
 	dir = get_wd();
-	miniprintf((rep == 0 ? PROMPT: PROMPT_), "MINISHELL", dir);
+	miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", dir);
 	//free(dir);
 }
 
-void  sig_handler(int sig)
+void	sig_handler(int sig)
 {
 	rep = 130;
 	if (sig == SIGINT)
@@ -28,18 +30,20 @@ void  sig_handler(int sig)
 		ft_prompt();
 	}
 	if (sig == SIGQUIT) //ctrl-/
-  		miniprintf("BONJOUR");
+		miniprintf("BONJOUR");
 }
 
-    // ctrl-D : ecriture  -> bloque : rien ne se passe
-    // ctrl-D : prog      -> ne fait rien
-    // ctrl-D : rien      -> exit bash (EOF->sur entree standard)
-    // ctrl-C : ecriture  -> retour a la ligne (et ^C)
-    // ctrl-C : prog      -> quitte le programme
-    // ctrl-C : rien      -> retour a la ligne (et ^C)
-    // ctrl-\ : ecriture  -> ?
-    // ctrl-\ : prog      -> "Quitter (core dumped)"
-    // ctrl-\ : rien      -> ?
+/*
+**	ctrl-D : ecriture  -> bloque : rien ne se passe
+**  ctrl-D : prog      -> ne fait rien
+**  ctrl-D : rien      -> exit bash (EOF->sur entree standard)
+**  ctrl-C : ecriture  -> retour a la ligne (et ^C)
+**  ctrl-C : prog      -> quitte le programme
+**  ctrl-C : rien      -> retour a la ligne (et ^C)
+**  ctrl-\ : ecriture  -> ?
+**  ctrl-\ : prog      -> "Quitter (core dumped)"
+**  ctrl-\ : rien      -> ?
+*/
 
 void	parse_read(char *read, t_list **env)
 {
@@ -49,20 +53,21 @@ void	parse_read(char *read, t_list **env)
 
 	line = ft_lst_split(read, ";", 1);
 	start = line;
-	while(line)
+	while (line)
 	{
 		pipe = ft_lst_split(line->content, "|", 1);
 		do_pipe(pipe, ft_lstsize(pipe), &rep, env);
+		ft_lstclear(&pipe, *free);
 		line = line->next;
 	}
 	ft_lstclear(&start, *free);
 	free(read);
 }
 
-int     main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
-	t_list  *lst_env;
-	char 	*read;
+	t_list	*lst_env;
+	char	*read;
 
 	rep = 0;
 	signal(SIGINT, sig_handler);
@@ -71,8 +76,8 @@ int     main(int ac, char **av, char **env)
 	{
 		lst_env = ft_ato_lst(env);
 		ft_prompt();
-		while (get_next_line(0, &read)) 
-		{	
+		while (get_next_line(0, &read))
+		{
 			parse_read(read, &lst_env);
 			ft_prompt();
 		}
@@ -81,4 +86,3 @@ int     main(int ac, char **av, char **env)
 		miniprintf("exit\n");
 	}
 }
-

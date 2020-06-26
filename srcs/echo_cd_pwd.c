@@ -1,48 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo_cd_pwd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
+/*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void    ft_putnstr(char *str, size_t start)
+int		ft_echo(char **cmd, t_list *env)
 {
-	size_t i;
-
-	i = 0;
-	while (str[i++])
-		if (i >= start)
-			ft_putchar(str[i]);
-}
-
-size_t  ft_strlenif(char *str, char c)
-{
-	size_t  i;
-	size_t  j;
-	size_t  s;
-
-	i = 0;
-	j = 0;
-	s = 0;
-	while (str[i])
-	{
-		if (str[i++] == c)
-			s = 1;
-		else if (s == 1)
-			j++;
-		i++;
-	}
-	return (j);
-}
-
-int     ft_echo(char **cmd, t_list *env)
-{
-	size_t  i;
-	int     n_flag;
+	size_t	i;
+	int		n_flag;
 
 	i = 1;
 	n_flag = 0;
-	if (cmd[1] && !ft_strcmp(cmd[1], "-n")) 
+	if (cmd[1] && !ft_strcmp(cmd[1], "-n"))
 	{
 		i = 2;
 		n_flag = 1;
 	}
-	while (cmd[i]) 
+	while (cmd[i])
 	{
 		if ((i >= 2 && n_flag == 0) || (n_flag == 1 && i >= 3))
 			ft_putchar(' ');
@@ -53,7 +35,7 @@ int     ft_echo(char **cmd, t_list *env)
 	return (0);
 }
 
-int    ft_pwd()
+int		ft_pwd(void)
 {
 	char cwd[1024];
 
@@ -66,9 +48,9 @@ int    ft_pwd()
 	return (1);
 }
 
-char *get_wd()
+char	*get_wd(void)
 {
-	char    cwd[1024];
+	char	cwd[1024];
 	char	**files;
 	char	*ret;
 	int		i;
@@ -84,10 +66,10 @@ char *get_wd()
 		return (ret);
 	}
 	else
-		return(ft_strdup("no WD"));
+		return (ft_strdup("no WD"));
 }
 
-int ft_cd(char **cmd, t_list *env)
+int		ft_cd(char **cmd, t_list *env)
 {
 	if (cmd[2])
 		miniprintf("cd: too many arguments\n");

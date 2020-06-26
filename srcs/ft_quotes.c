@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_quotes.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
+/*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	quote_inside(char *quote, char new, char prev)
 {
-	if (!*quote && prev != '\\' && (new == '\'' || new  == '"'))
+	if (!*quote && prev != '\\' && (new == '\'' || new == '"'))
 	{
 		*quote = new;
 		return (1);
 	}
-	else if ((new == '\'' || (new  == '"' && prev != '\\')) && *quote == new)
+	else if ((new == '\'' || (new == '"' && prev != '\\')) && *quote == new)
 	{
 		*quote = 0;
 		return (1);

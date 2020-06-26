@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
+/*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*ft_find_env(char *str, t_list *env)
@@ -14,11 +26,11 @@ char	*ft_find_env(char *str, t_list *env)
 
 int		ft_strstri(const char *s1, const char *s2)
 {
-	size_t  size;   
-	size_t  len;
-	char    *hay;
-	char    *needle;
-	int     i;
+	size_t	size;
+	size_t	len;
+	char	*hay;
+	char	*needle;
+	int		i;
 
 	hay = (char *)s1;
 	needle = (char *)s2;
@@ -57,10 +69,10 @@ int		ft_isend(char c)
 
 char	*ft_find_toreplace(char *str)
 {
-	char    quote;
-	char    prev;
-	char    *to_replace;
-	int     k;
+	char	quote;
+	char	prev;
+	char	*to_replace;
+	int		k;
 
 	quote = 0;
 	prev = 0;
@@ -77,7 +89,7 @@ char	*ft_find_toreplace(char *str)
 		prev = *str;
 		str++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 char	*ft_replace_env(char *str, t_list *env)
@@ -88,9 +100,8 @@ char	*ft_replace_env(char *str, t_list *env)
 	rep = (rep == 256 ? 1 : rep); 	//cat ndir ou pipe
 	rep = (rep == 512 ? 2 : rep);	//ls ndir || grep ||
 	rep = (rep == 8 ? 1 : rep);		//one of my bin fails
-									//^C 130
-	//rep = (rep == 2048 ? 1 : rep);		//exit(8), one of my bin fails in pipe
-	while((to_rep = ft_find_toreplace(str)))
+	//^C 130
+	while ((to_rep = ft_find_toreplace(str)))
 	{
 		if (!ft_strcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(rep));

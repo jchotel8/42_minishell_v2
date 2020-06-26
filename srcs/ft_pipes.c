@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pipes.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
+/*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	init_pipes(int nb_pipes, int *pipes)
@@ -36,7 +48,7 @@ void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int r)
 			return ;
 		dup2(fd, 0);
 		p->redirg = p->redirg->next;
-	}  
+	}
 	if (j < nb_cmd - 1 || p->redird)
 	{
 		while (p->redird)

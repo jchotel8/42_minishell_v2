@@ -1,29 +1,27 @@
 #include "../includes/minishell.h"
 
-// var="bonjour\toi" -> "bonjour\\toi";
-// var="bonjour\\toi" -> "bonjour\\toi";
-// var="bonjour\"toi" -> "bonjour\"toi";
-// var="bonjour\'toi" -> "bonjour\\'toi";
-// var="bonjour'toi" -> "bonjour'toi";
+/*
+**	var="bonjour\toi" -> "bonjour\\toi";
+**	var="bonjour\\toi" -> "bonjour\\toi";
+**	var="bonjour\"toi" -> "bonjour\"toi";
+**	var="bonjour\'toi" -> "bonjour\\'toi";
+**	var="bonjour'toi" -> "bonjour'toi";
+**
+**	var=bonjour\toi -> "bonjourtoi";
+**	var=bonjour\\toi -> "bonjour\\toi";
+**	var=bonjour\"toi -> "bonjour\"toi";
+**	var=bonjour\'toi -> "bonjour'toi";
+**	var=bonjour\ toi -> "bonjour toi";
+**	var=bonjour"toi -> retour_ligne;
+**	
+**	var='bonjour\toi' -> "bonjour\\toi";
+**	var='bonjour\\toi' -> "bonjour\\\\toi";
+**	var='bonjour\"toi' -> "bonjour\\\"toi";
+**	var='bonjour"toi' -> "bonjour\"toi";
+**	var='bonjour\'toi' -> retour a la ligne;
+*/
 
-// var=bonjour\toi -> "bonjourtoi";
-// var=bonjour\\toi -> "bonjour\\toi";
-// var=bonjour\"toi -> "bonjour\"toi";
-// var=bonjour\'toi -> "bonjour'toi";
-// var=bonjour\ toi -> "bonjour toi";
-// var=bonjour"toi -> retour_ligne;
-
-// var='bonjour\toi' -> "bonjour\\toi";
-// var='bonjour\\toi' -> "bonjour\\\\toi";
-// var='bonjour\"toi' -> "bonjour\\\"toi";
-// var='bonjour"toi' -> "bonjour\"toi";
-// var='bonjour\'toi' -> retour a la ligne;
-
-
-//qd j'exporte, la valeur est stockée avec les quotes
-//
-
-int ft_env (char **cmd, t_list **env)
+int		ft_env(char **cmd, t_list **env)
 {   //env /home : erreur 126 denied acces
 	if (cmd && cmd[1])
 	{
@@ -34,7 +32,7 @@ int ft_env (char **cmd, t_list **env)
 	return (0);
 }
 
-int	check_export(char *s)
+int		check_export(char *s)
 {
 	int flag;
 
@@ -52,22 +50,22 @@ int	check_export(char *s)
 	return (1);
 }
 
-int        ft_isspecial(char c)  //a ajouter dans la libft
+int		ft_isspecial(char c)
 {
 	return (c == '\\' || c == '\"');
 }
 
-char *ft_reverse_quote(char *s)
+char	*ft_reverse_quote(char *s)
 {
-	int i;
-	int j;
-	char quote;
-	char *new;
+	int		i;
+	int		j;
+	char	quote;
+	char	*new;
 
 	i = 0;
 	j = 0;
 	quote = 0;
-	new = ft_calloc(ft_strlen(s)* 2 + 2, sizeof(char));
+	new = ft_calloc(ft_strlen(s) * 2 + 2, sizeof(char));
 	if (s[0] != '\"')
 		new[j++] = '\"';
 	if (s[0] == '\'')
@@ -83,7 +81,7 @@ char *ft_reverse_quote(char *s)
 		}
 		else if (ft_isspecial(s[i]) && quote == '\'')
 		{
-			new[j++] = (!ft_isspecial(s[i + 1]) || (s[i + 1] !='\\' && ft_isspecial(s[i + 1]))? '\\' : s[i++]);
+			new[j++] = (!ft_isspecial(s[i + 1]) || (s[i + 1] != '\\' && ft_isspecial(s[i + 1])) ? '\\' : s[i++]);
 			new[j++] = s[i++];
 		}
 		else if (s[i] == '\'' && quote == '\'')
@@ -105,11 +103,11 @@ char *ft_reverse_quote(char *s)
 	return (new);
 }
 
-int ft_strfind(char *str, char c)
+int		ft_strfind(char *str, char c)
 {
 	int i;
 
-	i = 0; 
+	i = 0;
 	while (str && str[i])
 	{
 		if (str[i] == c)
@@ -119,10 +117,10 @@ int ft_strfind(char *str, char c)
 	return (-1);
 }
 
-char *test_export(char *str)
+char	*test_export(char *str)
 {
-	char *new;
-	char *add;
+	char	*new;
+	char	*add;
 
 	if (ft_strfind(str, '=') == -1)
 		return (str);
@@ -132,17 +130,17 @@ char *test_export(char *str)
 	return (new);
 }
 
-int ft_export(char **cmd, t_list **env)
+int		ft_export(char **cmd, t_list **env)
 {
-	int     i;
-	char    c;
-	t_list  *cpy;
+	int		i;
+	char	c;
+	t_list	*cpy;
 
 	i = 1;
 	cpy = ft_lstcpy(*env);
 	if (cmd && cmd[i])
 	{
-		while(cmd[i])
+		while (cmd[i])
 		{
 			if (check_export(cmd[i]))
 			{
@@ -161,17 +159,17 @@ int ft_export(char **cmd, t_list **env)
 	return (0);
 }
 
-int     ft_unset(char **cmd, t_list **env)
+int		ft_unset(char **cmd, t_list **env)
 {
-	size_t i;
-	char   *tmp;
+	size_t	i;
+	char	*tmp;
 
 	i = 1;
 	while (cmd[i] && ft_strcmp(cmd[i], ""))
 	{
 		tmp = cmd[i];
 		cmd[i] = ft_strjoin(cmd[i], "=");
-		if(!check_export(cmd[i]))
+		if (!check_export(cmd[i]))
 		{
 			miniprintf("export: '%s': not a valid identifier\n", tmp);
 			return (8);

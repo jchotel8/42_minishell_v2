@@ -1,6 +1,8 @@
 #include "../includes/minishell.h"
 
-void parse_redir(char *str, t_pipe *pipe, t_list *env)
+
+
+int parse_redir(char *str, t_pipe *pipe, t_list *env)
 {
 	t_list *tmp;
 	t_list *prev;
@@ -42,8 +44,14 @@ void parse_redir(char *str, t_pipe *pipe, t_list *env)
 	prev2 = 0;
 	while (tmp)
 	{
+		char *str = ft_strdup(tmp->content);
 		tmp->content = ft_replace_env(tmp->content, env);
 		t_list *test = ft_lst_split(tmp->content, " ", 1);
+		if (ft_lstsize(test) > 1)
+		{		
+			miniprintf("Minishell : %s : redirection ambigue\n", str);
+			return (1);
+		}
 		if (prev2 && test)
 			prev2->next = test;
 		else if (test)
@@ -56,8 +64,14 @@ void parse_redir(char *str, t_pipe *pipe, t_list *env)
 	prev2 = 0;
 	while (tmp)
 	{
+		char *str = ft_strdup(tmp->content);
 		tmp->content = ft_replace_env(tmp->content, env);
 		t_list *test = ft_lst_split(tmp->content, " ", 1);
+		if (ft_lstsize(test) > 1)
+		{		
+			miniprintf("Minishell : %s : redirection ambigue\n", str);
+			return (1);
+		}
 		if (prev2 && test)
 			prev2->next = test;
 		else if (test)
@@ -70,5 +84,6 @@ void parse_redir(char *str, t_pipe *pipe, t_list *env)
 	int i = -1;
 	while (pipe->cmd[++i])
 		pipe->cmd[i] = ft_strtrim_quote(pipe->cmd[i]);
+	return (0);
 }
 

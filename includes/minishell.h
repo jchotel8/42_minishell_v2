@@ -52,7 +52,7 @@ int     	ft_exec(char **cmd, t_list **env);
 int     	ft_exec2(char **cmd, t_list **env);
 int			ft_cd(char **cmd, t_list *env);
 //FT_PARSE
-void        parse_redir(char *str, t_pipe *pipe, t_list *env);
+int        parse_redir(char *str, t_pipe *pipe, t_list *env);
 //FT_LIST_SPLIT
 t_list      *ft_lst_split(char *s, char *c, int i);
 //EXIT

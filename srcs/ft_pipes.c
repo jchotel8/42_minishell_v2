@@ -65,10 +65,10 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	while (++j < nb_cmd)
 	{
-		parse_redir(line->content, &p, *env);
-		//	*ret = 1;
-		// else
-		// {
+		if (parse_redir(line->content, &p, *env))
+			*ret = 1;
+		else
+		{
 			if (p.cmd[0] && !ft_strcmp(p.cmd[0], "exit"))
 				flag = 1;
 			else if ((nb_cmd != 1 || p.redird != NULL) && !(pid[j] = fork()))
@@ -88,7 +88,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 					if ((*ret = ft_exec2(p.cmd, env)) != 0 && *ret != 8)
 						exit(0);
 			}
-		// }
+		}
 	 	line = line->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);

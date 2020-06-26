@@ -38,7 +38,7 @@ void  sig_handler(int sig)
 		ft_putstr("\n");
 		ft_prompt();
 	}
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT) //ctrl-/
   		miniprintf("BONJOUR");
 }
 

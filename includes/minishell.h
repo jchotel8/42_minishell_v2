@@ -13,6 +13,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 # include "get_next_line.h"
 # include "../libs/libft/libft.h"
@@ -59,4 +60,6 @@ int     	ft_exit(char **cmd, t_list *env);
 //FT_CORRECT
 char 		*ft_replace_env(char *str, t_list *env);
 char		*ft_find_env(char *str, t_list *env);
+//ft_rdir
+char		*ft_rdirectory(char *str);
 #endif

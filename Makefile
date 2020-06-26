@@ -27,6 +27,7 @@ SRCS		= ft_pipes.c\
 			  env_unset_export.c\
 			  ft_exit.c \
 			  ft_correct.c \
+			  ft_redirg.c \
 			  main.c
 
 GNLDIR 		= libs/gnl

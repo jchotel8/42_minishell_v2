@@ -11,6 +11,7 @@ void parse_redir(char *str, t_pipe *pipe, t_list *env)
 	pipe->cmd = NULL;
 	pipe->redird = NULL;
 	pipe->redirg = NULL;
+    //ERROR : ft_rdirectory(str);
 	tmp = ft_lst_split(str, "> <", 0);
 	while (tmp)
 	{   

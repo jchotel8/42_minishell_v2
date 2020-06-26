@@ -33,3 +33,32 @@ int		get_next_char(char *str, char c)
 		return (index);
 	return (-1);
 }
+
+char	*ft_strjoinf(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*joined;
+
+	i = 0;
+	j = 0;
+	if (!(joined = (char *)malloc(sizeof(char) *
+			(get_next_char(s1, '\0') + get_next_char(s2, '\0')) + 1)))
+		return (NULL);
+	while (s1[j])
+	{
+		joined[i] = s1[j];
+		j++;
+		i++;
+	}
+	free(s1);
+	j = 0;
+	while (s2[j])
+	{
+		joined[i] = s2[j];
+		j++;
+		i++;
+	}
+	joined[i] = 0;
+	return (joined);
+}

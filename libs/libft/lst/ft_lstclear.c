@@ -30,7 +30,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-void	ft_lstclean(t_list **lst)
+void	ft_lstfree(t_list **lst)
 {
 	t_list	*to_free;
 	t_list	*next;

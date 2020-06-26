@@ -54,6 +54,7 @@ SRCS =  ./mem/ft_memset.c \
 		./str/ft_putnbr.c \
 		./str/ft_putnbr_fd.c \
 		./str/ft_putarray.c \
+		./str/ft_freearray.c \
 		./str/ft_isspace.c \
 		./int/ft_min.c \
 		./int/ft_max.c

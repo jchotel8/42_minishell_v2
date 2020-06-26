@@ -41,11 +41,10 @@ int		get_next_line(int fd, char **line)
 
 	if (!checks(&buffer, rest, line, fd))
 		return (-1);
-	while (get_next_char(rest[fd], '\n') < 0
-	&& (ret = read(fd, buffer, BUFFER_SIZE)) > 0)
+	while (get_next_char(rest[fd], '\n') < 0 && (ret = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[ret] = 0;
-		rest[fd] = ft_strjoin(rest[fd], buffer);
+		rest[fd] = ft_strjoinf(rest[fd], buffer);
 	}
 	free(buffer);
 	if (ret < 0)

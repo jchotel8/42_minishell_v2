@@ -84,7 +84,7 @@ char *get_wd()
 		return (ret);
 	}
 	else
-		return("no WD");
+		return(ft_strdup("no WD"));
 }
 
 int ft_cd(char **cmd, t_list *env)

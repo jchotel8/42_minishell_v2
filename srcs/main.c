@@ -10,24 +10,13 @@
 
 int rep;
 
-
-    // ctrl-D : ecriture  -> bloque : rien ne se passe
-    // ctrl-D : prog      -> ne fait rien
-    // ctrl-D : rien      -> exit bash (EOF->sur entree standard)
-    // ctrl-C : ecriture  -> retour a la ligne (et ^C)
-    // ctrl-C : prog      -> quitte le programme
-    // ctrl-C : rien      -> retour a la ligne (et ^C)
-    // ctrl-\ : ecriture  -> ?
-    // ctrl-\ : prog      -> "Quitter (core dumped)"
-    // ctrl-\ : rien      -> ?
-
 void ft_prompt()
 {
 	char *dir;
 
 	dir = get_wd();
 	miniprintf((rep == 0 ? PROMPT: PROMPT_), "MINISHELL", dir);
-	free(dir);
+	//free(dir);
 }
 
 void  sig_handler(int sig)
@@ -42,30 +31,49 @@ void  sig_handler(int sig)
   		miniprintf("BONJOUR");
 }
 
+    // ctrl-D : ecriture  -> bloque : rien ne se passe
+    // ctrl-D : prog      -> ne fait rien
+    // ctrl-D : rien      -> exit bash (EOF->sur entree standard)
+    // ctrl-C : ecriture  -> retour a la ligne (et ^C)
+    // ctrl-C : prog      -> quitte le programme
+    // ctrl-C : rien      -> retour a la ligne (et ^C)
+    // ctrl-\ : ecriture  -> ?
+    // ctrl-\ : prog      -> "Quitter (core dumped)"
+    // ctrl-\ : rien      -> ?
+
+void	parse_read(char *read, t_list **env)
+{
+	t_list *line;
+	t_list *pipe;
+	t_list *start;
+
+	line = ft_lst_split(read, ";", 1);
+	start = line;
+	while(line)
+	{
+		pipe = ft_lst_split(line->content, "|", 1);
+		do_pipe(pipe, ft_lstsize(pipe), &rep, env);
+		line = line->next;
+	}
+	ft_lstclear(&start, *free);
+	free(read);
+}
+
 int     main(int ac, char **av, char **env)
 {
 	t_list  *lst_env;
+	char 	*read;
 
 	rep = 0;
-	lst_env = ft_ato_lst(env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	if (ac > 0)
 	{
-		char *read;
-		t_list *line;
-		t_list *pipe;
+		lst_env = ft_ato_lst(env);
 		ft_prompt();
 		while (get_next_line(0, &read)) 
 		{	
-			line = ft_lst_split(read, ";", 1);
-			while(line)
-			{
-				pipe = ft_lst_split(line->content, "|", 1);
-				do_pipe(pipe, ft_lstsize(pipe), &rep, &lst_env);
-				line = line->next;
-			}
-			free(read);
+			parse_read(read, &lst_env);
 			ft_prompt();
 		}
 		ft_lstfree(&lst_env);

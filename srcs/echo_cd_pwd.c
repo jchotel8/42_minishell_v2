@@ -70,7 +70,8 @@ char *get_wd()
 {
 	char    cwd[1024];
 	char	**files;
-	int     i;
+	char	*ret;
+	int		i;
 
 	i = 0;
 	if (getcwd(cwd, sizeof(cwd)))
@@ -78,10 +79,12 @@ char *get_wd()
 		files = ft_split(cwd, '/');
 		while (files && files[i])
 			i++;
-		return (ft_strdup(files[i - 1]));
+		ret = ft_strdup(files[i - 1]);
+		ft_freearray(files);
+		return (ret);
 	}
 	else
-		return(ft_strdup("no WD"));
+		return("no WD");
 }
 
 int ft_cd(char **cmd, t_list *env)

@@ -27,7 +27,34 @@ void sort_redir(char *str, t_pipe *p, t_list **cmd)
 		p1 = r;
 	 	r = r->next;
 	}
-	//ft_lstclear(&start, *free);
+	//ft_lstfree(&start); //il faut utiliser ft_lstclear ici!!!
+}
+
+int parse_env(t_list **lst, t_list *env, int flag)
+{
+	t_list *tmp;
+	t_list *p1 = 0;
+
+	tmp = *lst;
+	while (tmp)
+	{
+		char *str = ft_strdup(tmp->content);
+		tmp->content = ft_replace_env(tmp->content, env);
+		t_list *test = ft_lst_split(tmp->content, " ", 1);
+		if (flag && ft_lstsize(test) > 1)
+		{		
+			miniprintf("Minishell : %s : redirection ambigue\n", str);
+			return (1);
+		}
+		if (p1 && test)
+			p1->next = test;
+		else if (test)
+			*lst = test;
+		ft_lstadd_back(&test, tmp->next);
+		p1 = tmp;
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 
@@ -44,60 +71,11 @@ int parse_redir(char *str, t_pipe *pipe, t_list *env)
 	pipe->redirg = NULL;
     //ERROR : ft_rdirectory(str);
 	sort_redir(str, pipe, &lst_cmd);
-	tmp = lst_cmd;
-	t_list *prev2 = 0;
-	while (tmp)
-	{
-		tmp->content = ft_replace_env(tmp->content, env);
-		t_list *test = ft_lst_split(tmp->content, " ", 1);
-		if (prev2 && test)
-			prev2->next = test;
-		else if (test)
-			lst_cmd = test;
-		ft_lstadd_back(&test, tmp->next);
-		prev2 = tmp;
-		tmp = tmp->next;
-	}
-	tmp = pipe->redird;
-	prev2 = 0;
-	while (tmp)
-	{
-		char *str = ft_strdup(tmp->content);
-		tmp->content = ft_replace_env(tmp->content, env);
-		t_list *test = ft_lst_split(tmp->content, " ", 1);
-		if (ft_lstsize(test) > 1)
-		{		
-			miniprintf("Minishell : %s : redirection ambigue\n", str);
-			return (1);
-		}
-		if (prev2 && test)
-			prev2->next = test;
-		else if (test)
-			pipe->redird = test;
-		ft_lstadd_back(&test, tmp->next);
-		prev2 = tmp;
-		tmp = tmp->next;
-	}
-	tmp = pipe->redirg;
-	prev2 = 0;
-	while (tmp)
-	{
-		char *str = ft_strdup(tmp->content);
-		tmp->content = ft_replace_env(tmp->content, env);
-		t_list *test = ft_lst_split(tmp->content, " ", 1);
-		if (ft_lstsize(test) > 1)
-		{		
-			miniprintf("Minishell : %s : redirection ambigue\n", str);
-			return (1);
-		}
-		if (prev2 && test)
-			prev2->next = test;
-		else if (test)
-			pipe->redirg = test;
-		ft_lstadd_back(&test, tmp->next);
-		prev2 = tmp;
-		tmp = tmp->next;
-	}
+	parse_env(&lst_cmd, env, 0);
+	if (parse_env(&pipe->redird, env, 1))
+		return (1);
+	if (parse_env(&pipe->redirg, env, 1))
+		return (1);
 	tmp = lst_cmd;
 	while (tmp)
 	{

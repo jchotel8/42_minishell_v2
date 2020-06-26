@@ -52,6 +52,13 @@ void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int r)
 	}
 }
 
+void	free_pipe(t_pipe *p)
+{
+	ft_freearray(p->cmd);
+	ft_lstclear(&p->redirg, *free);
+	ft_lstclear(&p->redird, *free);
+}
+
 void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 {
 	pid_t	pid[nb_cmd];
@@ -75,7 +82,9 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 			{
 				do_dup(j, nb_cmd, pipes, &p, 1);
 				close_pipes(nb_cmd * 2 - 2, pipes);
-				if ((*ret = ft_exec(p.cmd, env)) <= 0) //renvoi 0 ou 8 si un des bins (S/F) sinon : NA if success, -1 if fail, 127 if not found, 1 if ?
+				*ret = ft_exec(p.cmd, env);
+				free_pipe(&p);
+				if (*ret <= 0) //renvoi 0 ou 8 si un des bins (S/F) sinon : NA if success, -1 if fail, 127 if not found, 1 if ?
 					exit(0); //il faut exit seulement dans le cas ou execve fail et si une de mes commandes fails
 				if (*ret == 8)
 					exit(1);

@@ -55,7 +55,7 @@ int     main(int ac, char **av, char **env)
 		char *read;
 		t_list *line;
 		t_list *pipe;
-		miniprintf((rep == 0 ? PROMPT: PROMPT_), "MINISHELL", get_wd());
+		ft_prompt();
 		while (get_next_line(0, &read)) 
 		{	
 			line = ft_lst_split(read, ";", 1);
@@ -65,8 +65,11 @@ int     main(int ac, char **av, char **env)
 				do_pipe(pipe, ft_lstsize(pipe), &rep, &lst_env);
 				line = line->next;
 			}
-			miniprintf((rep == 0 ? PROMPT: PROMPT_), "MINISHELL", get_wd());
+			free(read);
+			ft_prompt();
 		}
+		ft_lstfree(&lst_env);
+		free(read);
 		miniprintf("exit\n");
 	}
 }

@@ -48,6 +48,8 @@ int		ft_bin(char **cmd, t_list *env)
 		}
 		env_ = env_->next;
 	}
+	free(paths);
+	free(cmd);
 	return (1);
 }
 

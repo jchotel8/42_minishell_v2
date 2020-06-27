@@ -38,7 +38,8 @@ char	*ft_strtrim_quote(char *s)
 	i = 0;
 	j = 0;
 	prev = 0;
-	new = ft_calloc(ft_strlen(s), sizeof(char));
+	if (!(new = ft_calloc(ft_strlen(s), sizeof(char))))
+		return (NULL);
 	while (s[i])
 	{
 		if ((quote_inside(&quote, s[i], prev)))

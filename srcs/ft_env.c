@@ -14,6 +14,8 @@
 
 char	*ft_find_env(char *str, t_list *env)
 {
+	char *tmp;
+
 	str = ft_strjoin(str, "=");
 	while (env)
 	{

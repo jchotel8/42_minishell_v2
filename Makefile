@@ -26,7 +26,7 @@ SRCS		= ft_pipes.c\
 			  echo_cd_pwd.c \
 			  env_unset_export.c\
 			  ft_exit.c \
-			  ft_correct.c \
+			  ft_env.c \
 			  ft_redirg.c \
 			  main.c
 
@@ -41,7 +41,7 @@ OBJS2		= $(addprefix $(OBJSDIR)/, $(GNL:%.c=%.o))
 
 
 # COMMANDES ****************************************************************** #
-FLAGS		= #-fsanitize=address -g
+FLAGS		= -fsanitize=address -g
 CC			= gcc
 
 # COLORS ********************************************************************* #

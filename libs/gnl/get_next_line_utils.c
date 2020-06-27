@@ -42,8 +42,8 @@ char	*ft_strjoinf(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	if (!(joined = (char *)malloc(sizeof(char) *
-			(get_next_char(s1, '\0') + get_next_char(s2, '\0')) + 1)))
+	if (!(joined = ft_calloc((get_next_char(s1, '\0')
+	+ get_next_char(s2, '\0')) + 1, sizeof(char))))
 		return (NULL);
 	while (s1[j])
 	{

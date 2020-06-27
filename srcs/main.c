@@ -80,6 +80,7 @@ int		main(int ac, char **av, char **env)
 {
 	t_list	*lst_env;
 	char	*read;
+	char *tmp;
 
 	rep = 0;
 	signal(SIGINT, sig_handler);
@@ -93,6 +94,7 @@ int		main(int ac, char **av, char **env)
 			parse_read(read, &lst_env);
 			ft_prompt();
 		}
+		printf("read 3 : %p\n", read);
 		ft_lstfree(&lst_env);
 		free(read);
 		miniprintf("exit\n");

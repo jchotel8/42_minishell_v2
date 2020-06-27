@@ -50,7 +50,7 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 {
 	t_list *tmp;
 	t_list *p1;
-	char *str
+	char *str;
 
 	p1 = NULL;
 	tmp = *lst;

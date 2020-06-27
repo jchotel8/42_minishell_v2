@@ -43,7 +43,7 @@ void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 		p1 = r;
 	 	r = r->next;
 	}
-	//ft_lstfree(&start); //il faut utiliser ft_lstclear ici!!!
+	//ft_lstfree(&start); //il faut utiliser ft_lstclear(&r, *free) ici!!!
 }
 
 int		parse_env(t_list **lst, t_list *env, int flag)

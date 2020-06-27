@@ -95,7 +95,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 				do_dup(j, nb_cmd, pipes, &p, 1);
 				close_pipes(nb_cmd * 2 - 2, pipes);
 				*ret = ft_exec(p.cmd, env);
-				free_pipe(&p);
+				//free_pipe(&p);
 				if (*ret <= 0) //renvoi 0 ou 8 si un des bins (S/F) sinon : NA if success, -1 if fail, 127 if not found, 1 if ?
 					exit(0); //il faut exit seulement dans le cas ou execve fail et si une de mes commandes fails
 				if (*ret == 8)

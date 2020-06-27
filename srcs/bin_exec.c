@@ -26,15 +26,15 @@ int		ft_find_bin(char **cmd, t_list *env, t_list *paths)
 		new = ft_strjoin(tmp, cmd[0]);
 		if (!stat(new, &buf))
 		{
-			free(cmd);
-			free(new);
-			free(tmp);
+			// free(cmd);
+			// free(new);
+			// free(tmp);
 			return (execve(new, cmd, ft_lst_toa(env)));
 		}
 		paths = paths->next;
 	}
-	free(new);
-	free(tmp);
+	// free(new);
+	// free(tmp);
 	miniprintf("Command not found: %s\n", cmd[0]);
 	return (127);
 }

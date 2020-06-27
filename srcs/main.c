@@ -29,7 +29,7 @@ void	ft_prompt(void)
 	char *dir;
 
 	dir = get_wd();
-	miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", dir);
+	miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", get_wd());
 	//free(dir);
 }
 
@@ -94,7 +94,6 @@ int		main(int ac, char **av, char **env)
 			parse_read(read, &lst_env);
 			ft_prompt();
 		}
-		printf("read 3 : %p\n", read);
 		ft_lstfree(&lst_env);
 		free(read);
 		miniprintf("exit\n");

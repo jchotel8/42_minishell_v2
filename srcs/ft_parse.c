@@ -43,7 +43,7 @@ void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 		p1 = r;
 	 	r = r->next;
 	}
-	ft_lstclear(&start, *free); //il faut utiliser ft_lstclear(&r, *free) ici!!!
+	ft_lstclear(&start, *free);
 }
 
 int		parse_env(t_list **lst, t_list *env, int flag)
@@ -51,30 +51,28 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 	t_list *tmp;
 	t_list *p1;
 	char *str;
+	t_list *insert;
 
 	p1 = NULL;
 	tmp = *lst;
 	while (tmp)
 	{
-		str = ft_strdup(tmp->content);
+		str = tmp->content;
 		tmp->content = ft_replace_env(tmp->content, env);
-		t_list *test = ft_lst_split(tmp->content, " ", 1);
-		if (flag && ft_lstsize(test) > 1)
+		insert = ft_lst_split(tmp->content, " ", 1);
+		if (flag && ft_lstsize(insert) > 1)
 		{
 			miniprintf("Minishell : %s : redirection ambigue\n", str);
-			free(str);
-			// ERROR ft_lstclear(&test, *free);
 			return (1);
 		}
-		if (p1 && test)
-			p1->next = test;
-		else if (test)
-			*lst = test;
-		ft_lstadd_back(&test, tmp->next);
+		if (p1 && insert)
+		 	p1->next = insert;
+		else if (insert)
+			*lst = insert;
+		ft_lstadd_back(&insert, tmp->next);
 		p1 = tmp;
+		//ft_lstclear(&insert, *free);
 		tmp = tmp->next;
-		free(str);
-		// ERROR ft_lstclear(&test, *free);
 	}
 	return (0);
 }
@@ -93,17 +91,17 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 	pipe->redirg = NULL;
     //ERROR : ft_rdirectory(str);
 	sort_redir(str, pipe, &lst_cmd);
-	 parse_env(&lst_cmd, env, 0);
-	 if (parse_env(&pipe->redird, env, 1))
-	 	return (1);
-	 if (parse_env(&pipe->redirg, env, 1))
-	 	return (1);
-	 tmp = lst_cmd;
-	 while (tmp)
-	{
-		tmp->content = ft_strtrim_quote(tmp->content);
-		tmp = tmp->next;
-	}
+	parse_env(&lst_cmd, env, 0);
+	// if (parse_env(&pipe->redird, env, 1))
+	// 	return (1);
+	// if (parse_env(&pipe->redirg, env, 1))
+	// 	return (1);
+	// tmp = lst_cmd;
+	// while (tmp)
+	// {
+	// 	tmp->content = ft_strtrim_quote(tmp->content);
+	// 	tmp = tmp->next;
+	// }
 	pipe->cmd = ft_lst_toa(lst_cmd);
 	ft_lstclear(&lst_cmd, *free);
 	return (0);

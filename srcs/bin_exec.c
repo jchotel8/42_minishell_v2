@@ -24,17 +24,15 @@ int		ft_find_bin(char **cmd, t_list *env, t_list *paths)
 	{
 		tmp = ft_strjoin(paths->content, "/");
 		new = ft_strjoin(tmp, cmd[0]);
+		free(tmp);
 		if (!stat(new, &buf))
 		{
-			// free(cmd);
-			// free(new);
-			// free(tmp);
 			return (execve(new, cmd, ft_lst_toa(env)));
 		}
+		if (new != NULL)
+			free(new);
 		paths = paths->next;
 	}
-	// free(new);
-	// free(tmp);
 	miniprintf("Command not found: %s\n", cmd[0]);
 	return (127);
 }
@@ -51,13 +49,15 @@ int		ft_bin(char **cmd, t_list *env)
 		if (!ft_strlcmp("PATH=", env_->content))
 		{
 			paths = ft_lst_split(env_->content + 5, ":", 1);
-			if ((ret = ft_find_bin(cmd, env, paths)))
-				return (ret);	
+			if ((ret = ft_find_bin(cmd, env, paths))) {
+				ft_lstclear(&paths, *free);
+				return (ret);
+			}
+			ft_lstclear(&paths, *free);
 		}
 		env_ = env_->next;
 	}
-	free(paths);
-	free(cmd);
+	ft_lstclear(&paths, *free);
 	return (1);
 }
 
@@ -99,5 +99,6 @@ int		ft_exec2(char **cmd, t_list **env)
 		return (ret);
 	if (!(pid = fork()))
 		return (ft_bin(cmd, *env));
+	waitpid(pid, &ret, 0);
 	return (0);
 }

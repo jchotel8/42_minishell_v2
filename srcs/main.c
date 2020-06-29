@@ -20,6 +20,7 @@
 ** - redir of type 1 or 2
 ** - ajouter les quotes qd print export
 ** - redirections ambigues
+** - echo bonjour > "newline error"
 */
 
 int		rep;
@@ -29,12 +30,9 @@ void    ft_prompt(void)
     char *dir;
 
     dir = get_wd();
-    rep == 0 ? ft_putstr(YEL) : ft_putstr(RED);
-    ft_putstr(YEL"✦ "YEL"MINISHELL"RED"(");
-    ft_putstr(dir);
-    ft_putstr(") ➜ "WHI);
-    if (dir != NULL)
-        free(dir);
+    miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", dir);
+	if (dir != NULL)
+        	free(dir);
 }
 
 void	sig_handler(int sig)

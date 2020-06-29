@@ -43,7 +43,7 @@ void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 		p1 = r;
 	 	r = r->next;
 	}
-	//ft_lstfree(&start); //il faut utiliser ft_lstclear(&r, *free) ici!!!
+	ft_lstclear(&start, *free); //il faut utiliser ft_lstclear(&r, *free) ici!!!
 }
 
 int		parse_env(t_list **lst, t_list *env, int flag)
@@ -62,6 +62,8 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 		if (flag && ft_lstsize(test) > 1)
 		{
 			miniprintf("Minishell : %s : redirection ambigue\n", str);
+			free(str);
+			// ERROR ft_lstclear(&test, *free);
 			return (1);
 		}
 		if (p1 && test)
@@ -71,6 +73,8 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 		ft_lstadd_back(&test, tmp->next);
 		p1 = tmp;
 		tmp = tmp->next;
+		free(str);
+		// ERROR ft_lstclear(&test, *free);
 	}
 	return (0);
 }
@@ -89,17 +93,17 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 	pipe->redirg = NULL;
     //ERROR : ft_rdirectory(str);
 	sort_redir(str, pipe, &lst_cmd);
-	// parse_env(&lst_cmd, env, 0);
-	// if (parse_env(&pipe->redird, env, 1))
-	// 	return (1);
-	// if (parse_env(&pipe->redirg, env, 1))
-	// 	return (1);
-	// tmp = lst_cmd;
-	// while (tmp)
-	// {
-	// 	tmp->content = ft_strtrim_quote(tmp->content);
-	// 	tmp = tmp->next;
-	// }
+	 parse_env(&lst_cmd, env, 0);
+	 if (parse_env(&pipe->redird, env, 1))
+	 	return (1);
+	 if (parse_env(&pipe->redirg, env, 1))
+	 	return (1);
+	 tmp = lst_cmd;
+	 while (tmp)
+	{
+		tmp->content = ft_strtrim_quote(tmp->content);
+		tmp = tmp->next;
+	}
 	pipe->cmd = ft_lst_toa(lst_cmd);
 	ft_lstclear(&lst_cmd, *free);
 	return (0);

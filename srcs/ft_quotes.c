@@ -57,6 +57,6 @@ char	*ft_strtrim_quote(char *s)
 			new[j++] = s[i++];
 		}
 	}
-	//free(s);
+	free(s);
 	return (new);
 }

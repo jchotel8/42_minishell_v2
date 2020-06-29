@@ -29,10 +29,10 @@ void    ft_prompt(void)
     char *dir;
 
     dir = get_wd();
-    //if (miniprintf((rep == 0 ? PROMPT : PROMPT), "MINISHELL", dir))
-    ft_putstr("MINISHELL -> ");
+    rep == 0 ? ft_putstr(YEL) : ft_putstr(RED);
+    ft_putstr(YEL"✦ "YEL"MINISHELL"RED"(");
     ft_putstr(dir);
-    ft_putstr(" : ");
+    ft_putstr(") ➜ "WHI);
     if (dir != NULL)
         free(dir);
 }

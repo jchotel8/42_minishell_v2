@@ -2,7 +2,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-void miniprintf(char *str, ...)
+int miniprintf(char *str, ...)
 {
 	va_list va;
 	char	c;
@@ -27,4 +27,5 @@ void miniprintf(char *str, ...)
 		str++;
 	}
 	va_end(va);
+	return (0);
 }

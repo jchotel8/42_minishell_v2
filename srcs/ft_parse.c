@@ -89,17 +89,18 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 	pipe->redirg = NULL;
     //ERROR : ft_rdirectory(str);
 	sort_redir(str, pipe, &lst_cmd);
-	parse_env(&lst_cmd, env, 0);
-	if (parse_env(&pipe->redird, env, 1))
-		return (1);
-	if (parse_env(&pipe->redirg, env, 1))
-		return (1);
-	tmp = lst_cmd;
-	while (tmp)
-	{
-		tmp->content = ft_strtrim_quote(tmp->content);
-		tmp = tmp->next;
-	}
+	// parse_env(&lst_cmd, env, 0);
+	// if (parse_env(&pipe->redird, env, 1))
+	// 	return (1);
+	// if (parse_env(&pipe->redirg, env, 1))
+	// 	return (1);
+	// tmp = lst_cmd;
+	// while (tmp)
+	// {
+	// 	tmp->content = ft_strtrim_quote(tmp->content);
+	// 	tmp = tmp->next;
+	// }
 	pipe->cmd = ft_lst_toa(lst_cmd);
+	ft_lstclear(&lst_cmd, *free);
 	return (0);
 }

@@ -24,13 +24,17 @@
 
 int		rep;
 
-void	ft_prompt(void)
+void    ft_prompt(void)
 {
-	char *dir;
+    char *dir;
 
-	dir = get_wd();
-	miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", get_wd());
-	//free(dir);
+    dir = get_wd();
+    //if (miniprintf((rep == 0 ? PROMPT : PROMPT), "MINISHELL", dir))
+    ft_putstr("MINISHELL -> ");
+    ft_putstr(dir);
+    ft_putstr(" : ");
+    if (dir != NULL)
+        free(dir);
 }
 
 void	sig_handler(int sig)

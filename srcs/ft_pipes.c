@@ -110,6 +110,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 						exit(0);
 			}
 		}
+		free_pipe(&p);
 	 	line = line->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);

@@ -143,6 +143,7 @@ int		ft_export(char **cmd, t_list **env)
 	char	c;
 	char	*tmp;
 	t_list	*cpy;
+	t_list 	*tmpc;
 
 	i = 1;
 	cpy = ft_lstcpy(*env);
@@ -168,13 +169,14 @@ int		ft_export(char **cmd, t_list **env)
 	else
 	{
 		ft_lstsort(cpy, ft_strcmp);
-		t_list *tmp;
-		tmp = cpy;
-		while (tmp)
+		tmpc = cpy;
+		while (tmpc)
 		{
-			tmp->content = set_to_export(tmp->content);
-			miniprintf("declare -x %s\n", tmp->content);
-			tmp = tmp->next;
+			tmp = set_to_export(tmpc->content);
+			free(tmpc->content);
+			tmpc->content = tmp;
+			miniprintf("declare -x %s\n", tmpc->content);
+			tmpc = tmpc->next;
 		}
 	}
 	ft_lstclear(&cpy, *free);

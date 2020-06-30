@@ -38,13 +38,14 @@ char	*ft_strtrim_quote(char *s)
 	i = 0;
 	j = 0;
 	prev = 0;
+	quote = 0;
 	if (!(new = ft_calloc(ft_strlen(s), sizeof(char))))
 		return (NULL);
 	while (s[i])
 	{
 		if ((quote_inside(&quote, s[i], prev)))
 			prev = s[i++];
-		if (!quote && s[i] == '\\' && prev != '\\')
+		else if (!quote && s[i] == '\\' && prev != '\\')
 			prev = s[i++];
 		else if (quote == '"' && s[i] == '\\' &&
 				((s[i + 1] == '\\' && prev != '\\') || s[i + 1] == '"'))

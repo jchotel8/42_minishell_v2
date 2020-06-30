@@ -49,7 +49,8 @@ int		ft_bin(char **cmd, t_list *env)
 		if (!ft_strlcmp("PATH=", env_->content))
 		{
 			paths = ft_lst_split(env_->content + 5, ":", 1);
-			if ((ret = ft_find_bin(cmd, env, paths))) {
+			if ((ret = ft_find_bin(cmd, env, paths))) 
+			{
 				ft_lstclear(&paths, *free);
 				return (ret);
 			}

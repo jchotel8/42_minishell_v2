@@ -36,10 +36,11 @@ void	wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 		waitpid(pid[i++], ret, 0);
 }
 
-void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int r)
+void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p)
 {
 	int	fd;
 	t_list *tmp;
+	t_list *tmpt;
 
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
@@ -51,17 +52,18 @@ void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int r)
 		dup2(fd, 0);
 		tmp = tmp->next;
 	}
+	tmpt = p->typed;
 	if (j < nb_cmd - 1 || p->redird)
 	{
 		tmp = p->redird;
 		while (tmp)
 		{
-			if (r == 1)//(!ft_strcmp(p->typed->content, "1"))
+			if (!ft_strcmp(tmpt->content, "1"))
 				pipes[j * 2 + 1] = open(tmp->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
-			else if (r == 2)//(!ft_strcmp(p->typed->content, "2"))
+			else if (!ft_strcmp(tmpt->content, "2"))
 				pipes[j * 2 + 1] = open(tmp->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
 			tmp = tmp->next;
-			//p->typed = p->typed->next;
+			tmpt = tmpt->next;
 		}
 		dup2(pipes[j * 2 + 1], 1);
 	}
@@ -72,6 +74,8 @@ void	free_pipe(t_pipe *p)
 	ft_freearray(p->cmd);
 	ft_lstclear(&p->redirg, *free);
 	ft_lstclear(&p->redird, *free);
+	ft_lstclear(&p->typeg, *free);
+	ft_lstclear(&p->typed, *free);
 }
 
 void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
@@ -95,7 +99,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 				flag = 1;
 			else if ((nb_cmd != 1 || p.redird != NULL || p.redirg != NULL) && !(pid[j] = fork()))
 			{
-				do_dup(j, nb_cmd, pipes, &p, 1);
+				do_dup(j, nb_cmd, pipes, &p);
 				close_pipes(nb_cmd * 2 - 2, pipes);
 				*ret = ft_exec(p.cmd, env);
 				free_pipe(&p);

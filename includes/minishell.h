@@ -31,7 +31,8 @@ typedef struct	s_pipe
 	char		**cmd;
 	t_list		*redird;
 	t_list		*redirg;
-//	t_list		*typed;
+	t_list		*typed;
+	t_list		*typeg;
 }				t_pipe;
 
 int 			rep;

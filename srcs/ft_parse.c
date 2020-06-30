@@ -12,34 +12,41 @@
 
 #include "../includes/minishell.h"
 
-int		is_redir(t_list *p, t_list *p1, char *c)
+int		is_redir(char *mot, t_list **t, t_list *p1, t_list *p2, char *c)
 {
-	// if()
-	// 	ft_lstadd_back(&p, ft_lstnew(ft_strdup("2")));
-	// else
-	// 	ft_lstadd_back(&p, ft_lstnew(ft_strdup("2")));
-	return ((!ft_strncmp(p->content, c, 1) ||
-	(p1 && !ft_strlcmp(p1->content, c))) &&
-	ft_strlcmp(p->content, c));
-}
+	if ((!ft_strncmp(mot, c, 1) || (p1 && !ft_strlcmp(p1->content, c))) && ft_strlcmp(mot, c))
+		ft_lstadd_back(t, ft_lstnew(ft_strdup((p2 && !ft_strlcmp(p2->content, c)? "2" : "1"))));
+	return ((!ft_strncmp(mot, c, 1) || (p1 && !ft_strlcmp(p1->content, c))) && ft_strlcmp(mot, c));
+} 
+// si le mot est different de ">"
+// &&
+// si le mot commence par ">" || si le mot precedent est ">"
+
+// alors
+// si le mot precedent 2 est > 
+// -> 2
+// sinon 1
 
 void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 {
 	t_list *r;
 	t_list *start;
 	t_list *p1;
+	t_list *p2;
 
 	r = ft_lst_split(str, "> <", 0);
 	start = r;
 	p1 = NULL;
+	p2 = NULL;
 	while (r)
 	{
-		if (is_redir(r, p1, "<"))
+		if (is_redir(r->content, &p->typeg, p1, p2, "<"))
 			ft_lstadd_back(&p->redirg, ft_lstnew(ft_strtrim(r->content, "< ")));
-		else if (is_redir(r, p1, ">"))
+		else if (is_redir(r->content, &p->typed, p1, p2, ">"))
 			ft_lstadd_back(&p->redird, ft_lstnew(ft_strtrim(r->content, "> ")));
 		else if (ft_strlcmp(r->content, ">") && ft_strlcmp(r->content, "<") && ft_strlcmp(r->content, " "))
 			ft_lstadd_back(cmd, ft_lstnew(ft_strtrim(r->content, " ")));
+		p2 = p1;
 		p1 = r;
 	 	r = r->next;
 	}
@@ -99,13 +106,14 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 	pipe->cmd = NULL;
 	pipe->redird = NULL;
 	pipe->redirg = NULL;
-    //ERROR : ft_rdirectory(str);
+	pipe->typed = NULL;
+	pipe->typeg = NULL;
 	sort_redir(str, pipe, &lst_cmd);
 	parse_env(&lst_cmd, env, 0);
 	if (parse_env(&pipe->redird, env, 1))
 		return (1);
-	// if (parse_env(&pipe->redirg, env, 1))
-	// 	return (1);
+	if (parse_env(&pipe->redirg, env, 1))
+		return (1);
 	tmp = lst_cmd;
 	while (tmp)
 	{

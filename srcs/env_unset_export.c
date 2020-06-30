@@ -156,7 +156,10 @@ int		ft_export(char **cmd, t_list **env)
 				tmp = ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1);
 				ft_lstremove_if(env, tmp, ft_strlcmp);
 				free(tmp);
-				ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(ft_strdup(set_to_export(cmd[i++])))));
+				tmp = ft_strtrim_quote(ft_strdup(set_to_export(cmd[i])));
+				ft_lstadd_back(env, ft_lstnew(tmp));
+				free(tmp);
+				i++;
 			}
 			else
 			{

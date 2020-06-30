@@ -104,8 +104,8 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 	parse_env(&lst_cmd, env, 0);
 	if (parse_env(&pipe->redird, env, 1))
 		return (1);
-	if (parse_env(&pipe->redirg, env, 1))
-		return (1);
+	// if (parse_env(&pipe->redirg, env, 1))
+	// 	return (1);
 	tmp = lst_cmd;
 	while (tmp)
 	{

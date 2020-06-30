@@ -39,25 +39,28 @@ void	wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p, int r)
 {
 	int	fd;
+	t_list *tmp;
 
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	while (p->redirg)
+	tmp = p->redirg;
+	while (tmp)
 	{
-		if ((fd = open(p->redirg->content, O_RDONLY)) < 0)
+		if ((fd = open(tmp->content, O_RDONLY)) < 0)
 			return ;
 		dup2(fd, 0);
-		p->redirg = p->redirg->next;
+		tmp = tmp->next;
 	}
 	if (j < nb_cmd - 1 || p->redird)
 	{
-		while (p->redird)
+		tmp = p->redird;
+		while (tmp)
 		{
 			if (r == 1)//(!ft_strcmp(p->typed->content, "1"))
-				pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
+				pipes[j * 2 + 1] = open(tmp->content, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
 			else if (r == 2)//(!ft_strcmp(p->typed->content, "2"))
-				pipes[j * 2 + 1] = open(p->redird->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
-			p->redird = p->redird->next;
+				pipes[j * 2 + 1] = open(tmp->content, O_WRONLY | O_CREAT | O_APPEND | O_RDONLY, 0644);
+			tmp = tmp->next;
 			//p->typed = p->typed->next;
 		}
 		dup2(pipes[j * 2 + 1], 1);
@@ -90,7 +93,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 		{
 			if (p.cmd[0] && !ft_strcmp(p.cmd[0], "exit"))
 				flag = 1;
-			else if ((nb_cmd != 1 || p.redird != NULL) && !(pid[j] = fork()))
+			else if ((nb_cmd != 1 || p.redird != NULL || p.redirg != NULL) && !(pid[j] = fork()))
 			{
 				do_dup(j, nb_cmd, pipes, &p, 1);
 				close_pipes(nb_cmd * 2 - 2, pipes);
@@ -103,7 +106,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 				if (*ret == 127)
 					exit(3);
 			}
-			else if (nb_cmd == 1 && p.redird == NULL)
+			else if (nb_cmd == 1 && p.redird == NULL && p.redirg == NULL)
 			{
 				if (p.cmd[0])
 					if ((*ret = ft_exec2(p.cmd, env)) != 0 && *ret != 8)

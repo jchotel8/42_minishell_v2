@@ -117,16 +117,23 @@ int		ft_strfind(char *str, char c)
 	return (-1);
 }
 
-char	*test_export(char *str)
+char	*set_to_export(char *str)
 {
 	char	*new;
 	char	*add;
+	char	*fst;
+	char	*arg;
 
 	if (ft_strfind(str, '=') == -1)
 		return (str);
-	new = ft_substr(str, 0, ft_strfind(str, '=') + 1);
-	add = ft_reverse_quote(ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str)));
-	new = ft_strjoin(new, add);
+	fst = ft_substr(str, 0, ft_strfind(str, '=') + 1);
+	arg = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
+	add = ft_reverse_quote(arg);
+	new = ft_strjoin(fst, add);
+	free(str);
+	free(fst);
+	free(add);
+	free(arg);
 	return (new);
 }
 
@@ -145,7 +152,7 @@ int		ft_export(char **cmd, t_list **env)
 			if (check_export(cmd[i]))
 			{
 				ft_lstremove_if(env, ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1), ft_strlcmp);
-				ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(test_export(cmd[i++]))));
+				ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd[i++]))));
 			}
 			else
 			{
@@ -155,7 +162,19 @@ int		ft_export(char **cmd, t_list **env)
 		}
 	}
 	else
-		ft_lst_print(ft_lstsort(cpy, ft_strcmp), 3);
+	{
+		ft_lstsort(cpy, ft_strcmp);
+		t_list *tmp;
+		tmp = cpy;
+		while (tmp)
+		{
+			tmp->content = set_to_export(tmp->content);
+			miniprintf("declare -x %s\n", tmp->content);
+			tmp = tmp->next;
+		}
+		ft_lstclear(&cpy, *free);
+	}
+	//	ft_lst_print(ft_lstsort(cpy, ft_strcmp), 3);
 	return (0);
 }
 

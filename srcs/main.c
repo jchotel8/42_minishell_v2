@@ -15,11 +15,7 @@
 /*
 ** THINGS TO DO :
 ** - ft_exit : free when fail
-** - free & cleanup
 ** - ctrl-C, ctrl-D, ctrl-/
-** - redir of type 1 or 2
-** - ajouter les quotes qd print export
-** - redirections ambigues
 ** - echo bonjour > "newline error"
 */
 
@@ -32,7 +28,7 @@ void    ft_prompt(void)
     dir = get_wd();
     miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", dir);
 	if (dir != NULL)
-        	free(dir);
+        free(dir);
 }
 
 void	sig_handler(int sig)

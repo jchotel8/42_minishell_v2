@@ -18,7 +18,7 @@ t_list	*ft_lstcpy(t_list *lst)
 
 	while (lst)
 	{
-		ft_lstadd_back(&cpy, ft_lstnew(lst->content));
+		ft_lstadd_back(&cpy, ft_lstnew(ft_strdup(lst->content)));
         lst = lst->next;
 	}
 	return (cpy);

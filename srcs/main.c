@@ -69,11 +69,13 @@ int		ft_checkread(char *read)
 	size_t	i;
 	int		s;
 	char	prev;
+	char 	quote;
 
 	s = 0;
 	i = 0;
 	while (read[i])
 	{
+		quote_inside(&quote, read[i], prev);
 		while (read[i] == '<' || read[i] == '>')
 		{
 			s++;
@@ -99,6 +101,7 @@ int		ft_checkread(char *read)
 			else
 				s = 0;
 		}	
+		prev = read[i];
 		i++;
 	}
 	return (1);

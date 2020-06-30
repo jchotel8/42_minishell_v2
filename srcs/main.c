@@ -76,7 +76,7 @@ int		ft_checkread(char *read)
 	while (read[i])
 	{
 		quote_inside(&quote, read[i], prev);
-		while (read[i] == '<' || read[i] == '>')
+		while (!quote && read[i] == '<' || read[i] == '>')
 		{
 			s++;
 			i++;

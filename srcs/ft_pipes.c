@@ -95,9 +95,9 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 			*ret = 1;
 		else
 		{
-			if (p.cmd[0] && !ft_strcmp(p.cmd[0], "exit"))
+			if (p.cmd && !ft_strcmp(p.cmd[0], "exit"))
 				flag = 1;
-			else if ((nb_cmd > 1 || p.redird != NULL || p.redirg != NULL) && !(pid[j] = fork()))
+			else if (p.cmd && (nb_cmd > 1 || p.redird != NULL || p.redirg != NULL) && !(pid[j] = fork()))
 			{
 				do_dup(j, nb_cmd, pipes, &p);
 				close_pipes(nb_cmd * 2 - 2, pipes);
@@ -110,11 +110,10 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 				if (*ret == 127)
 					exit(3);
 			}
-			else if (nb_cmd == 1 && p.redird == NULL && p.redirg == NULL)
+			else if (p.cmd && nb_cmd == 1 && p.redird == NULL && p.redirg == NULL)
 			{
-				if (p.cmd[0])
-					if ((*ret = ft_exec2(p.cmd, env)) != 0 && *ret != 8)
-						exit(0);
+				if ((*ret = ft_exec2(p.cmd, env)) != 0 && *ret != 8)
+					exit(0);
 			}
 		}
 		free_pipe(&p);

@@ -56,14 +56,19 @@ void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 t_list *ft_lstrep(t_list *prev, t_list *add, t_list *rep)
 {
     t_list *next;
-
-    next = rep->next;
-    free(rep->content);
-    free(rep);
-    if (prev)
-        prev->next = add;
-    ft_lstadd_back(&add, next);
-    return (add);
+	next = rep->next;
+	free(rep->content);
+	free(rep);
+	if (add)
+	{
+		if (prev)
+			prev->next = add;
+		ft_lstadd_back(&add, next);
+		return (add);
+	}
+	if (prev)
+		prev->next = next;
+	return (next);
 }
 
 int		parse_env(t_list **lst, t_list *env, int flag)
@@ -121,8 +126,6 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 		tmp = tmp->next;
 	}
 	pipe->cmd = ft_lst_toa(lst_cmd);
-	//miniprintf("LIST CMD\n");
-	//ft_lst_print(lst_cmd, 1);
 	ft_lstclear(&lst_cmd, *free);
 	return (0);
 }

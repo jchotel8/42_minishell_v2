@@ -25,11 +25,8 @@ char	**ft_lst_toa(t_list *lst)
 	i = 0;
 	while (lst)
 	{
-		if (ft_strlcmp(lst->content,""))
-		{
-			new[i] = ft_strdup((char *)lst->content);
-			i++;
-		}
+		new[i] = ft_strdup((char *)lst->content);
+		i++;
 		lst = lst->next;
 	}
 	return (new);

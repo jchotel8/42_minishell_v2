@@ -130,7 +130,7 @@ char	*set_to_export(char *str)
 	arg = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
 	add = ft_reverse_quote(arg);
 	new = ft_strjoin(fst, add);
-	free(str);
+	//free(str);
 	free(fst);
 	free(add);
 	free(arg);
@@ -152,7 +152,7 @@ int		ft_export(char **cmd, t_list **env)
 			if (check_export(cmd[i]))
 			{
 				ft_lstremove_if(env, ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1), ft_strlcmp);
-				ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd[i++]))));
+				ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(ft_strdup(set_to_export(cmd[i++])))));
 			}
 			else
 			{

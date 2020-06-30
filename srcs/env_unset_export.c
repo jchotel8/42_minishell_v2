@@ -174,7 +174,6 @@ int		ft_export(char **cmd, t_list **env)
 		}
 		ft_lstclear(&cpy, *free);
 	}
-	//	ft_lst_print(ft_lstsort(cpy, ft_strcmp), 3);
 	return (0);
 }
 

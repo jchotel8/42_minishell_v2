@@ -89,7 +89,7 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 		if (!p1)
 			*lst = tmp;
 		p1 = tmp;
-		tmp = tmp->next;
+		tmp = (tmp ? tmp->next : NULL);
 	}
 	return (0);
 }
@@ -121,6 +121,8 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 		tmp = tmp->next;
 	}
 	pipe->cmd = ft_lst_toa(lst_cmd);
+	//miniprintf("LIST CMD\n");
+	//ft_lst_print(lst_cmd, 1);
 	ft_lstclear(&lst_cmd, *free);
 	return (0);
 }

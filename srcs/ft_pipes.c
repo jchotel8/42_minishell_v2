@@ -97,7 +97,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 		{
 			if (p.cmd[0] && !ft_strcmp(p.cmd[0], "exit"))
 				flag = 1;
-			else if ((nb_cmd != 1 || p.redird != NULL || p.redirg != NULL) && !(pid[j] = fork()))
+			else if ((nb_cmd > 1 || p.redird != NULL || p.redirg != NULL) && !(pid[j] = fork()))
 			{
 				do_dup(j, nb_cmd, pipes, &p);
 				close_pipes(nb_cmd * 2 - 2, pipes);

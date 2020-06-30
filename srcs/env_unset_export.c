@@ -141,6 +141,7 @@ int		ft_export(char **cmd, t_list **env)
 {
 	int		i;
 	char	c;
+	char	*tmp;
 	t_list	*cpy;
 
 	i = 1;
@@ -151,12 +152,15 @@ int		ft_export(char **cmd, t_list **env)
 		{
 			if (check_export(cmd[i]))
 			{
-				ft_lstremove_if(env, ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1), ft_strlcmp);
+				tmp = ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1);
+				ft_lstremove_if(env, tmp, ft_strlcmp);
+				free(tmp);
 				ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(ft_strdup(set_to_export(cmd[i++])))));
 			}
 			else
 			{
 				miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
+				ft_lstclear(&cpy, *free);
 				return (8);
 			}
 		}
@@ -172,8 +176,8 @@ int		ft_export(char **cmd, t_list **env)
 			miniprintf("declare -x %s\n", tmp->content);
 			tmp = tmp->next;
 		}
-		ft_lstclear(&cpy, *free);
 	}
+	ft_lstclear(&cpy, *free);
 	return (0);
 }
 

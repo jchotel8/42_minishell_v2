@@ -55,6 +55,50 @@ void	sig_handler(int sig)
 **  ctrl-\ : rien      -> ?
 */
 
+
+
+int		ft_isspl(char caract)
+{
+	size_t	i;
+	char	cmp[] = "#()\0";
+
+	i = 0;
+	while (cmp[i])
+	{
+		if (caract == cmp[i])
+			return (1);
+		i++;
+	}
+	if ((caract == '<' || caract == '>'))
+		return (1);
+	return (0);
+}
+
+int		ft_checkread(char *read)
+{
+	size_t	i;
+	int		s;
+	char	prev;
+
+	s = 0;
+	i = 0;
+	while (read[i])
+	{
+		if (read[i] == '<' || read[i] == '>' && s != -1)
+			s++;
+		else if (s != 0 && ft_isspace(read[i]))
+			s = -1;
+		if (s > 2)
+		{
+			miniprintf("erreur de syntaxe près du symbole inattendu « %c »\n", read[i]);
+			return (0);
+		}
+		prev = read[i];
+		i++;
+	}
+	return (1);
+}
+
 void	parse_read(char *read, t_list **env)
 {
 	t_list *line;
@@ -89,7 +133,8 @@ int		main(int ac, char **av, char **env)
 		ft_prompt();
 		while (get_next_line(0, &read))
 		{
-			parse_read(read, &lst_env);
+			if (ft_checkread(read))
+				parse_read(read, &lst_env);
 			ft_prompt();
 		}
 		ft_lstfree(&lst_env);

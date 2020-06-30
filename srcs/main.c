@@ -57,18 +57,8 @@ void	sig_handler(int sig)
 
 
 
-int		ft_isspl(char caract)
+int		ft_isulsign(char caract)
 {
-	size_t	i;
-	char	cmp[] = "#()\0";
-
-	i = 0;
-	while (cmp[i])
-	{
-		if (caract == cmp[i])
-			return (1);
-		i++;
-	}
 	if ((caract == '<' || caract == '>'))
 		return (1);
 	return (0);
@@ -84,16 +74,31 @@ int		ft_checkread(char *read)
 	i = 0;
 	while (read[i])
 	{
-		if (read[i] == '<' || read[i] == '>' && s != -1)
+		while (read[i] == '<' || read[i] == '>')
+		{
 			s++;
-		else if (s != 0 && ft_isspace(read[i]))
-			s = -1;
+			i++;
+		}
 		if (s > 2)
 		{
-			miniprintf("erreur de syntaxe près du symbole inattendu « %c »\n", read[i]);
+			miniprintf("ERROR : %c\n", read[i]);
 			return (0);
 		}
-		prev = read[i];
+		else if (s > 0) 
+		{
+			while (ft_isspace(read[i]))
+				i++;
+			if (ft_isulsign(read[i]) || read[i] == 0)
+			{
+				if (read[i] != 0)
+					miniprintf("bash: erreur de syntaxe près du symbole inattendu « %c »\n", read[i]);
+				else
+					miniprintf("bash: erreur de syntaxe près du symbole inattendu « newline »\n");
+				return (0);
+			} 
+			else
+				s = 0;
+		}	
 		i++;
 	}
 	return (1);

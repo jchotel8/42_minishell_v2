@@ -20,9 +20,14 @@ char	*ft_find_env(char *str, t_list *env)
 	while (env)
 	{
 		if (!ft_strlcmp(str, env->content))
-			return (ft_substr(env->content, ft_strlen(str), ft_strlen(env->content)));
+		{
+			tmp = ft_substr(env->content, ft_strlen(str), ft_strlen(env->content));
+			free(str);
+			return (tmp);
+		}
 		env = env->next;
 	}
+	free(str);
 	return (0);
 }
 
@@ -52,13 +57,20 @@ int		ft_strstri(const char *s1, const char *s2)
 
 char	*ft_strrep(char *str, char *to_rep, char *rep)
 {
-	char *new; 
+	char *new;
+	char *tmp;
 
 	while(ft_strstri(str, to_rep) >= 0)
 	{      
 		new = ft_substr(str, 0, ft_strstri(str, to_rep));
-		new = ft_strjoin(new, rep);
-		new = ft_strjoin(new, ft_substr(str, ft_strstri(str, to_rep) + ft_strlen(to_rep), ft_strlen(str)));
+		free(str);
+		tmp = ft_strjoin(new, rep);
+		free(new);
+		str = ft_substr(tmp, ft_strstri(tmp, to_rep) + ft_strlen(to_rep), ft_strlen(tmp));
+		new = ft_strjoin(tmp, str);
+		free(str);
+		free(to_rep);
+		free(tmp);
 		str = new;
 	}
 	return (str);
@@ -108,7 +120,9 @@ char	*ft_replace_env(char *str, t_list *env)
 		if (!ft_strcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(rep));
 		else if (!ft_strcmp(to_rep, "$"))
+		{
 			return (str);
+		}
 		else
 			str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
 	}

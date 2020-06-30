@@ -58,7 +58,6 @@ int		ft_bin(char **cmd, t_list *env)
 		}
 		env_ = env_->next;
 	}
-	ft_lstclear(&paths, *free);
 	return (1);
 }
 

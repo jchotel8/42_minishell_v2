@@ -155,6 +155,7 @@ int		ft_export(char **cmd, t_list **env)
 			{
 				if (ft_strfind(cmd[i], '=') >= 0)
 				{
+					miniprintf("removing\n");
 					tmp = ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1);
 					ft_lstremove_if(env, tmp, ft_strlcmp);
 					free(tmp);

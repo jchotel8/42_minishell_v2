@@ -83,7 +83,7 @@ int		ft_checkread(char *read)
 		}
 		if (s > 2)
 		{
-			miniprintf("ERROR : %c\n", read[i]);
+			miniprintf("bash: erreur de syntaxe près du symbole inattendu « %c »\n", read[i - 1]);
 			free(read);
 			return (0);
 		}

@@ -24,7 +24,7 @@ char	*ft_rdirectory()
 	while ((var = readdir(dir)))
 		if (var->d_name[0] != '.')
 		{
-			tmp = ft_strjoin(array, var->d_name);
+			tmp = ft_strjoinf(array, var->d_name);
 			array = ft_strjoin(tmp, " ");
 			free(tmp);
 		}

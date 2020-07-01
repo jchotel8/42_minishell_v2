@@ -44,7 +44,7 @@ int		ft_pwd(void)
 		miniprintf("%s\n", cwd);
 		return (0);
 	}
-	ft_putstr("Failed to get pwd");
+	ft_putstr_fd("Failed to get pwd", 2);
 	return (1);
 }
 
@@ -72,10 +72,10 @@ char	*get_wd(void)
 int		ft_cd(char **cmd, t_list *env)
 {
 	if (cmd[2])
-		miniprintf("cd: too many arguments\n");
+		miniprinte("cd: too many arguments\n");
 	else if (chdir(cmd[1]) == -1)
 	{
-		miniprintf("cd: no such file or directory : %s\n", cmd[1]);
+		miniprinte("cd: no such file or directory : %s\n", cmd[1]);
 		return (8);
 	}
 	return (0);

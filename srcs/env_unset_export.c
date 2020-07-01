@@ -25,7 +25,7 @@ int		ft_env(char **cmd, t_list **env)
 {   //env /home : erreur 126 denied acces
 	if (cmd && cmd[1])
 	{
-		miniprintf("env: \"%s\": Aucun fichier ou dossier de ce type\n", cmd[1]);
+		miniprinte("env: \"%s\": Aucun fichier ou dossier de ce type\n", cmd[1]);
 		return (127);
 	}
 	ft_lstprint_if(*env, (void *)'=', ft_strchr);
@@ -170,7 +170,7 @@ int		ft_export(char **cmd, t_list **env)
 			}
 			else
 			{
-				miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
+				miniprinte("export: '%s': not a valid identifier\n", cmd[i++]);
 				return (8);
 			}
 		}
@@ -203,7 +203,7 @@ int		ft_unset(char **cmd, t_list **env)
 		cmd[i] = ft_strjoin(cmd[i], "=");
 		if (!check_export(cmd[i]))
 		{
-			miniprintf("export: '%s': not a valid identifier\n", tmp);
+			miniprinte("export: '%s': not a valid identifier\n", tmp);
 			return (8);
 		}
 		free(tmp);

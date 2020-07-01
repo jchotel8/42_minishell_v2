@@ -132,7 +132,7 @@ char	*set_to_export(char *str)
 	new = ft_strjoinf(key, add);
 	free(str);
 	free(add);
-	free(arg);
+	free(val);
 	return (new);
 }
 
@@ -158,7 +158,7 @@ int		ft_export(char **cmd, t_list **env)
 					free(tmp);
 				}
 				cmd[i] = ft_strtrim_quote(set_to_export(cmd[i]));
-				ft_lstadd_back(env, ft_lstnew(cmd[i]));
+				ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd[i])));
 				i++;
 			}
 			else

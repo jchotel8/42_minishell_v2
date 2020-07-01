@@ -20,7 +20,7 @@ t_list	*ft_ato_lst(char **array)
 	i = 0;
 	while (array && array[i])
 	{
-		ft_lstadd_back(&first, ft_lstnew(array[i]));
+		ft_lstadd_back(&first, ft_lstnew(ft_strdup(array[i])));
 		i++;
 	}
 	return (first);

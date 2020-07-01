@@ -145,7 +145,7 @@ int		main(int ac, char **av, char **env)
 				parse_read(read, &lst_env);
 			ft_prompt();
 		}
-		ft_lstfree(&lst_env);
+		ft_lstclear(&lst_env, *free);
 		free(read);
 		miniprintf("exit\n");
 	}

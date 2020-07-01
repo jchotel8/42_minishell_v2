@@ -143,6 +143,7 @@ int		main(int ac, char **av, char **env)
 		ft_prompt();
 		while (get_next_line(0, &read))
 		{
+			read = ft_parsestrdir(read);
 			if (ft_checkread(read))
 				parse_read(read, &lst_env);
 			ft_prompt();

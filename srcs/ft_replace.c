@@ -69,10 +69,10 @@ char	*ft_strrep(char *str, char *to_rep, char *rep)
 		new = ft_strjoinf(new, tmp);
 		free(tmp);
 		free(str);
-		free(to_rep);
-		free(rep);
 		str = new;
 	}
+	free(to_rep);
+	free(rep);
 	return (str);
 }
 

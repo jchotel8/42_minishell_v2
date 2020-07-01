@@ -23,6 +23,7 @@ typedef struct		s_list
 
 //---------MINIPRINTF-------------------
 int 				miniprintf(char *str, ...);
+int 				miniprinte(char *str, ...);
 
 //-----------MEM------------------------
 void				*ft_memset (void *s, int c, size_t n);

@@ -30,10 +30,7 @@ int		ft_find_bin(char **cmd, t_list *env, t_list *paths)
 			free(new);
 		paths = paths->next;
 	}
-	//miniprintf("Command not found: %s\n", cmd[0]);
-	write(2, "Command not found: ", 19);
-	write(2, cmd[0], ft_strlen(cmd[0]));
-	write(2, "\n", 1);
+	miniprinte("Command not found: %s\n", cmd[0]);
 	return (127);
 }
 

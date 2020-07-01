@@ -59,18 +59,18 @@ char	*ft_strrep(char *str, char *to_rep, char *rep)
 {
 	char *new;
 	char *tmp;
+	int		i;
 
-	while(ft_strstri(str, to_rep) >= 0)
+	while((i = ft_strstri(str, to_rep)) >= 0)
 	{      
-		new = ft_substr(str, 0, ft_strstri(str, to_rep));
-		free(str);
-		tmp = ft_strjoin(new, rep);
-		free(new);
-		str = ft_substr(tmp, ft_strstri(tmp, to_rep) + ft_strlen(to_rep), ft_strlen(tmp));
-		new = ft_strjoin(tmp, str);
+		new = ft_substr(str, 0, i);
+		new = ft_strjoinf(new, rep);
+		tmp = ft_substr(new, i + ft_strlen(to_rep), ft_strlen(str) - ft_strlen(to_rep));
+		new = ft_strjoinf(new, tmp);
+		free(tmp);
 		free(str);
 		free(to_rep);
-		free(tmp);
+		free(rep);
 		str = new;
 	}
 	return (str);
@@ -120,9 +120,7 @@ char	*ft_replace_env(char *str, t_list *env)
 		if (!ft_strcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(rep));
 		else if (!ft_strcmp(to_rep, "$"))
-		{
 			return (str);
-		}
 		else
 			str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
 	}

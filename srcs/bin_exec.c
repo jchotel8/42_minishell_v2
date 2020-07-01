@@ -15,16 +15,13 @@
 int		ft_find_bin(char **cmd, t_list *env, t_list *paths)
 {
 	char		*new;
-	char		*tmp;
 	struct stat	buf;
 
 	if (!stat(cmd[0], &buf))
 		return (execve(cmd[0], cmd, ft_lst_toa(env)));
 	while (paths)
 	{
-		tmp = ft_strjoin(paths->content, "/");
-		new = ft_strjoin(tmp, cmd[0]);
-		free(tmp);
+		new = ft_strjoinf(ft_strjoin(paths->content, "/"), cmd[0]);
 		if (!stat(new, &buf))
 		{
 			return (execve(new, cmd, ft_lst_toa(env)));

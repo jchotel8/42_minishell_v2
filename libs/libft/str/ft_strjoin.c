@@ -51,3 +51,12 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	new[j + i] = '\0';
 	return (new);
 }
+
+char	*ft_strjoinf(char *s1, char *s2)
+{
+	char *tmp;
+
+	tmp = ft_strjoin((const char *)s1, (const char *)s2);
+	free(s1);
+	return (tmp);
+}

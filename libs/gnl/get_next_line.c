@@ -44,7 +44,7 @@ int		get_next_line(int fd, char **line)
 	while (get_next_char(rest[fd], '\n') < 0 && (ret = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[ret] = 0;
-		rest[fd] = ft_strjoinf(rest[fd], buffer);
+		rest[fd] = ft_strjoin_g(rest[fd], buffer);
 	}
 	free(buffer);
 	if (ret < 0)

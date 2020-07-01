@@ -121,17 +121,16 @@ char	*set_to_export(char *str)
 {
 	char	*new;
 	char	*add;
-	char	*fst;
-	char	*arg;
+	char	*key;
+	char	*val;
 
 	if (ft_strfind(str, '=') == -1)
 		return (str);
-	fst = ft_substr(str, 0, ft_strfind(str, '=') + 1);
-	arg = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
-	add = ft_reverse_quote(arg);
-	new = ft_strjoin(fst, add);
-	//free(str);
-	free(fst);
+	key = ft_substr(str, 0, ft_strfind(str, '=') + 1);
+	val = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
+	add = ft_reverse_quote(val);
+	new = ft_strjoinf(key, add);
+	free(str);
 	free(add);
 	free(arg);
 	return (new);
@@ -146,43 +145,42 @@ int		ft_export(char **cmd, t_list **env)
 	t_list 	*tmpc;
 
 	i = 1;
-	cpy = ft_lstcpy(*env);
 	if (cmd && cmd[i])
 	{
 		while (cmd[i])
 		{
 			if (check_export(cmd[i]))
 			{
-				tmp = ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1);
-				ft_lstremove_if(env, tmp, ft_strlcmp);
-				free(tmp);
-				tmp = ft_strtrim_quote(ft_strdup(set_to_export(cmd[i])));
-				ft_lstadd_back(env, ft_lstnew(tmp));
-				free(tmp);
+				if (ft_strfind(cmd[i], '=') >= 0)
+				{
+					tmp = ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1);
+					ft_lstremove_if(env, tmp, ft_strlcmp);
+					free(tmp);
+				}
+				cmd[i] = ft_strtrim_quote(set_to_export(cmd[i]));
+				ft_lstadd_back(env, ft_lstnew(cmd[i]));
 				i++;
 			}
 			else
 			{
 				miniprintf("export: '%s': not a valid identifier\n", cmd[i++]);
-				ft_lstclear(&cpy, *free);
 				return (8);
 			}
 		}
 	}
 	else
 	{
+		cpy = ft_lstcpy(*env);
 		ft_lstsort(cpy, ft_strcmp);
 		tmpc = cpy;
 		while (tmpc)
 		{
-			tmp = set_to_export(tmpc->content);
-			free(tmpc->content);
-			tmpc->content = tmp;
+			tmpc->content = set_to_export(tmpc->content);
 			miniprintf("declare -x %s\n", tmpc->content);
 			tmpc = tmpc->next;
 		}
+		ft_lstclear(&cpy, *free);
 	}
-	ft_lstclear(&cpy, *free);
 	return (0);
 }
 

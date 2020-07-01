@@ -34,7 +34,7 @@ int		get_next_char(char *str, char c)
 	return (-1);
 }
 
-char	*ft_strjoinf(char *s1, char *s2)
+char	*ft_strjoin_g(char *s1, char *s2)
 {
 	int		i;
 	int		j;

@@ -112,7 +112,7 @@ void	do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env)
 			}
 			else if (p.cmd && nb_cmd == 1 && p.redird == NULL && p.redirg == NULL)
 			{
-				if ((*ret = ft_exec2(p.cmd, env)) != 0 && *ret != 8)
+				if ((*ret = ft_exec2(p.cmd, env)) != 0 && *ret != 8 && *ret != 512)
 					exit(0);
 			}
 		}

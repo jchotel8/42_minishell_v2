@@ -91,11 +91,15 @@ int		ft_exec2(char **cmd, t_list **env)
 {//chaque fonction return 0, sauf dans le cas du ft_bin-> -1 si echec
 	pid_t	pid;
 	int		ret;
+	int status;
 
 	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
 		return (ret);
 	if (!(pid = fork()))
-		return (ft_bin(cmd, *env));
+	{
+		ret = ft_bin(cmd, *env);
+		return (ret);
+	}
 	waitpid(pid, &ret, 0);
-	return (0);
+	return (ret);
 }

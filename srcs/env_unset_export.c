@@ -143,7 +143,9 @@ int		ft_export(char **cmd, t_list **env)
 	char	*tmp;
 	t_list	*cpy;
 	t_list 	*tmpc;
+	int		flag;
 
+	flag = 0;
 	i = 1;
 	if (cmd && cmd[i])
 	{
@@ -157,8 +159,13 @@ int		ft_export(char **cmd, t_list **env)
 					ft_lstremove_if(env, tmp, ft_strlcmp);
 					free(tmp);
 				}
-				cmd[i] = ft_strtrim_quote(set_to_export(cmd[i]));
-				ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd[i])));
+				else if (ft_find_env(cmd[i], *env))
+					flag = 1;
+				if (!flag)
+				{
+					cmd[i] = ft_strtrim_quote(set_to_export(cmd[i]));
+					ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd[i])));
+				}
 				i++;
 			}
 			else

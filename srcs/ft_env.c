@@ -110,7 +110,7 @@ char	*ft_replace_env(char *str, t_list *env)
 {
 	char *to_rep;
 
-	rep = (rep == 768 ? 127 : rep);	//cmd not found in pipe
+	rep = (rep == 768 ? 127 : rep);	//cmd not found in pipe  //WEXITSTATUS(ret);
 	rep = (rep == 256 ? 1 : rep); 	//cat ndir ou pipe
 	rep = (rep == 512 ? 2 : rep);	//ls ndir || grep ||
 	rep = (rep == 8 ? 1 : rep);		//one of my bin fails

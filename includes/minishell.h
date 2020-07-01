@@ -63,5 +63,8 @@ int     	ft_exit(char **cmd, t_list *env);
 char 		*ft_replace_env(char *str, t_list *env);
 char		*ft_find_env(char *str, t_list *env);
 //ft_rdir
-char		*ft_rdirectory(char *str);
+char		*ft_rdirectory();
+char		*ft_parsestrdir(char *str);
+//ft_env
+char		*ft_strrep(char *str, char *to_rep, char *rep);
 #endif

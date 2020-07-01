@@ -12,19 +12,43 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_rdirectory(char *str)
+char	*ft_rdirectory()
 {
 	struct dirent	*var;
-	char			*tmp;
 	char			*array;
+	char			*tmp;
 	DIR				*dir;
 
 	dir = opendir(".");
+	array = NULL;
 	while ((var = readdir(dir)))
-	{
-		tmp = ft_strdup(var->d_name);
-		array = ft_strjoin(array, tmp);
-	}
+		if (var->d_name[0] != '.')
+		{
+			tmp = ft_strjoinf(array, var->d_name);
+			array = ft_strjoin(tmp, " ");
+			free(tmp);
+		}
 	closedir(dir);
-	return (tmp);
+	return (array);
+}
+
+size_t	ft_strlend(char **str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i] && str)
+		i++;
+	return (i);
+}
+
+char	*ft_parsestrdir(char *str)
+{
+	char	*tmp;
+	char	*dir;
+	
+	dir = ft_rdirectory();
+	tmp = ft_strrep(str, ft_strdup("*"), dir);
+	str = tmp;
+	return (str);
 }

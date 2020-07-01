@@ -26,7 +26,7 @@ SRCS		= ft_pipes.c\
 			  echo_cd_pwd.c \
 			  env_unset_export.c\
 			  ft_exit.c \
-			  ft_env.c \
+			  ft_replace.c \
 			  ft_redirg.c \
 			  main.c
 

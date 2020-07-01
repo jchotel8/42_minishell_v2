@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_replace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -65,7 +65,7 @@ char	*ft_strrep(char *str, char *to_rep, char *rep)
 	{      
 		new = ft_substr(str, 0, i);
 		new = ft_strjoinf(new, rep);
-		tmp = ft_substr(new, i + ft_strlen(to_rep), ft_strlen(str) - ft_strlen(to_rep));
+		tmp = ft_substr(str, i + ft_strlen(to_rep), ft_strlen(str) - i - ft_strlen(to_rep));
 		new = ft_strjoinf(new, tmp);
 		free(tmp);
 		free(str);
@@ -78,7 +78,7 @@ char	*ft_strrep(char *str, char *to_rep, char *rep)
 
 int		ft_isend(char c)
 {
-	return (ft_isspace(c) || !c || c == '"' || c == '\'' || c == '$');
+	return (ft_isspace(c) || !c || c == '"' || c == '\'' || c == '$' || c == '=');
 }
 
 char	*ft_find_toreplace(char *str)
@@ -98,6 +98,8 @@ char	*ft_find_toreplace(char *str)
 		{
 			while (!ft_isend(*(str + k)))
 				k++;
+			if (k == 1)
+				return (NULL);
 			return (ft_substr(str, 0, k));
 		}
 		prev = *str;

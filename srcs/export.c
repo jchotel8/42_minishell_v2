@@ -66,42 +66,48 @@ void	ft_export_print(t_list **env)
 	ft_lstclear(&cpy, *free);
 }
 
+int		handle_export(char *cmd, t_list **env)
+{
+	char *tmp;
+
+	if (check_export(cmd))
+	{
+		if (ft_strfind(cmd, '=') >= 0)
+		{
+			tmp = ft_substr(cmd, 0, ft_strfind(cmd, '=') + 1);
+			ft_lstremove_if(env, tmp, ft_strlcmp);
+			free(tmp);
+			tmp = ft_substr(cmd, 0, ft_strfind(cmd, '='));
+			ft_lstremove_if(env, tmp, ft_strlcmp);
+		}
+		if (ft_strfind(cmd, '=') >= 0 || !(tmp = ft_find_env(cmd, *env)))
+		{
+			cmd = ft_strtrim_quote(set_to_export(cmd));
+			ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd)));
+		}
+		free(tmp);
+	}
+	else
+	{
+		miniprinte("export: '%s': not a valid identifier\n", cmd);
+		return (8);
+	}
+	free(cmd);
+}
+
 int		ft_export(char **cmd, t_list **env)
 {
 	int		i;
 	char	c;
 	char	*tmp;
 	t_list	*cpy;
-	int		flag;
 
-	flag = 0;
 	i = 0;
 	if (cmd && cmd[i + 1])
 	{
 		while (cmd[++i])
-		{
-			if (check_export(cmd[i]))
-			{
-				if (ft_strfind(cmd[i], '=') >= 0)
-				{
-					tmp = ft_substr(cmd[i], 0, ft_strfind(cmd[i], '=') + 1);
-					ft_lstremove_if(env, tmp, ft_strlcmp);
-				}
-				else if ((tmp = ft_find_env(cmd[i], *env)))
-					flag = 1;
-				if (!flag)
-				{
-					cmd[i] = ft_strtrim_quote(set_to_export(cmd[i]));
-					ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd[i])));
-				}
-				free(tmp);
-			}
-			else
-			{
-				miniprinte("export: '%s': not a valid identifier\n", cmd[i++]);
+			if (handle_export(ft_strdup(cmd[i]), env) == 8)
 				return (8);
-			}
-		}
 	}
 	else
 		ft_export_print(env);

@@ -24,6 +24,7 @@ SRCS		= ft_pipes.c\
 			  ft_replace.c \
 			  ft_wildcard.c \
 			  ft_checkread.c \
+			  ft_reverse_quote.c \
 			  echo_cd_pwd.c \
 			  env_unset.c\
 			  bin_exec.c \

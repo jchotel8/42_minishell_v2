@@ -1,31 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_unset_export.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
+/*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-/*
-**	var="bonjour\toi" -> "bonjour\\toi";
-**	var="bonjour\\toi" -> "bonjour\\toi";
-**	var="bonjour\"toi" -> "bonjour\"toi";
-**	var="bonjour\'toi" -> "bonjour\\'toi";
-**	var="bonjour'toi" -> "bonjour'toi";
-**
-**	var=bonjour\toi -> "bonjourtoi";
-**	var=bonjour\\toi -> "bonjour\\toi";
-**	var=bonjour\"toi -> "bonjour\"toi";
-**	var=bonjour\'toi -> "bonjour'toi";
-**	var=bonjour\ toi -> "bonjour toi";
-**	var=bonjour"toi -> retour_ligne;
-**	
-**	var='bonjour\toi' -> "bonjour\\toi";
-**	var='bonjour\\toi' -> "bonjour\\\\toi";
-**	var='bonjour\"toi' -> "bonjour\\\"toi";
-**	var='bonjour"toi' -> "bonjour\"toi";
-**	var='bonjour\'toi' -> retour a la ligne;
-*/
-
 int		ft_env(char **cmd, t_list **env)
-{   //env /home : erreur 126 denied acces
+{
 	if (cmd && cmd[1])
 	{
-		miniprinte("env: \"%s\": Aucun fichier ou dossier de ce type\n", cmd[1]);
+		miniprinte("env: \"%s\": Aucun fichier ou
+		dossier de ce type\n", cmd[1]);
 		return (127);
 	}
 	ft_lstprint_if(*env, (void *)'=', ft_strchr);
@@ -63,7 +55,8 @@ char	*ft_reverse_quote(char *s)
 		}
 		else if (ft_isspecial(s[i]) && quote == '\'')
 		{
-			new[j++] = (!ft_isspecial(s[i + 1]) || (s[i + 1] != '\\' && ft_isspecial(s[i + 1])) ? '\\' : s[i++]);
+			new[j++] = (!ft_isspecial(s[i + 1]) ||
+			(s[i + 1] != '\\' && ft_isspecial(s[i + 1])) ? '\\' : s[i++]);
 			new[j++] = s[i++];
 		}
 		else if (s[i] == '\'' && quote == '\'')

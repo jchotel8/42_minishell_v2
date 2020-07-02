@@ -66,10 +66,8 @@ void	ft_export_print(t_list **env)
 	ft_lstclear(&cpy, *free);
 }
 
-int		handle_export(char *cmd, t_list **env)
+int		handle_export(char *cmd, t_list **env, char *tmp)
 {
-	char *tmp;
-
 	if (check_export(cmd))
 	{
 		if (ft_strfind(cmd, '=') >= 0)
@@ -99,12 +97,14 @@ int		handle_export(char *cmd, t_list **env)
 int		ft_export(char **cmd, t_list **env)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
 	if (cmd && cmd[i + 1])
 	{
 		while (cmd[++i])
-			if (handle_export(ft_strdup(cmd[i]), env) == 8)
+			if (handle_export(ft_strdup(cmd[i]), env, tmp) == 8)
 				return (8);
 	}
 	else

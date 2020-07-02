@@ -49,14 +49,28 @@ char	*set_to_export(char *str)
 	return (new);
 }
 
+void	ft_rexport(t_list *tmpc, t_list *cpy, t_list **env)
+{
+	cpy = ft_lstcpy(*env);
+	ft_lstsort(cpy, ft_strcmp);
+	tmpc = cpy;
+	while (tmpc)
+	{
+		tmpc->content = set_to_export(tmpc->content);
+		miniprintf("declare -x %s\n", tmpc->content);
+		tmpc = tmpc->next;
+	}
+	ft_lstclear(&cpy, *free);
+}
+
 int		ft_export(char **cmd, t_list **env)
 {
-	int	i;
+	int		i;
 	char	c;
 	char	*tmp;
 	t_list	*cpy;
 	t_list	*tmpc;
-	int	flag;
+	int		flag;
 
 	flag = 0;
 	i = 1;
@@ -89,17 +103,6 @@ int		ft_export(char **cmd, t_list **env)
 		}
 	}
 	else
-	{
-		cpy = ft_lstcpy(*env);
-		ft_lstsort(cpy, ft_strcmp);
-		tmpc = cpy;
-		while (tmpc)
-		{
-			tmpc->content = set_to_export(tmpc->content);
-			miniprintf("declare -x %s\n", tmpc->content);
-			tmpc = tmpc->next;
-		}
-		ft_lstclear(&cpy, *free);
-	}
+		ft_rexport(tmpc, cpy, env);
 	return (0);
 }

@@ -103,6 +103,8 @@ void			close_pipes(int nb_pipes, int *pipes);
 void			wait_pipes(int nb_cmd, pid_t *pid, int *ret, int *pipes);
 void			free_pipe(t_pipe *p);
 void			set_pipe(t_pipe *p);
+int				pipe_condi(int i, t_pipe *p, int nb_cmd);
+void			start_pipe(int *flag, int *j, int nb_cmd, int *pipes);
 /*
 ** utils_minishell
 */

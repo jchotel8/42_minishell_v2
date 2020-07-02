@@ -29,6 +29,7 @@ SRCS		= ft_pipes.c\
 			  env_unset_export.c\
 			  main.c \
 			  utils_pipes.c \
+			  utils_pipes2.c \
 			  utils_minishell.c \
 			  ft_list_split.c
 

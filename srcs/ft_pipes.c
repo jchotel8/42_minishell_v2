@@ -64,18 +64,6 @@ void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p)
 	close_pipes(nb_cmd * 2 - 2, pipes);
 }
 
-int		pipe_condition(int i, t_pipe *p, int nb_cmd)
-{
-	if (i == 0)
-		return (p->cmd && !ft_strcmp(p->cmd[0], "exit"));
-	else if (i == 2)
-		return (p->cmd && (nb_cmd > 1 || p->redird != NULL ||
-		p->redirg != NULL));
-	else
-		return (p->cmd && nb_cmd == 1 && p->redird == NULL &&
-		p->redirg == NULL);
-}
-
 void	do_pipe(t_list *line, int nb_cmd, t_list **env)
 {
 	pid_t	pid[nb_cmd];
@@ -84,24 +72,18 @@ void	do_pipe(t_list *line, int nb_cmd, t_list **env)
 	t_pipe	p;
 	int		flag;
 
-	flag = 0;
-	j = -1;
-	init_pipes(nb_cmd * 2 - 2, pipes);
+	start_pipe(&flag, &j, nb_cmd, pipes);
 	while (++j < nb_cmd)
 	{
 		if ((rep = parse_redir(line->content, &p, *env)) == 0)
 		{
-			if (pipe_condition(0, &p, nb_cmd))
-				flag = 1;
-			else if (pipe_condition(2, &p, nb_cmd) && !(pid[j] = fork()))
+			pipe_condi(0, &p, nb_cmd) ? flag = 1 : 0;
+			if (flag == 0 && pipe_condi(2, &p, nb_cmd) && !(pid[j] = fork()))
 			{
 				do_dup(j, nb_cmd, pipes, &p);
 				rep = ft_exec(p.cmd, env);
-				rep <= 0 ? exit(0) : 0;
-				rep == 8 ? exit(1) : 0;
-				rep == 127 ? exit(3) : 0;
 			}
-			else if (pipe_condition(1, &p, nb_cmd))
+			else if (pipe_condi(1, &p, nb_cmd))
 				(rep = ft_exec2(p.cmd, env)) == 127 ? exit(3) : 0;
 		}
 		free_pipe(&p);

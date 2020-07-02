@@ -49,6 +49,7 @@ char	*set_to_export(char *str)
 	return (new);
 }
 
+<<<<<<< HEAD
 void	ft_export_print(t_list **env)
 {
 	t_list	*cpy;
@@ -62,10 +63,23 @@ void	ft_export_print(t_list **env)
 		tmp->content = set_to_export(tmp->content);
 		miniprintf("declare -x %s\n", tmp->content);
 		tmp = tmp->next;
+=======
+void	ft_rexport(t_list *tmpc, t_list *cpy, t_list **env)
+{
+	cpy = ft_lstcpy(*env);
+	ft_lstsort(cpy, ft_strcmp);
+	tmpc = cpy;
+	while (tmpc)
+	{
+		tmpc->content = set_to_export(tmpc->content);
+		miniprintf("declare -x %s\n", tmpc->content);
+		tmpc = tmpc->next;
+>>>>>>> d11254e3121079b9c845c5a920cf0ca2e5c3637d
 	}
 	ft_lstclear(&cpy, *free);
 }
 
+<<<<<<< HEAD
 int		ft_export(char **cmd, t_list **env)
 {
 	int		i;
@@ -77,10 +91,45 @@ int		ft_export(char **cmd, t_list **env)
 	flag = 0;
 	i = 0;
 	if (cmd && cmd[i + 1])
+=======
+void	ft_cexport(t_list *tmpc, t_list **env, char **cmd, int *i)
+{
+	char	*tmp;
+	int		flag;
+
+	tmp = NULL;
+	flag = 0;
+	if (ft_strfind(cmd[*i], '=') >= 0)
+	{
+		tmp = ft_substr(cmd[*i], 0, ft_strfind(cmd[*i], '=') + 1);
+		ft_lstremove_if(env, tmp, ft_strlcmp);
+		free(tmp);
+	}
+	else if (ft_find_env(cmd[*i], *env))
+		flag = 1;
+	if (!flag)
+	{
+		cmd[*i] = ft_strtrim_quote(set_to_export(cmd[*i]));
+		ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd[*i])));
+	}
+	*i++;
+}
+
+int		ft_export(char **cmd, t_list **env)
+{
+	int		i;
+	char	*tmp;
+	t_list	*cpy;
+	t_list	*tmpc;
+
+	i = 1;
+	if (cmd && cmd[i])
+>>>>>>> d11254e3121079b9c845c5a920cf0ca2e5c3637d
 	{
 		while (cmd[++i])
 		{
 			if (check_export(cmd[i]))
+<<<<<<< HEAD
 			{
 				if (ft_strfind(cmd[i], '=') >= 0)
 				{
@@ -96,6 +145,9 @@ int		ft_export(char **cmd, t_list **env)
 				}
 				free(tmp);
 			}
+=======
+				ft_cexport(tmpc, env, cmd, &i);
+>>>>>>> d11254e3121079b9c845c5a920cf0ca2e5c3637d
 			else
 			{
 				miniprinte("export: '%s': not a valid identifier\n", cmd[i++]);
@@ -104,6 +156,10 @@ int		ft_export(char **cmd, t_list **env)
 		}
 	}
 	else
+<<<<<<< HEAD
 		ft_export_print(env);
+=======
+		ft_rexport(tmpc, cpy, env);
+>>>>>>> d11254e3121079b9c845c5a920cf0ca2e5c3637d
 	return (0);
 }

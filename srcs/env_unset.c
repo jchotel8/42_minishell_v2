@@ -16,8 +16,12 @@ int		ft_env(char **cmd, t_list **env)
 {
 	if (cmd && cmd[1])
 	{
+<<<<<<< HEAD:srcs/env_unset.c
 		miniprinte("env: \"%s\": ", cmd[1]);
 		miniprinte("Aucun fichier ou dossier de ce type\n");
+=======
+		miniprintf("env: \"%s\": Aucun fichier oudossier de ce type\n", cmd[1]);
+>>>>>>> d11254e3121079b9c845c5a920cf0ca2e5c3637d:srcs/env_unset_export.c
 		return (127);
 	}
 	ft_lstprint_if(*env, (void *)'=', ft_strchr);

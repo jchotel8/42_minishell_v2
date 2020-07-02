@@ -24,7 +24,7 @@ void	ft_putarray(char **array, char *text, int flag)
 		if (flag == 1)
 			miniprintf("%s [%d] %s.\n", text, i, array[i]);
 		else if (flag == 2)
-			miniprintf("\"%s\" "array[i]);
+			miniprintf("\"%s\" ", array[i]);
 		else
 			miniprintf("%s %s.\n", text, array[i]);
 		i++;

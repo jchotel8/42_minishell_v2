@@ -36,7 +36,6 @@ char	*ft_find_toreplace(char *str)
 {
 	char	quote;
 	char	prev;
-	char	*to_replace;
 	int		k;
 
 	quote = 0;

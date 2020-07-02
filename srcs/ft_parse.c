@@ -91,11 +91,8 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 
 int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 {
-	t_list *tmp;
-	t_list *prev;
 	t_list *lst_cmd;
 
-	prev = NULL;
 	lst_cmd = NULL;
 	sort_redir(str, pipe, &lst_cmd);
 	parse_env(&lst_cmd, env, 0);

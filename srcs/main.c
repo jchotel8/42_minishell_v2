@@ -79,12 +79,11 @@ int		main(int ac, char **av, char **env)
 {
 	t_list	*lst_env;
 	char	*read;
-	char	*tmp;
 
 	rep = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	if (ac > 0)
+	if (ac > 0 && av[0])
 	{
 		lst_env = ft_ato_lst(env);
 		ft_prompt();

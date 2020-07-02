@@ -61,7 +61,7 @@ int		ft_bin(char **cmd, t_list *env)
 int		ft_mybin(char **cmd, t_list **env)
 {
 	if (!ft_strcmp(cmd[0], "echo"))
-		return (ft_echo(cmd, *env));
+		return (ft_echo(cmd));
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		return (ft_pwd());
 	else if (!ft_strcmp(cmd[0], "env"))
@@ -71,9 +71,9 @@ int		ft_mybin(char **cmd, t_list **env)
 	else if (!ft_strcmp(cmd[0], "unset"))
 		return (ft_unset(cmd, env));
 	else if (!ft_strcmp(cmd[0], "cd"))
-		return (ft_cd(cmd, *env));
+		return (ft_cd(cmd));
 	else if (!ft_strcmp(cmd[0], "exit"))
-		return (ft_exit(cmd, *env));
+		exit(0);
 	else
 		return (-1);
 }
@@ -106,7 +106,6 @@ int		ft_exec2(char **cmd, t_list **env)
 {
 	pid_t	pid;
 	int		ret;
-	int		status;
 
 	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
 		return (ret);

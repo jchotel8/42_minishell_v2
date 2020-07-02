@@ -93,14 +93,12 @@ int		handle_export(char *cmd, t_list **env)
 		return (8);
 	}
 	free(cmd);
+	return (0);
 }
 
 int		ft_export(char **cmd, t_list **env)
 {
 	int		i;
-	char	c;
-	char	*tmp;
-	t_list	*cpy;
 
 	i = 0;
 	if (cmd && cmd[i + 1])

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int		ft_echo(char **cmd, t_list *env)
+int		ft_echo(char **cmd)
 {
 	size_t	i;
 	int		n_flag;
@@ -69,7 +69,7 @@ char	*get_wd(void)
 		return (ft_strdup("no WD"));
 }
 
-int		ft_cd(char **cmd, t_list *env)
+int		ft_cd(char **cmd)
 {
 	if (cmd[2])
 		miniprinte("cd: too many arguments\n");

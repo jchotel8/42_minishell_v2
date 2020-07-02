@@ -33,11 +33,11 @@ void	ft_simplequote(char *s, char *new, int *i, int *j)
 void	ft_noquote(char *s, char *new, int *i, int *j)
 {
 	if (!ft_isspecial(s[*i + 1]))
-		*i++;
+		(*i)++;
 	else
 	{
-		new[*j++] = s[*i++];
-		new[*j++] = s[*i++];
+		new[(*j)++] = s[(*i)++];
+		new[(*j)++] = s[(*i)++];
 	}
 }
 

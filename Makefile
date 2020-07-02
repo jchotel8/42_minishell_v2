@@ -20,9 +20,7 @@ SRCSDIR		= srcs
 SRCS		= ft_pipes.c\
 			  ft_quotes.c\
 			  ft_parse.c\
-			  ft_exit.c \
 			  ft_replace.c \
-			  ft_wildcard.c \
 			  ft_checkread.c \
 			  ft_reverse_quote.c \
 			  echo_cd_pwd.c \
@@ -36,6 +34,8 @@ SRCS		= ft_pipes.c\
 			  utils_minishell2.c \
 			  ft_list_split.c
 
+SRCB		= ft_wildcard.c
+
 GNLDIR 		= libs/gnl
 GNL 		= get_next_line.c \
 			  get_next_line_utils.c
@@ -47,7 +47,7 @@ OBJS2		= $(addprefix $(OBJSDIR)/, $(GNL:%.c=%.o))
 
 
 # COMMANDES ****************************************************************** #
-FLAGS		= -g -fsanitize=address
+FLAGS		= -g -fsanitize=address -Wall -Wextra -Werror
 CC			= gcc
 
 # COLORS ********************************************************************* #
@@ -88,7 +88,12 @@ $(NAME):	lib_make ${OBJS} ${OBJS2}
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"
 			@echo ${NAME}".a generated successfully." ${WHITE}
 
-bonus:		${NAME}
+bonus:		lib_make ${OBJS} ${OBJS2} ${OBJSB}
+			@${CC} -I ${INC} ${FLAGS} ${OBJS} ${OBJS2} ${OBJSB} ${LIBS} -o ${NAME}
+			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
+			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
+			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"
+			@echo ${NAME}".a generated successfully with bonus." ${WHITE}
 
 run:
 			@make

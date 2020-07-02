@@ -49,10 +49,6 @@ void	do_redir_out(t_pipe *p, int *pipes, int j)
 
 void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p)
 {
-	int		fd;
-	t_list	*tmp;
-	t_list	*tmpt;
-
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
 	do_redir_in(p);

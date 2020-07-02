@@ -73,7 +73,7 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 	{
 		str = ft_strdup(tmp->content);
 		tmp->content = ft_replace_env(tmp->content, env);
-		if ((ft_lstsize((in = ft_lst_split(tmp->content, " ", 1))) > 1) && flag)
+		if ((ft_lstsize((in = ft_lst_split(tmp->content, " ", 1))) != 1) && flag)
 		{
 			miniprintf("Minishell : %s : redirection ambigue\n", str);
 			free(str);

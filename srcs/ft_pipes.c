@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	do_redir_in(t_pipe *p)
+int		do_redir_in(t_pipe *p)
 {
 	int		fd;
 	t_list	*tmp;
@@ -21,10 +21,14 @@ void	do_redir_in(t_pipe *p)
 	while (tmp)
 	{
 		if ((fd = open(tmp->content, O_RDONLY)) < 0)
-			return ;
+		{
+			miniprinte(ERR_MSG_R, tmp->content);
+			return (1);
+		}
 		dup2(fd, 0);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 void	do_redir_out(t_pipe *p, int *pipes, int j)
@@ -47,17 +51,19 @@ void	do_redir_out(t_pipe *p, int *pipes, int j)
 	}
 }
 
-void	do_dup(int j, int nb_cmd, int *pipes, t_pipe *p)
+int		do_dup(int j, int nb_cmd, int *pipes, t_pipe *p)
 {
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	do_redir_in(p);
+	if (do_redir_in(p))
+		return (1);
 	if (j < nb_cmd - 1 || p->redird)
 	{
 		do_redir_out(p, pipes, j);
 		dup2(pipes[j * 2 + 1], 1);
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
+	return (0);
 }
 
 void	do_pipe(t_list *line, int nb_cmd, t_list **env)
@@ -76,7 +82,7 @@ void	do_pipe(t_list *line, int nb_cmd, t_list **env)
 			pipe_condi(0, &p, nb_cmd) ? flag = 1 : 0;
 			if (flag == 0 && pipe_condi(2, &p, nb_cmd) && !(pid[j] = fork()))
 			{
-				do_dup(j, nb_cmd, pipes, &p);
+				do_dup(j, nb_cmd, pipes, &p) ? exit(1) : 0;
 				rep = ft_exec(p.cmd, env);
 			}
 			else if (pipe_condi(1, &p, nb_cmd))

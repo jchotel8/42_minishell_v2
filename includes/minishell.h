@@ -40,6 +40,7 @@
 */
 # define ERR_MSG_C "erreur de syntaxe près du symbole inattendu « %c »\n"
 # define ERR_MSG_S "erreur de syntaxe près du symbole inattendu « %s »\n"
+# define ERR_MSG_R "minishell : %s : Aucun fichier ou dossier de ce type\n"
 
 typedef struct	s_pipe
 {

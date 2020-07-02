@@ -18,13 +18,19 @@ int		check_export(char *s)
 
 	flag = 0;
 	if (!(ft_isalpha(*s) || *s == '_'))
+	{
+		free(s);
 		return (0);
+	}
 	while (*s && !flag)
 	{
 		if (*s == '=')
 			flag = 1;
 		if (!flag && (!(ft_isalnum(*s) || *s == '_')))
+		{
+			free(s);
 			return (0);
+		}
 		s++;
 	}
 	return (1);

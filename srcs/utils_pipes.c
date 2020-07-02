@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_split.c                                    :+:      :+:    :+:   */
+/*   utils_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,31 +12,45 @@
 
 #include "../includes/minishell.h"
 
-t_list	*ft_lst_split(char *s, char *c, int i)
+void	init_pipes(int nb_pipes, int *pipes)
 {
-	t_list	*lst;
-	char	*ptr;
-	char	quote;
-	char	prev;
+	int i;
 
-	lst = NULL;
-	ptr = s;
-	quote = 0;
-	prev = 0;
-	if (!s)
-		return (NULL);
-	while (*s)
-	{
-		quote_inside(&quote, *s, prev);
-		if (!quote && ft_strrchr(c, *s))
-		{
-			if (ptr != s)
-				ft_lstadd_back(&lst, ft_lstnew(ft_substr(ptr, 0, s - ptr)));
-			ptr = (char *)s + i;
-		}
-		prev = *s;
-		s++;
-	}
-	ptr != s ? ft_lstadd_back(&lst, ft_lstnew(ft_substr(ptr, 0, s - ptr))) : 0;
-	return (lst);
+	i = 0;
+	while ((2 * i) < nb_pipes)
+		pipe(pipes + (2 * i++));
+}
+
+void	close_pipes(int nb_pipes, int *pipes)
+{
+	while (nb_pipes--)
+		close(pipes[nb_pipes]);
+}
+
+void	wait_pipes(int nb_cmd, pid_t *pid, int *ret, int *pipes)
+{
+	int i;
+
+	i = 0;
+	close_pipes(nb_cmd * 2 - 2, pipes);
+	while (i < nb_cmd)
+		waitpid(pid[i++], ret, 0);
+}
+
+void	free_pipe(t_pipe *p)
+{
+	ft_freearray(p->cmd);
+	ft_lstclear(&p->redirg, *free);
+	ft_lstclear(&p->redird, *free);
+	ft_lstclear(&p->typeg, *free);
+	ft_lstclear(&p->typed, *free);
+}
+
+void	set_pipe(t_pipe *p)
+{
+	p->cmd = NULL;
+	p->redird = NULL;
+	p->redirg = NULL;
+	p->typed = NULL;
+	p->typeg = NULL;
 }

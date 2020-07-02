@@ -46,7 +46,7 @@ int		ft_bin(char **cmd, t_list *env)
 		if (!ft_strlcmp("PATH=", env_->content))
 		{
 			paths = ft_lst_split(env_->content + 5, ":", 1);
-			if ((ret = ft_find_bin(cmd, env, paths))) 
+			if ((ret = ft_find_bin(cmd, env, paths)))
 			{
 				ft_lstclear(&paths, *free);
 				return (ret);
@@ -78,20 +78,30 @@ int		ft_mybin(char **cmd, t_list **env)
 		return (-1);
 }
 
+/*
+** ft_exec and ft_exec2 returns :
+** - 0 if mybin succeed
+** - 8 if mybin fails
+** - else ft_mybin returns -1
+** - NA if execve succeed
+** - -1 if fail
+** - 127 if not found
+*/
+
 int		ft_exec(char **cmd, t_list **env)
 {
 	int ret;
 
 	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
-		return (ret); //renvoi 0 ou 8 si un des bins (S/F) sinon -1
-	return (ft_bin(cmd, *env));// NA if success, -1 if fail, 127 if not found, 1 if ?
+		return (ret);
+	return (ft_bin(cmd, *env));
 }
 
 int		ft_exec2(char **cmd, t_list **env)
-{//chaque fonction return 0, sauf dans le cas du ft_bin-> -1 si echec
+{
 	pid_t	pid;
 	int		ret;
-	int status;
+	int		status;
 
 	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
 		return (ret);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_quotes.c                                        :+:      :+:    :+:   */
+/*   ft_checkread.c	                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,54 +12,59 @@
 
 #include "../includes/minishell.h"
 
-char	quote_inside(char *quote, char new, char prev)
+int		count_signs(char quote, char *read, int *i, int *s)
 {
-	if (!*quote && prev != '\\' && (new == '\'' || new == '"'))
+	while (!quote && (read[*i] == '<' || read[*i] == '>'))
 	{
-		*quote = new;
-		return (1);
+		(*s)++;
+		(*i)++;
 	}
-	else if ((new == '\'' || (new == '"' && prev != '\\')) && *quote == new)
+	if (*s > 2)
 	{
-		*quote = 0;
+		miniprintf(ERR_MSG_C, read[*i - 1]);
+		free(read);
 		return (1);
 	}
 	return (0);
 }
 
-int		trim_condition(char quote, char *s, int i, char prev)
+int		ft_checkredir(char *read, int *i, int *s)
 {
-	return ((!quote && s[i] == '\\' && prev != '\\') ||
-		(quote == '"' && s[i] == '\\' &&
-		((s[i + 1] == '\\' && prev != '\\') || s[i + 1] == '"')) ||
-		(prev == '"' && s[i] == '"'));
+	while (ft_isspace(read[*i]))
+		(*i)++;
+	if (ft_isulsign(read[*i]) || read[*i] == 0)
+	{
+		if (read[*i] != 0)
+			miniprintf(ERR_MSG_C, read[*i]);
+		else
+			miniprintf(ERR_MSG_S, "newline");
+		free(read);
+		return (1);
+	}
+	else
+		*s = 0;
+	return (0);
 }
 
-char	*ft_strtrim_quote(char *s)
+int		ft_checkread(char *read)
 {
 	int		i;
-	int		j;
-	char	quote;
+	int		s;
 	char	prev;
-	char	*new;
+	char	quote;
 
+	s = 0;
 	i = 0;
-	j = 0;
-	prev = 0;
 	quote = 0;
-	if (!(new = ft_calloc(ft_strlen(s), sizeof(char))))
-		return (NULL);
-	while (s[i])
+	while (read[i])
 	{
-		if (quote_inside(&quote, s[i], prev) ||
-		trim_condition(quote, s, i, prev))
-			prev = s[i++];
-		else
-		{
-			prev = 0;
-			new[j++] = s[i++];
-		}
+		quote_inside(&quote, read[i], prev);
+		if (count_signs(quote, read, &i, &s))
+			return (0);
+		else if (s > 0 && ft_checkredir(read, &i, &s))
+			return (0);
+		prev = read[i];
+		i++;
 	}
-	free(s);
-	return (new);
+	return (1);
 }

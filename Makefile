@@ -20,15 +20,18 @@ INC			= includes/
 SRCSDIR		= srcs
 SRCS		= ft_pipes.c\
 			  ft_quotes.c\
-			  ft_list_split.c\
 			  ft_parse.c\
+			  ft_exit.c \
+			  ft_replace.c \
+			  ft_wildcard.c \
+			  ft_checkread.c \
 			  bin_exec.c \
 			  echo_cd_pwd.c \
 			  env_unset_export.c\
-			  ft_exit.c \
-			  ft_replace.c \
-			  ft_redirg.c \
-			  main.c
+			  main.c \
+			  utils_pipes.c \
+			  utils_minishell.c \
+			  ft_list_split.c
 
 GNLDIR 		= libs/gnl
 GNL 		= get_next_line.c \

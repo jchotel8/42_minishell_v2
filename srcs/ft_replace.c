@@ -21,7 +21,8 @@ char	*ft_find_env(char *str, t_list *env)
 	{
 		if (!ft_strlcmp(str, env->content))
 		{
-			tmp = ft_substr(env->content, ft_strlen(str), ft_strlen(env->content));
+			tmp = ft_substr(env->content, ft_strlen(str),
+			ft_strlen(env->content));
 			free(str);
 			return (tmp);
 		}
@@ -29,56 +30,6 @@ char	*ft_find_env(char *str, t_list *env)
 	}
 	free(str);
 	return (0);
-}
-
-int		ft_strstri(const char *s1, const char *s2)
-{
-	size_t	size;
-	size_t	len;
-	char	*hay;
-	char	*needle;
-	int		i;
-
-	hay = (char *)s1;
-	needle = (char *)s2;
-	i = 0;
-	len = ft_strlen(hay);
-	size = ft_strlen(needle);
-	while (*hay && len >= size)
-	{
-		if (ft_strncmp(hay, needle, size) == 0)
-			return (i);
-		hay++;
-		len--;
-		i++;
-	}
-	return (-1);
-}
-
-char	*ft_strrep(char *str, char *to_rep, char *rep)
-{
-	char *new;
-	char *tmp;
-	int		i;
-
-	while((i = ft_strstri(str, to_rep)) >= 0)
-	{      
-		new = ft_substr(str, 0, i);
-		new = ft_strjoinf(new, rep);
-		tmp = ft_substr(str, i + ft_strlen(to_rep), ft_strlen(str) - i - ft_strlen(to_rep));
-		new = ft_strjoinf(new, tmp);
-		free(tmp);
-		free(str);
-		str = new;
-	}
-	free(to_rep);
-	free(rep);
-	return (str);
-}
-
-int		ft_isend(char c)
-{
-	return (ft_isspace(c) || !c || c == '"' || c == '\'' || c == '$' || c == '=');
 }
 
 char	*ft_find_toreplace(char *str)
@@ -108,15 +59,23 @@ char	*ft_find_toreplace(char *str)
 	return (NULL);
 }
 
+/*
+** WEXITSTATUS(ret) ?
+** cmd not found
+** cat ndir || pipe
+** ls ndir || grep
+** one of my bin failed
+** ^C 130
+*/
+
 char	*ft_replace_env(char *str, t_list *env)
 {
 	char *to_rep;
 
-	rep = (rep == 768 ? 127 : rep);	//cmd not found in pipe  //WEXITSTATUS(ret);
-	rep = (rep == 256 ? 1 : rep); 	//cat ndir ou pipe
-	rep = (rep == 512 ? 2 : rep);	//ls ndir || grep ||
-	rep = (rep == 8 ? 1 : rep);		//one of my bin fails
-	//^C 130
+	rep = (rep == 768 ? 127 : rep);
+	rep = (rep == 256 ? 1 : rep);
+	rep = (rep == 512 ? 2 : rep);
+	rep = (rep == 8 ? 1 : rep);
 	while ((to_rep = ft_find_toreplace(str)))
 	{
 		if (!ft_strcmp(to_rep, "$?"))

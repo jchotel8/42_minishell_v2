@@ -25,6 +25,9 @@
 
 # define PROMPT  YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI
 # define PROMPT_ RED "✦ "YEL "%s "RED"(%s) ➜ "WHI
+# define ERR_MSG_C "minishell: erreur de syntaxe près du symbole inattendu « %c »\n"
+# define ERR_MSG_S "minishell: erreur de syntaxe près du symbole inattendu « %s »\n"
+
 
 typedef struct	s_pipe
 {
@@ -38,8 +41,8 @@ typedef struct	s_pipe
 int 			rep;
 
 
-//FT_PIPE
-void  		do_pipe(t_list *line, int nb_cmd, int *ret, t_list **env);
+//FT_PIPES
+void  		do_pipe(t_list *line, int nb_cmd, t_list **env);
 //FT_QUOTES
 char        quote_inside(char *quote, char new, char prev);
 char        *ft_strtrim_quote(char *s);
@@ -50,7 +53,7 @@ char 		*get_wd();
 int 		ft_env(char **cmd, t_list **env);
 int 		ft_export(char **cmd, t_list **env);
 int     	ft_unset(char **cmd, t_list **env);
-int     	ft_exec(char **cmd, t_list **env);
+int			ft_exec(char **cmd, t_list **env);
 int     	ft_exec2(char **cmd, t_list **env);
 int			ft_cd(char **cmd, t_list *env);
 //FT_PARSE
@@ -59,12 +62,29 @@ int        	parse_redir(char *str, t_pipe *pipe, t_list *env);
 t_list      *ft_lst_split(char *s, char *c, int i);
 //EXIT
 int     	ft_exit(char **cmd, t_list *env);
-//FT_CORRECT
+//FT_REPLACE
 char 		*ft_replace_env(char *str, t_list *env);
 char		*ft_find_env(char *str, t_list *env);
-//ft_rdir
+//FT_CHECKREAD
+int			ft_checkread(char *read);
+
+
+//utils_pipes
+void		init_pipes(int nb_pipes, int *pipes);
+void		close_pipes(int nb_pipes, int *pipes);
+void		wait_pipes(int nb_cmd, pid_t *pid, int *ret, int *pipes);
+void		free_pipe(t_pipe *p);
+void		set_pipe(t_pipe *p);
+//utils_minishell
+int			ft_strstri(const char *s1, const char *s2);
+char		*ft_strrep(char *str, char *to_rep, char *rep);
+int			ft_isend(char c);
+int			ft_isulsign(char c);
+t_list		*ft_lstrep(t_list *prev, t_list *add, t_list *rep)
+
+//***********BONUS*******************
+//FT_WILDCARD
 char		*ft_rdirectory();
 char		*ft_parsestrdir(char *str);
-//ft_env
-char		*ft_strrep(char *str, char *to_rep, char *rep);
+
 #endif

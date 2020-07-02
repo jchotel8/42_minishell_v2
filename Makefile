@@ -24,14 +24,15 @@ SRCS		= ft_pipes.c\
 			  ft_replace.c \
 			  ft_wildcard.c \
 			  ft_checkread.c \
-			  bin_exec.c \
 			  echo_cd_pwd.c \
-			  env_unset_export.c\
+			  env_unset.c\
+			  bin_exec.c \
+			  export.c \
 			  main.c \
 			  utils_pipes.c \
 			  utils_pipes2.c \
 			  utils_minishell.c \
-			  export.c \
+			  utils_minishell2.c \
 			  ft_list_split.c
 
 GNLDIR 		= libs/gnl

@@ -61,6 +61,7 @@ void			do_pipe(t_list *line, int nb_cmd, t_list **env);
 */
 char			quote_inside(char *quote, char new, char prev);
 char			*ft_strtrim_quote(char *s);
+char			*ft_reverse_quote(char *s);
 /*
 ** COMMANDES
 */
@@ -73,6 +74,8 @@ int				ft_unset(char **cmd, t_list **env);
 int				ft_exec(char **cmd, t_list **env);
 int				ft_exec2(char **cmd, t_list **env);
 int				ft_cd(char **cmd, t_list *env);
+int				check_export(char *s);
+int				ft_export(char **cmd, t_list **env);
 /*
 ** FT_PARSE
 */
@@ -113,6 +116,7 @@ char			*ft_strrep(char *str, char *to_rep, char *rep);
 int				ft_isend(char c);
 int				ft_isulsign(char c);
 t_list			*ft_lstrep(t_list *prev, t_list *add, t_list *rep);
+int				ft_strfind(char *str, char c);
 
 /*
 ** ***********BONUS*******************
@@ -120,12 +124,5 @@ t_list			*ft_lstrep(t_list *prev, t_list *add, t_list *rep);
 */
 char			*ft_rdirectory();
 char			*ft_parsestrdir(char *str);
-// EXPORT
-int				check_export(char *s);
-char			*set_to_export(char *str);
-int				ft_export(char **cmd, t_list **env);
-// UNSET_ENV_EXPORT
-char			*ft_reverse_quote(char *s);
-int				ft_strfind(char *str, char c);
 
 #endif

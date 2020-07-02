@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wildcard.c                                      :+:      :+:    :+:   */
+/*   utils_minishell2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,31 +12,16 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_getdir(void)
+int		ft_strfind(char *str, char c)
 {
-	struct dirent	*var;
-	char			*tmp;
-	DIR				*dir;
+	int i;
 
-	dir = opendir(".");
-	tmp = NULL;
-	while ((var = readdir(dir)))
-		if (var->d_name[0] != '.')
-		{
-			tmp = ft_strjoinf(tmp, var->d_name);
-			tmp = ft_strjoinf(tmp, " ");
-		}
-	closedir(dir);
-	return (tmp);
-}
-
-char	*ft_wildcard(char *str)
-{
-	char	*tmp;
-	char	*dir;
-
-	dir = ft_getdir();
-	tmp = ft_strrep(str, ft_strdup("*"), dir);
-	str = tmp;
-	return (str);
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

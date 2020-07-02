@@ -63,3 +63,57 @@ char	*ft_strtrim_quote(char *s)
 	free(s);
 	return (new);
 }
+
+int		ft_isspecial(char c)
+{
+	return (c == '\\' || c == '\"');
+}
+
+char	*ft_reverse_quote(char *s)
+{
+	int		i;
+	int		j;
+	char	quote;
+	char	*new;
+
+	i = 0;
+	j = 0;
+	quote = 0;
+	new = ft_calloc(ft_strlen(s) * 2 + 2, sizeof(char));
+	if (s[0] != '\"')
+		new[j++] = '\"';
+	if (s[0] == '\'')
+		i++;
+	if (s[0] == '\"' || s[0] == '\'')
+		quote = s[0];
+	while (s[i])
+	{
+		if (s[i] == '\\' && quote == '\"')
+		{
+			new[j++] = s[i++];
+			new[j++] = (!ft_isspecial(s[i]) ? '\\' : s[i++]);
+		}
+		else if (ft_isspecial(s[i]) && quote == '\'')
+		{
+			new[j++] = (!ft_isspecial(s[i + 1]) ||
+			(s[i + 1] != '\\' && ft_isspecial(s[i + 1])) ? '\\' : s[i++]);
+			new[j++] = s[i++];
+		}
+		else if (s[i] == '\'' && quote == '\'')
+			i++;
+		else if (s[i] == '\\')
+		{
+			if (!ft_isspecial(s[i + 1]))
+				i++;
+			else
+			{
+				new[j++] = s[i++];
+				new[j++] = s[i++];
+			}
+		}
+		else
+			new[j++] = s[i++];
+	}
+	quote != '\"' ? new[j] = '\"' : 0;
+	return (new);
+}

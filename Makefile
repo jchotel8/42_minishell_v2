@@ -17,6 +17,7 @@ LIBS 		= ./libs/libft/libft.a
 # SOURCE ********************************************************************* #			  
 INC			= includes/
 SRCSDIR		= srcs
+SRCSDIRB	= srcs/bonus
 SRCS		= ft_pipes.c\
 			  ft_quotes.c\
 			  ft_parse.c\
@@ -34,14 +35,32 @@ SRCS		= ft_pipes.c\
 			  utils_minishell2.c \
 			  ft_list_split.c
 
-SRCB		= ft_wildcard.c
+SRCB		= ft_pipes.c\
+			  ft_parse.c\
+			  ft_replace.c \
+			  ft_reverse_quote.c \
+			  echo_cd_pwd.c \
+			  env_unset.c\
+			  bin_exec.c \
+			  export.c \
+			  utils_pipes.c \
+			  utils_pipes2.c \
+			  utils_minishell.c \
+			  utils_minishell2.c \
+			  ft_list_split.c \
+			  bonus/main_bonus.c \
+			  bonus/ft_quotes_bonus.c\
+			  bonus/ft_wildcard_bonus.c \
+			  bonus/ft_checkread_bonus.c
 
 GNLDIR 		= libs/gnl
 GNL 		= get_next_line.c \
 			  get_next_line_utils.c
 
 OBJSDIR		= objs
+OBJSDIRB	= objs/bonus
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:%.c=%.o))
+OBJSB		= $(addprefix $(OBJSDIR)/, $(SRCB:%.c=%.o))
 OBJS2		= $(addprefix $(OBJSDIR)/, $(GNL:%.c=%.o))
 
 
@@ -80,6 +99,7 @@ $(OBJSDIR)/%.o : $(GNLDIR)/%.c | $(OBJSDIR)
 
 $(OBJSDIR):
 			mkdir -p ${OBJSDIR}
+			mkdir -p ${OBJSDIRB}
 
 $(NAME):	lib_make ${OBJS} ${OBJS2}
 			@${CC} -I ${INC} ${FLAGS} ${OBJS} ${OBJS2} ${LIBS} -o ${NAME}
@@ -88,8 +108,8 @@ $(NAME):	lib_make ${OBJS} ${OBJS2}
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"
 			@echo ${NAME}".a generated successfully." ${WHITE}
 
-bonus:		lib_make ${OBJS} ${OBJS2} ${OBJSB}
-			@${CC} -I ${INC} ${FLAGS} ${OBJS} ${OBJS2} ${OBJSB} ${LIBS} -o ${NAME}
+bonus:		lib_make ${OBJS2} ${OBJSB}
+			@${CC} -I ${INC} ${FLAGS} ${OBJS2} ${OBJSB} ${LIBS} -o ${NAME}
 			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
 			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"

@@ -49,7 +49,6 @@ int		ft_checkredir(char *read, int *i, int *s)
 char	*ft_checkquotes(char *read)
 {
 	char	*next;
-	char	*tmp;
 
 	while (ft_countquote(read) % 2)
 	{

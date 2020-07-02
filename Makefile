@@ -47,7 +47,7 @@ OBJS2		= $(addprefix $(OBJSDIR)/, $(GNL:%.c=%.o))
 
 
 # COMMANDES ****************************************************************** #
-FLAGS		= -g -fsanitize=address -Wall -Wextra -Werror
+FLAGS		= -Iincludes/ -g -fsanitize=address -Wall -Wextra -Werror
 CC			= gcc
 
 # COLORS ********************************************************************* #

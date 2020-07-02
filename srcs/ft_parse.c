@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int		is_redir_in(char *mot, t_list **t, t_list *p1, t_list *p2)
 {

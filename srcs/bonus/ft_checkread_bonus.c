@@ -71,7 +71,6 @@ int		ft_checkread(char *read)
 	s = 0;
 	i = 0;
 	quote = 0;
-	read = ft_checkquotes(read);
 	while (read[i])
 	{
 		quote_inside(&quote, read[i], prev);

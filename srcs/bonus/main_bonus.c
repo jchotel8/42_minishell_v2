@@ -89,7 +89,8 @@ int		main(int ac, char **av, char **env)
 		ft_prompt();
 		while (get_next_line(0, &read))
 		{
-			if (ft_checkread(read))
+			read = ft_checkquotes(read);
+			if (ft_checkread(&read))
 				parse_read(read, &lst_env);
 			ft_prompt();
 		}

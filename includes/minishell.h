@@ -125,10 +125,13 @@ int				ft_strfind(char *str, char c);
 */
 char			*ft_rdirectory();
 char			*ft_parsestrdir(char *str);
-
 /*
 ** FT_QUOTES
 */
 int				ft_countquote(char *s);
+/*
+** FT_CHECKREAD
+*/
+char			*ft_checkquotes(char *read);
 
 #endif

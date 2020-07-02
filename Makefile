@@ -119,6 +119,10 @@ run:
 			@make
 			@./${NAME}
 
+runb:
+			@make bonus
+			@./${NAME}
+
 lib_make:	${SRCSH}
 			@printf $(CR)
 			@make bonus -C libs/libft

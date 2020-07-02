@@ -120,5 +120,12 @@ t_list			*ft_lstrep(t_list *prev, t_list *add, t_list *rep);
 */
 char			*ft_rdirectory();
 char			*ft_parsestrdir(char *str);
+// EXPORT
+int				check_export(char *s);
+char			*set_to_export(char *str);
+int				ft_export(char **cmd, t_list **env);
+// UNSET_ENV_EXPORT
+char			*ft_reverse_quote(char *s);
+int				ft_strfind(char *str, char c);
 
 #endif

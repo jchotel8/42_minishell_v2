@@ -52,7 +52,7 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	return (new);
 }
 
-char	*ft_strjoinf(char *s1, char *s2)
+char		*ft_strjoinf(char *s1, char *s2)
 {
 	char *tmp;
 

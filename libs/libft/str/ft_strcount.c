@@ -15,7 +15,7 @@
 int	ft_strcount(const char *s, int c)
 {
 	size_t	i;
-	int			count;
+	int		count;
 
 	i = 0;
 	count = 0;

@@ -22,26 +22,11 @@ void	ft_putarray(char **array, char *text, int flag)
 	while (array && array[i])
 	{
 		if (flag == 1)
-		{
-			ft_putstr(text);
-			ft_putstr("[");
-			ft_putnbr(i);
-			ft_putstr("] ");
-			ft_putstr(array[i]);
-			ft_putstr(".\n");
-		}
-		else if(flag == 2)
-		{
-			ft_putstr("\"");
-			ft_putstr(array[i]);
-			ft_putstr("\" ");
-		}
+			miniprintf("%s [%d] %s.\n", text, i, array[i]);
+		else if (flag == 2)
+			miniprintf("\"%s\" "array[i]);
 		else
-		{
-			ft_putstr(text);
-			ft_putstr(array[i]);
-			ft_putstr(".\n");
-		}
+			miniprintf("%s %s.\n", text, array[i]);
 		i++;
 	}
 	if (flag == 2)

@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 09:31:43 by jchotel           #+#    #+#             */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
 /*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void    ft_freearray(char **arr)
+void	ft_freearray(char **arr)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (arr && arr[i])
-		free(arr[i++]);
-	free(arr);
+	i = 0;
+	while (arr[i])
+		free(arr[i]);
+	free(arr[i]);
 }

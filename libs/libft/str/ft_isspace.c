@@ -12,8 +12,8 @@
 
 #include "../libft.h"
 
-int        ft_isspace(char c)  //a ajouter dans la libft
+int	ft_isspace(char c)
 {
-    return (c == ' ' || c == '\t' || c == '\v' || c == '\n' || c == '\f'
-            || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\v' || c == '\n' || c == '\f'
+		|| c == '\r');
 }

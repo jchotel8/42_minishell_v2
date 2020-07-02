@@ -20,8 +20,7 @@ char	**ft_lst_toa(t_list *lst)
 	if (!lst)
 		return (NULL);
 	if (!(new = ft_calloc(ft_lstsize(lst) + 2, sizeof(char *))))
-		return(NULL);
-
+		return (NULL);
 	i = 0;
 	while (lst)
 	{

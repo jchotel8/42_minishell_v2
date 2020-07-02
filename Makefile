@@ -12,8 +12,7 @@
 
 # GENERAL ******************************************************************** #
 NAME		= minishell
-LIBS 		= ./libs/ft_printf/printf.a\
-			  ./libs/libft/libft.a
+LIBS 		= ./libs/libft/libft.a
 
 # SOURCE ********************************************************************* #			  
 INC			= includes/
@@ -94,17 +93,14 @@ run:
 lib_make:	${SRCSH}
 			@printf $(CR)
 			@make bonus -C libs/libft
-			@make -C libs/ft_printf
 
 clean:
 			@make clean -C libs/libft
-			@make clean -C libs/ft_printf
 			@rm -rf ${OBJS} ${OBJSDIR}
 			@echo ${RED}${NAME}" : Removing .o files" ${WHITE}
 
 fclean:		clean
 			@make bclean -C libs/libft
-			@make bclean -C libs/ft_printf
 			@rm -f ${NAME}
 			@echo ${RED}${NAME}" : Removing binary file" ${WHITE}
 

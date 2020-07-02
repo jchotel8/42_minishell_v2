@@ -21,7 +21,7 @@ int		count_signs(char quote, char *read, int *i, int *s)
 	}
 	if (*s > 2)
 	{
-		miniprintf(ERR_MSG_C, read[*i - 1]);
+		miniprintf("minishell : "ERR_MSG_C, read[*i - 1]);
 		free(read);
 		return (1);
 	}
@@ -35,9 +35,9 @@ int		ft_checkredir(char *read, int *i, int *s)
 	if (ft_isulsign(read[*i]) || read[*i] == 0)
 	{
 		if (read[*i] != 0)
-			miniprintf(ERR_MSG_C, read[*i]);
+			miniprintf("minishell : "ERR_MSG_C, read[*i]);
 		else
-			miniprintf(ERR_MSG_S, "newline");
+			miniprintf("minishell : "ERR_MSG_S, "newline");
 		free(read);
 		return (1);
 	}

@@ -1,8 +1,19 @@
-# include "./libft.h"
-# include <stdarg.h>
-# include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniprintf.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/06 10:11:09 by jchotel           #+#    #+#             */
+/*   Updated: 2020/03/03 12:27:12 by jchotel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int miniprintf(char *str, ...)
+#include "./libft.h"
+#include <stdarg.h>
+
+int	miniprintf(char *str, ...)
 {
 	va_list va;
 	char	c;
@@ -30,7 +41,7 @@ int miniprintf(char *str, ...)
 	return (0);
 }
 
-int miniprinte(char *str, ...)
+int	miniprinte(char *str, ...)
 {
 	va_list va;
 	char	c;

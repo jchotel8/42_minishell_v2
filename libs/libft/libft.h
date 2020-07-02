@@ -20,12 +20,14 @@ typedef struct		s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-
-//---------MINIPRINTF-------------------
-int 				miniprintf(char *str, ...);
-int 				miniprinte(char *str, ...);
-
-//-----------MEM------------------------
+/*
+**---------MINIPRINTF-------------------
+*/
+int					miniprintf(char *str, ...);
+int					miniprinte(char *str, ...);
+/*
+**-----------MEM------------------------
+*/
 void				*ft_memset (void *s, int c, size_t n);
 void				ft_bzero (void *b, size_t len);
 void				*ft_memcpy (void *dest, const void *src, size_t n);
@@ -33,8 +35,9 @@ void				*ft_memccpy (void *dest, const void *src, int c, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
-
-//-------------STRING-------------------
+/*
+**-------------STRING-------------------
+*/
 size_t				ft_strlen(char *str);
 void				ft_putchar(char c);
 void				ft_putstr(char *str);
@@ -47,7 +50,7 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
-int        			ft_isspace(char c);
+int					ft_isspace(char c);
 int					ft_strcount(const char *s, int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
@@ -73,13 +76,15 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putarray(char **array, char *text, int flag);
-void    			ft_freearray(char **arr);
-
-//------------INT----------------
+void				ft_freearray(char **arr);
+/*
+**------------INT----------------
+*/
 int					ft_max(int a, int b);
-int 				ft_min(int a, int b);
-
-//------------LISTE-------------- 
+int					ft_min(int a, int b);
+/*
+**------------LISTE--------------
+*/
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **alst, t_list *new);
 int					ft_lstsize(t_list *lst);
@@ -90,14 +95,15 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstfree(t_list **lst);
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-		void (*del)(void *));
+						void (*del)(void *));
 void				ft_lst_print(t_list *ptr, int flag);
 t_list				*ft_lstcrea(int i, ...);
 t_list				*ft_array_to_lst(char **array);
 t_list				*ft_add_array_to_list(t_list *first, char **array);
 char				**ft_lst_toa(t_list *lst);
 t_list				*ft_ato_lst(char **array);
-void				ft_lstremove_if(t_list **begin_list, void *data_ref, int (*cmp)());
+void				ft_lstremove_if(t_list **begin_list, void *data_ref,
+						int (*cmp)());
 t_list				*ft_lstsort(t_list *lst, int (*cmp)());
 void				ft_lstprint_if(t_list *ptr, void *c, char *(*cmp)());
 t_list				*ft_lstcpy(t_list *lst);

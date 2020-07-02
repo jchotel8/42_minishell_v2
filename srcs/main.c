@@ -24,7 +24,8 @@ void	ft_prompt(void)
 	char *dir;
 
 	dir = get_wd();
-	miniprintf((rep == 0 ? PROMPT : PROMPT_), "MINISHELL", dir);
+	miniprintf((rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
+	RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
 	if (dir != NULL)
 		free(dir);
 }

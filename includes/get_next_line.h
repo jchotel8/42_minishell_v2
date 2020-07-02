@@ -21,10 +21,10 @@
 #  define FD_MAX 1024
 # endif
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdlib.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdlib.h>
 # include "../libs/libft/libft.h"
 
 int		get_next_char(char *str, char c);

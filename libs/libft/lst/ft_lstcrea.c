@@ -16,8 +16,9 @@
 t_list	*ft_lstcrea(int i, ...)
 {
 	va_list		va;
-	t_list 		*first = NULL;
+	t_list		*first;
 
+	first = NULL;
 	va_start(va, i);
 	while (i-- > 0)
 	{

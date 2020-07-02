@@ -14,9 +14,10 @@
 
 t_list	*ft_ato_lst(char **array)
 {
-	t_list	*first = NULL;
+	t_list	*first;
 	int		i;
 
+	first = NULL;
 	i = 0;
 	while (array && array[i])
 	{

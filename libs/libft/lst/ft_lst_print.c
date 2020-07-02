@@ -14,20 +14,19 @@
 
 void	ft_lst_print(t_list *ptr, int flag)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (ptr)
 	{
-		while(ptr)
+		while (ptr)
 		{
 			if (flag == 1)
 				miniprintf("[%d] : %s\n", i, (char *)ptr->content);
 			else if (flag == 2)
 				miniprintf("\"%s\" ", (char *)ptr->content);
-			else if (flag == 3)
-				miniprintf("%s %s\n", "declare -x ", (char *)ptr->content);
 			else
-				miniprintf("%s\n",(char *) ptr->content);
+				miniprintf("%s\n", (char *)ptr->content);
 			ptr = ptr->next;
 			i++;
 		}

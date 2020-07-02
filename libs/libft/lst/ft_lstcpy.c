@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstcpy.c                                       :+:      :+:    :+:   */
+/*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,12 +14,13 @@
 
 t_list	*ft_lstcpy(t_list *lst)
 {
-	t_list 		*cpy = NULL;
+	t_list	*cpy;
 
+	cpy = NULL;
 	while (lst)
 	{
 		ft_lstadd_back(&cpy, ft_lstnew(ft_strdup(lst->content)));
-        lst = lst->next;
+		lst = lst->next;
 	}
 	return (cpy);
 }

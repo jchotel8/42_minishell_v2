@@ -61,7 +61,10 @@ char	*get_wd(void)
 		files = ft_split(cwd, '/');
 		while (files && files[i])
 			i++;
-		ret = ft_strdup(files[i - 1]);
+		if (i == 0)
+			ret = ft_strdup("\\");
+		else
+			ret = ft_strdup(files[i - 1]);
 		ft_freearray(files);
 		return (ret);
 	}
@@ -73,7 +76,17 @@ int		ft_cd(char **cmd)
 {
 	if (cmd[2])
 		miniprinte("cd: too many arguments\n");
-	else if (chdir(cmd[1]) == -1)
+	else if (cmd[1] == NULL)
+	{
+		if (chdir("../..") == -1)
+		{
+			miniprinte("cd: no such file or directory : %s\n", cmd[1]);
+			return (8);
+		}
+		else
+			miniprinte("YES\n");
+	}
+	else if (chdir(cmd[1]) != 0)
 	{
 		miniprinte("cd: no such file or directory : %s\n", cmd[1]);
 		return (8);

@@ -124,7 +124,7 @@ int				check_binary(char *file);
 ** ***********BONUS*******************
 ** FT_WILDCARD
 */
-char			*ft_wildcard(char *str);
+void			ft_wildcard(t_list **lst);
 /*
 ** FT_QUOTES
 */

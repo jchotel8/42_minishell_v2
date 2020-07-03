@@ -90,7 +90,6 @@ int		main(int ac, char **av, char **env)
 		while (get_next_line(0, &read))
 		{
 			read = ft_checkquotes(read);
-			read = ft_wildcard(read);
 			if (ft_checkread(read))
 				parse_read(read, &lst_env);
 			ft_prompt();

@@ -36,7 +36,6 @@ SRCS		= ft_pipes.c\
 			  ft_list_split.c
 
 SRCB		= ft_pipes.c\
-			  ft_parse.c\
 			  ft_replace.c \
 			  ft_reverse_quote.c \
 			  echo_cd_pwd.c \
@@ -49,6 +48,7 @@ SRCB		= ft_pipes.c\
 			  utils_minishell2.c \
 			  ft_list_split.c \
 			  bonus/main_bonus.c \
+			  bonus/ft_parse_bonus.c\
 			  bonus/ft_quotes_bonus.c\
 			  bonus/ft_wildcard_bonus.c \
 			  bonus/ft_checkread_bonus.c

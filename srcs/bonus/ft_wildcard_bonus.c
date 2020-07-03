@@ -12,31 +12,53 @@
 
 #include "minishell.h"
 
-char	*ft_getdir(void)
+t_list	*ft_getdir(void)
 {
 	struct dirent	*var;
-	char			*tmp;
 	DIR				*dir;
+	t_list			*lst;
 
 	dir = opendir(".");
-	tmp = NULL;
+	lst = NULL;
 	while ((var = readdir(dir)))
 		if (var->d_name[0] != '.')
-		{
-			tmp = ft_strjoinf(tmp, var->d_name);
-			tmp = ft_strjoinf(tmp, " ");
-		}
+			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(var->d_name)));
 	closedir(dir);
-	return (tmp);
+	return (lst);
 }
 
-char	*ft_wildcard(char *str)
+int 	is_wildcard(char *str)
 {
-	char	*tmp;
-	char	*dir;
+	int i;
 
-	dir = ft_getdir();
-	tmp = ft_strrep(str, ft_strdup("*"), dir);
-	str = tmp;
-	return (str);
+	i = 0;
+	while (str[i])
+		if (str[i++] != '*')
+		{
+			return (0);
+		}
+	return (1);
+}
+
+void	ft_wildcard(t_list **lst)
+{
+	t_list	*tmp;
+	t_list	*prev;
+	t_list	*dir;
+	char	*str;
+
+	tmp = *lst;
+	prev = NULL;
+	while (tmp)
+	{
+		str = tmp->content;
+		if(is_wildcard(str))
+		{
+			dir = ft_getdir();
+			tmp = ft_lstrep(prev, dir, tmp);
+		}
+		!prev ? *lst = tmp : 0;
+		prev = tmp;
+		tmp = (tmp ? tmp->next : NULL);
+	}
 }

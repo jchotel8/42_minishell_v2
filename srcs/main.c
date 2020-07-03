@@ -75,6 +75,19 @@ void	parse_read(char *read, t_list **env)
 	free(read);
 }
 
+int		ft_env_condition(char *str, char *ref)
+{clé=valeur
+	if (ft_strfind(ref, '=') > -1 && !ft_strlcmp(ref, str))
+		return (1);
+	else if (ft_strfind(ref, '=') > -1 && ft_strfind(str, '=') < 0 && !ft_strlcmp(ft_substr(ref, 0, ft_strlen(ref)-1), str))
+		return (1);
+	else if (ft_strfind(ref, '=') > -1)
+		return (2);
+	//else if (!(ft_strcmp(ref, str)))
+	//	return(2);
+	return (0);
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_list	*lst_env;
@@ -86,6 +99,7 @@ int		main(int ac, char **av, char **env)
 	if (ac > 0 && av[0])
 	{
 		lst_env = ft_ato_lst(env);
+		handle_shlvl(&lst_env);
 		ft_prompt();
 		while (get_next_line(0, &read))
 		{

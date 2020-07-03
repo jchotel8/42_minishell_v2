@@ -76,6 +76,7 @@ int				ft_exec2(char **cmd, t_list **env);
 int				ft_cd(char **cmd);
 int				ft_echo(char **cmd);
 int				check_export(char *s);
+int				handle_export(char *cmd, t_list **env, char *tmp);
 int				ft_export(char **cmd, t_list **env);
 /*
 ** FT_PARSE
@@ -93,7 +94,7 @@ int				ft_exit(char **cmd, t_list *env);
 ** FT_REPLACE
 */
 char			*ft_replace_env(char *str, t_list *env);
-char			*ft_find_env(char *str, t_list *env);
+char			*ft_env_value(char *str, t_list *env);
 /*
 ** FT_CHECKREAD
 */
@@ -119,6 +120,7 @@ int				ft_isulsign(char c);
 t_list			*ft_lstrep(t_list *prev, t_list *add, t_list *rep);
 int				ft_strfind(char *str, char c);
 int				check_binary(char *file);
+void			handle_shlvl(t_list **env);
 
 /*
 ** ***********BONUS*******************

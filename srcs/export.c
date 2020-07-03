@@ -84,11 +84,8 @@ int		handle_export(char *cmd, t_list **env, char *tmp)
 			tmp = ft_substr(cmd, 0, ft_strfind(cmd, '='));
 			ft_lstremove_if(env, tmp, ft_strlcmp);
 		}
-		if (ft_strfind(cmd, '=') >= 0 || !(tmp = ft_find_env(cmd, *env)))
-		{
-			cmd = ft_strtrim_quote(set_to_export(cmd));
-			ft_lstadd_back(env, ft_lstnew(ft_strdup(cmd)));
-		}
+		if (ft_strfind(cmd, '=') >= 0 || !(tmp = ft_env_value(cmd, *env)))
+			ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd))));
 		free(tmp);
 	}
 	else
@@ -96,21 +93,72 @@ int		handle_export(char *cmd, t_list **env, char *tmp)
 		miniprinte("export: '%s': not a valid identifier\n", cmd);
 		return (8);
 	}
-	free(cmd);
 	return (0);
 }
+
+// int		ft_env_condition(char *str, char *ref)
+// {
+// 	if (!(ft_strcmp(ref, str)) ||
+// 	(ft_strfind(ref, '=') > -1 && !ft_strlcmp(str, ref)))
+// 		return (1);
+// 	return (0);
+// }
+
+// if (ft_strfind(read, '=') >= 0)
+// 				read = ft_substr(read, 0, ft_strfind(read, '=') + 1);
+// 			if (ft_env_condition("var=", read))
+// 				miniprintf("%s is SAME\n", read);
+// 			else
+// 				miniprintf("%s is diff\n", read);
+
+t_list *ft_lstfind_if(t_list *lst, char *ref, int (*f)(char *, char *))
+{
+	while (lst && !(*f)(ref, lst->content))
+	{
+		miniprintf("%s is diff from %s\n", lst->content, ref);
+		lst = lst->next;
+	}
+	if (lst)
+		miniprintf("%s is same\n", lst->content);
+	return (lst);
+}
+
+// int		handle_export(char *cmd, t_list **env, char *tmp)
+// {
+// 	t_list *lst;
+// 	(void) tmp;
+
+// 	if (check_export(cmd))
+// 	{
+// 		if ((lst = ft_lstfind_if(*env, cmd, ft_env_condition))) //env dans la liste
+// 		{//change la valeur
+// 			miniprintf("need to be changed\n");
+// 			// free(tmp);
+// 			// free(tmp->content);
+// 			// tmp->content = ft_strdup(ft_strtrim_quote(set_to_export(cmd)));
+// 		}
+// 		else //ajoute la valeur
+// 			miniprintf("need to be added\n");
+// 			//ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd))));		
+// 		free(tmp);
+// 	}
+// 	else
+// 	{
+// 		miniprinte("export: '%s': not a valid identifier\n", cmd);
+// 		return (8);
+// 	}
+// 	return (0);
+// }
 
 int		ft_export(char **cmd, t_list **env)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
-	tmp = NULL;
 	if (cmd && cmd[i + 1])
 	{
 		while (cmd[++i])
-			if (handle_export(ft_strdup(cmd[i]), env, tmp) == 8)
+			if (handle_export(ft_strdup(cmd[i]), env, NULL) == 8)
 				return (8);
 	}
 	else

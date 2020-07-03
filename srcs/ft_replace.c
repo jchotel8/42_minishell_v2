@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*ft_find_env(char *str, t_list *env)
+char	*ft_env_value(char *str, t_list *env)
 {
 	char *tmp;
 
@@ -84,7 +84,7 @@ char	*ft_replace_env(char *str, t_list *env)
 		else if (!ft_strcmp(to_rep, "$"))
 			return (str);
 		else
-			str = ft_strrep(str, to_rep, ft_find_env(to_rep + 1, env));
+			str = ft_strrep(str, to_rep, ft_env_value(to_rep + 1, env));
 	}
 	return (str);
 }

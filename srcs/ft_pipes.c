@@ -55,13 +55,13 @@ int		do_dup(int j, int nb_cmd, int *pipes, t_pipe *p)
 {
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	if (do_redir_in(p))
-		return (1);
 	if (j < nb_cmd - 1 || p->redird)
 	{
 		do_redir_out(p, pipes, j);
 		dup2(pipes[j * 2 + 1], 1);
 	}
+	if (do_redir_in(p))
+		return (1);
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	return (0);
 }

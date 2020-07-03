@@ -76,7 +76,7 @@ void	parse_read(char *read, t_list **env)
 }
 
 int		ft_env_condition(char *str, char *ref)
-{clé=valeur
+{
 	if (ft_strfind(ref, '=') > -1 && !ft_strlcmp(ref, str))
 		return (1);
 	else if (ft_strfind(ref, '=') > -1 && ft_strfind(str, '=') < 0 && !ft_strlcmp(ft_substr(ref, 0, ft_strlen(ref)-1), str))
@@ -109,6 +109,5 @@ int		main(int ac, char **av, char **env)
 		}
 		ft_lstclear(&lst_env, *free);
 		free(read);
-		miniprintf("exit\n");
 	}
 }

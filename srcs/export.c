@@ -93,11 +93,9 @@ int		handle_export(char *cmd, t_list **env, char *tmp)
 	{
 		miniprinte("export: '%s': not a valid identifier\n", save);
 		free(save);
-		free(cmd);
 		return (8);
 	}
 	free(save);
-	free(cmd);
 	return (0);
 }
 

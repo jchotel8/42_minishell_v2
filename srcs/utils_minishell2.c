@@ -54,7 +54,7 @@ void	handle_shlvl(t_list **env)
 {
 	char *shlvl;
 	char *newval;
-	
+
 	shlvl = ft_env_value("SHLVL", *env);
 	newval = ft_itoa(ft_atoi(shlvl) + 1);
 	handle_export(ft_strjoin("SHLVL=", newval), env, NULL);

@@ -19,7 +19,6 @@ int		check_export(char *s)
 	flag = 0;
 	if (!(ft_isalpha(*s) || *s == '_'))
 	{
-		free(s);
 		return (0);
 	}
 	while (*s && !flag)
@@ -28,7 +27,6 @@ int		check_export(char *s)
 			flag = 1;
 		if (!flag && (!(ft_isalnum(*s) || *s == '_')))
 		{
-			free(s);
 			return (0);
 		}
 		s++;
@@ -74,6 +72,9 @@ void	ft_export_print(t_list **env)
 
 int		handle_export(char *cmd, t_list **env, char *tmp)
 {
+	char	*save;
+
+	save = ft_strdup(cmd);
 	if (check_export(cmd))
 	{
 		if (ft_strfind(cmd, '=') >= 0)
@@ -93,10 +94,13 @@ int		handle_export(char *cmd, t_list **env, char *tmp)
 	}
 	else
 	{
-		miniprinte("export: '%s': not a valid identifier\n", cmd);
+		miniprinte("export: '%s': not a valid identifier\n", save);
+		free(save);
+		free(cmd);
 		return (8);
 	}
 	free(cmd);
+	free(save);
 	return (0);
 }
 

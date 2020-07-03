@@ -32,14 +32,18 @@ int		ft_unset(char **cmd, t_list **env)
 	i = 1;
 	while (cmd[i] && ft_strcmp(cmd[i], ""))
 	{
-		tmp = cmd[i];
-		cmd[i] = ft_strjoin(cmd[i], "=");
+		tmp = ft_strdup(cmd[i]);
+		cmd[i] = ft_strjoinf(cmd[i], "=");
 		if (!check_export(cmd[i]))
 		{
-			miniprinte("export: '%s': not a valid identifier\n", tmp);
+			miniprinte("unset: '%s': not a valid identifier\n", tmp);
+			if (tmp != NULL)
+				free(tmp);
 			return (8);
+		
 		}
-		free(tmp);
+		if (tmp != NULL)
+			free(tmp);
 		ft_lstremove_if(env, cmd[i], ft_strlcmp);
 		i++;
 	}

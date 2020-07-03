@@ -17,7 +17,9 @@ void	ft_freearray(char **arr)
 	int i;
 
 	i = 0;
-	while (arr && arr[i])
+	while (arr && arr[i] && arr[i] != NULL)
 		free(arr[i++]);
-	free(arr);
+	if (arr != NULL)
+		free(arr);
+	arr = NULL;
 }

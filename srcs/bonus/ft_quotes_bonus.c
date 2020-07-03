@@ -27,14 +27,14 @@ char	quote_inside(char *quote, char new, char prev)
 	return (0);
 }
 
-int	ft_countquote(char *s)
+int		ft_countquote(char *s)
 {
 	int		i;
 	int		count;
 	char	current;
-    char    prev;
+	char	prev;
 
-    prev = 0;
+	prev = 0;
 	current = 0;
 	count = 0;
 	i = 0;
@@ -42,7 +42,7 @@ int	ft_countquote(char *s)
 	{
 		if (quote_inside(&current, s[i], prev))
 			count++;
-        prev = s[i];
+		prev = s[i];
 		i++;
 	}
 	return (count);

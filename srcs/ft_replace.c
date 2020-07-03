@@ -60,11 +60,11 @@ char	*ft_find_toreplace(char *str)
 
 /*
 ** WEXITSTATUS(ret) ?
-** cmd not found
-** cat ndir || pipe
-** ls ndir || grep
-** one of my bin failed
-** ^C 130
+** 768 - 127 cmd not found
+** 256 - 1   fail bin (cat) || failed pipe
+** 512 - 2   failed bin (ls grep)
+** 8   - 1   one of my bin failed
+** XXX - 130 ^C
 */
 
 char	*ft_replace_env(char *str, t_list *env)

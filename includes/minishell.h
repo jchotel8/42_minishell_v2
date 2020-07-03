@@ -118,13 +118,13 @@ int				ft_isend(char c);
 int				ft_isulsign(char c);
 t_list			*ft_lstrep(t_list *prev, t_list *add, t_list *rep);
 int				ft_strfind(char *str, char c);
+int				check_binary(char *file);
 
 /*
 ** ***********BONUS*******************
 ** FT_WILDCARD
 */
-char			*ft_rdirectory();
-char			*ft_parsestrdir(char *str);
+char			*ft_wildcard(char *str);
 /*
 ** FT_QUOTES
 */

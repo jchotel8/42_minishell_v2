@@ -17,15 +17,13 @@ int		ft_find_bin(char **cmd, t_list *env, t_list *paths)
 	char		*new;
 	struct stat	buf;
 
-	if (!stat(cmd[0], &buf))
+	if (!stat(cmd[0], &buf) && S_ISREG(buf.st_mode) && check_binary(cmd[0]))
 		return (execve(cmd[0], cmd, ft_lst_toa(env)));
 	while (paths)
 	{
 		new = ft_strjoinf(ft_strjoin(paths->content, "/"), cmd[0]);
-		if (!stat(new, &buf))
-		{
+		if (!stat(new, &buf) && S_ISREG(buf.st_mode) && check_binary(new))
 			return (execve(new, cmd, ft_lst_toa(env)));
-		}
 		if (new != NULL)
 			free(new);
 		paths = paths->next;

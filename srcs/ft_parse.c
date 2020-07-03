@@ -60,7 +60,7 @@ void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 	ft_lstclear(&start, *free);
 }
 
-int		parse_env(t_list **lst, t_list *env, int flag)
+int		parse_env(t_list **lst, t_list *env, int f)
 {
 	t_list	*tmp;
 	t_list	*p1;
@@ -73,7 +73,7 @@ int		parse_env(t_list **lst, t_list *env, int flag)
 	{
 		str = ft_strdup(tmp->content);
 		tmp->content = ft_replace_env(tmp->content, env);
-		if ((ft_lstsize((in = ft_lst_split(tmp->content, " ", 1))) != 1) && flag)
+		if ((ft_lstsize((in = ft_lst_split(tmp->content, " ", 1))) != 1) && f)
 		{
 			miniprintf("Minishell : %s : redirection ambigue\n", str);
 			free(str);

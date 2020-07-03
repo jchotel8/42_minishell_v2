@@ -25,3 +25,27 @@ int		ft_strfind(char *str, char c)
 	}
 	return (-1);
 }
+
+int		check_binary(char *file)
+{
+	int		fd;
+	char	*read;
+	int		i;
+
+	i = 0;
+	fd = open(file, O_RDONLY);
+	get_next_line(fd, &read);
+	while (read[i])
+	{
+		if (!ft_isascii(read[i]))
+		{
+			free(read);
+			close(fd);
+			return (1);
+		}
+		i++;
+	}
+	free(read);
+	close(fd);
+	return (0);
+}

@@ -37,10 +37,12 @@ char	*ft_find_toreplace(char *str)
 	char	quote;
 	char	prev;
 	int		k;
+	size_t	len;
 
 	quote = 0;
 	prev = 0;
 	k = 1;
+	len = ft_strlen(str);	
 	while (*str)
 	{
 		quote_inside(&quote, *str, prev);
@@ -52,6 +54,8 @@ char	*ft_find_toreplace(char *str)
 				return (NULL);
 			return (ft_substr(str, 0, k));
 		}
+		if (prev != '\\' && len == 1 && *str == '~' && quote != '\'')
+			return (str);
 		prev = *str;
 		str++;
 	}
@@ -83,6 +87,8 @@ char	*ft_replace_env(char *str, t_list *env)
 			str = ft_strrep(str, to_rep, ft_itoa(rep));
 		else if (!ft_strcmp(to_rep, "$"))
 			return (str);
+		else if (!ft_strcmp(to_rep, "~"))
+			str = ft_strrep(str, to_rep, ft_env_value("HOME", env));
 		else
 			str = ft_strrep(str, to_rep, ft_env_value(to_rep + 1, env));
 	}

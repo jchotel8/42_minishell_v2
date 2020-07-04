@@ -32,17 +32,15 @@ char	*ft_env_value(char *str, t_list *env)
 	return (0);
 }
 
-char	*ft_find_toreplace(char *str)
+char	*ft_find_toreplace(char *str, size_t len)
 {
 	char	quote;
 	char	prev;
 	int		k;
-	size_t	len;
 
 	quote = 0;
 	prev = 0;
 	k = 1;
-	len = ft_strlen(str);	
 	while (*str)
 	{
 		quote_inside(&quote, *str, prev);
@@ -79,7 +77,7 @@ char	*ft_replace_env(char *str, t_list *env)
 	rep = (rep == 256 ? 1 : rep);
 	rep = (rep == 512 ? 2 : rep);
 	rep = (rep == 8 ? 1 : rep);
-	while ((to_rep = ft_find_toreplace(str)))
+	while ((to_rep = ft_find_toreplace(str, ft_strlen(str))))
 	{
 		if (!ft_strcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(rep));

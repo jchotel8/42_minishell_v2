@@ -55,7 +55,7 @@ char	*ft_find_toreplace(char *str)
 			return (ft_substr(str, 0, k));
 		}
 		if (prev != '\\' && len == 1 && *str == '~' && quote != '\'')
-			return (str);
+			return (ft_substr(str, 0, k));
 		prev = *str;
 		str++;
 	}

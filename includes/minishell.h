@@ -73,7 +73,7 @@ int				ft_export(char **cmd, t_list **env);
 int				ft_unset(char **cmd, t_list **env);
 int				ft_exec(char **cmd, t_list **env);
 int				ft_exec2(char **cmd, t_list **env);
-int				ft_cd(char **cmd);
+int				ft_cd(char **cmd, t_list **env);
 int				ft_echo(char **cmd);
 int				check_export(char *s);
 int				handle_export(char *cmd, t_list **env, char *tmp);

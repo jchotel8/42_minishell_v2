@@ -72,19 +72,22 @@ char	*get_wd(void)
 		return (ft_strdup("no WD"));
 }
 
-int		ft_cd(char **cmd)
+int		ft_cd(char **cmd, t_list **env)
 {
+	char *tild;
+
 	if (cmd[2])
 		miniprinte("cd: too many arguments\n");
 	else if (cmd[1] == NULL)
 	{
-		if (chdir("~") == -1)
+		tild = ft_env_value("HOME", *env)
+		if (chdir(tild))
 		{
-			miniprinte("cd: no such file or directory : %s\n", "~");
+			miniprinte("cd: no such file or directory : %s\n", tild);
+			free(tild);
 			return (8);
 		}
-		else
-			miniprinte("YES\n");
+		free(tild);
 	}
 	else if (chdir(cmd[1]) != 0)
 	{

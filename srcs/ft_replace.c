@@ -32,7 +32,7 @@ char	*ft_env_value(char *str, t_list *env)
 	return (0);
 }
 
-char	*ft_find_toreplace(char *str)
+char	*ft_find_toreplace(char *str, size_t len)
 {
 	char	quote;
 	char	prev;
@@ -52,6 +52,8 @@ char	*ft_find_toreplace(char *str)
 				return (NULL);
 			return (ft_substr(str, 0, k));
 		}
+		if (prev != '\\' && len == 1 && *str == '~' && quote != '\'')
+			return (ft_substr(str, 0, k));
 		prev = *str;
 		str++;
 	}
@@ -75,14 +77,14 @@ char	*ft_replace_env(char *str, t_list *env)
 	rep = (rep == 256 ? 1 : rep);
 	rep = (rep == 512 ? 2 : rep);
 	rep = (rep == 8 ? 1 : rep);
-	while ((to_rep = ft_find_toreplace(str)))
+	while ((to_rep = ft_find_toreplace(str, ft_strlen(str))))
 	{
-		if (!ft_strcmp(to_rep, "$?"))
-			str = ft_strrep(str, to_rep, ft_itoa(rep));
 		if (!ft_strcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(rep));
 		else if (!ft_strcmp(to_rep, "$"))
 			return (str);
+		else if (!ft_strcmp(to_rep, "~"))
+			str = ft_strrep(str, to_rep, ft_env_value("HOME", env));
 		else
 			str = ft_strrep(str, to_rep, ft_env_value(to_rep + 1, env));
 	}

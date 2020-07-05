@@ -69,7 +69,7 @@ int		ft_mybin(char **cmd, t_list **env)
 	else if (!ft_strcmp(cmd[0], "unset"))
 		return (ft_unset(cmd, env));
 	else if (!ft_strcmp(cmd[0], "cd"))
-		return (ft_cd(cmd));
+		return (ft_cd(cmd, env));
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exit(0);
 	else

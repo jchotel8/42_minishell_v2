@@ -33,7 +33,7 @@ void	ft_prompt(void)
 
 /*
 ** SIGINT : ctrl-C
-** SIGINT : ctrl-/
+** SIGQUIT : ctrl-/
 **	ctrl-D : ecriture  -> bloque : rien ne se passe
 **  ctrl-D : prog      -> ne fait rien
 **  ctrl-D : rien      -> exit bash (EOF->sur entree standard)
@@ -47,7 +47,7 @@ void	ft_prompt(void)
 
 void	sig_handler(int sig)
 {
-	rep = 130;
+	(void) sig;
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
@@ -55,7 +55,7 @@ void	sig_handler(int sig)
 		ft_prompt();
 	}
 	if (sig == SIGQUIT)
-		miniprintf("BONJOUR");
+		kill(1, SIGINT);
 }
 
 void	parse_read(char *read, t_list **env)

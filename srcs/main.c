@@ -88,14 +88,10 @@ int		main(int ac, char **av, char **env)
 	if (ac > 0 && av[0])
 	{
 		lst_env = ft_ato_lst(env);
-		//handle_shlvl(&lst_env);
+		handle_shlvl(&lst_env);
 		ft_prompt();
 		while (get_next_line(0, &read))
 		{
-			// char *new = ft_reverse_quote(read);
-			// miniprintf("%s -> %s\n", read, new);
-			// free(new);
-			// free(read);
 			if (ft_checkread(read))
 				parse_read(read, &lst_env);
 			ft_prompt();

@@ -124,7 +124,7 @@ int		handle_export(char *cmd, t_list **env, char *tmp)
 	j = 0;
 	if (check_export(cmd))
 	{
-		if (ft_strfind(cmd, '=') >= 0 && (j=1))
+		if (ft_strfind(cmd, '=') >= 0 && (j = 1))
 			key = ft_substr(cmd, 0, ft_strfind(cmd, '=') + 1);
 		lst = *env;
 		while(lst && (i = ft_env_condition(lst->content, key)) == 2)

@@ -96,5 +96,6 @@ int		main(int ac, char **av, char **env)
 		}
 		ft_lstclear(&lst_env, *free);
 		free(read);
+		miniprintf("exit\n");
 	}
 }

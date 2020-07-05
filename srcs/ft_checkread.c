@@ -46,6 +46,25 @@ int		ft_checkredir(char *read, int *i, int *s)
 	return (0);
 }
 
+int		ft_checkpipe(char *read, int *i)
+{
+	int j;
+
+	j = *i - 1;
+	if (read[*i] == '|')
+	{
+		while (j >= 0 && ft_isspace(read[j]))
+			j--;
+		if (j <= 0 || read[j] == ';' || read[j] == '|')
+		{
+			miniprinte("minishell : "ERR_MSG_C, '|');
+			free(read);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int		ft_checkread(char *read)
 {
 	int		i;
@@ -62,6 +81,8 @@ int		ft_checkread(char *read)
 		if (count_signs(quote, read, &i, &s))
 			return (0);
 		else if (s > 0 && ft_checkredir(read, &i, &s))
+			return (0);
+		if (ft_checkpipe(read, &i))
 			return (0);
 		prev = read[i];
 		i++;

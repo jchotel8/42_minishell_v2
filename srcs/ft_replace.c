@@ -73,6 +73,7 @@ char	*ft_replace_env(char *str, t_list *env)
 {
 	char *to_rep;
 
+	rep = (rep == 2 ? 130 : rep);
 	rep = (rep == 768 ? 127 : rep);
 	rep = (rep == 256 ? 1 : rep);
 	rep = (rep == 512 ? 2 : rep);

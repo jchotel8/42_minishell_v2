@@ -80,7 +80,7 @@ int		ft_cd(char **cmd, t_list **env)
 		miniprinte("cd: too many arguments\n");
 	else if (cmd[1] == NULL)
 	{
-		tild = ft_env_value("HOME", *env)
+		tild = ft_env_value("HOME", *env);
 		if (chdir(tild))
 		{
 			miniprinte("cd: no such file or directory : %s\n", tild);

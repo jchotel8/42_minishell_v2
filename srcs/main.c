@@ -24,8 +24,9 @@ void	ft_prompt(void)
 	char *dir;
 
 	dir = get_wd();
-	miniprintf((rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
-	RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
+	if (rep != 2)
+		miniprintf((rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
+		RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
 	if (dir != NULL)
 		free(dir);
 }
@@ -50,6 +51,7 @@ void	sig_handler(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
+		rep = 130;
 		ft_prompt();
 	}
 	if (sig == SIGQUIT)

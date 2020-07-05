@@ -47,6 +47,7 @@ char	*set_to_export(char *str)
 	val = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
 	add = ft_reverse_quote(val);
 	new = ft_strjoinf(key, add);
+	//miniprintf("set to export : %s\n", new);
 	free(str);
 	free(add);
 	free(val);

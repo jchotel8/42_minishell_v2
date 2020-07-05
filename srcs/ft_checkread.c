@@ -61,6 +61,15 @@ int		ft_checkpipe(char *read, int *i)
 			free(read);
 			return (1);
 		}
+		j = *i + 1;
+		while (read[j] && ft_isspace(read[j]))
+			j++;
+		if (read[j] == ';')
+		{
+			miniprinte("minishell : "ERR_MSG_C, read[j]);
+			free(read);
+			return (1);
+		}
 	}
 	return (0);
 }

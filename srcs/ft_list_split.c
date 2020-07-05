@@ -28,7 +28,7 @@ t_list	*ft_lst_split(char *s, char *c, int i)
 	while (*s)
 	{
 		quote_inside(&quote, *s, prev);
-		if (!quote && ft_strrchr(c, *s))
+		if (!quote && ft_strrchr(c, *s) && prev != '\\')
 		{
 			if (ptr != s)
 				ft_lstadd_back(&lst, ft_lstnew(ft_substr(ptr, 0, s - ptr)));

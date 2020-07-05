@@ -50,14 +50,14 @@ int		check_binary(char *file)
 	return (0);
 }
 
-void	handle_shlvl(t_list **env)
-{
-	char *shlvl;
-	char *newval;
+// void	handle_shlvl(t_list **env)
+// {
+// 	char *shlvl;
+// 	char *newval;
 
-	shlvl = ft_env_value("SHLVL", *env);
-	newval = ft_itoa(ft_atoi(shlvl) + 1);
-	handle_export(ft_strjoin("SHLVL=", newval), env, NULL);
-	free(shlvl);
-	free(newval);
-}
+// 	shlvl = ft_env_value("SHLVL", *env);
+// 	newval = ft_itoa(ft_atoi(shlvl) + 1);
+// 	handle_export(ft_strjoin("SHLVL=", newval), env, NULL);
+// 	free(shlvl);
+// 	free(newval);
+// }

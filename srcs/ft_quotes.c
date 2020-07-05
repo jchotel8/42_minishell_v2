@@ -64,3 +64,24 @@ char	*ft_strtrim_quote(char *s)
 	free(s);
 	return (new);
 }
+
+char	*ft_reverse_quote(char *s)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	j = 0;
+	new = ft_calloc(ft_strlen(s) * 2 + 2, sizeof(char));
+	new[j++] = '\"';
+	while (s[i])
+	{
+		if (s[i] == '\\' || s[i] == '\"')
+			new[j++] = '\\';
+		new[j++] = s[i++];
+	}
+	new[j++] = '\"';
+	new[j++] = '\0';
+	return (new);
+}

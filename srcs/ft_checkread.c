@@ -74,9 +74,9 @@ int		ft_checkpipe(char *read, int *i)
 	return (0);
 }
 
-int		ft_checkparent(char *read, char quote, char caract)
+int		ft_checkparent(char *read, char quote, char caract, char prev)
 {
-	if ((caract == '(' || caract == ')') && !quote)
+	if ((caract == '(' || caract == ')') && (!quote && prev != '\\'))
 	{
 		miniprinte("minishell : "ERR_MSG_C, caract);
 		free(read);
@@ -104,9 +104,9 @@ int		ft_checkread(char *read)
 			return (0);
 		if (ft_checkpipe(read, &i))
 			return (0);
-		prev = read[i];
-		if (!ft_checkparent(read, quote, read[i]))
+		if (!ft_checkparent(read, quote, read[i], prev))
 			return (0);
+		prev = read[i];
 		i++;
 	}
 	return (1);

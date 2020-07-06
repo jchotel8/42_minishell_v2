@@ -50,7 +50,7 @@ char	*set_to_export(char *str, int flag)
 		new = ft_strjoinf(key, add);
 	else
 	{	
-		new= ft_strjoinf(key, "\"");
+		new = ft_strjoinf(key, "\"");
 		new = ft_strjoinf(new, add);
 		new = ft_strjoinf(new, "\"");
 	}
@@ -76,35 +76,6 @@ void	ft_export_print(t_list **env)
 	}
 	ft_lstclear(&cpy, *free);
 }
-
-// int		handle_export(char *cmd, t_list **env, char *tmp)
-// {
-// 	char	*save;
-
-// 	save = ft_strdup(cmd);
-// 	if (check_export(cmd))
-// 	{
-// 		if (ft_strfind(cmd, '=') >= 0)
-// 		{
-// 			tmp = ft_substr(cmd, 0, ft_strfind(cmd, '=') + 1);
-// 			ft_lstremove_if(env, tmp, ft_strlcmp);
-// 			free(tmp);
-// 			tmp = ft_substr(cmd, 0, ft_strfind(cmd, '='));
-// 			ft_lstremove_if(env, tmp, ft_strlcmp);
-// 		}
-// 		if (ft_strfind(cmd, '=') >= 0 || !(tmp = ft_env_value(cmd, *env)))
-// 			ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd))));
-// 		free(tmp);
-// 	}
-// 	else
-// 	{
-// 		miniprinte("export: '%s': not a valid identifier\n", save);
-// 		free(save);
-// 		return (8);
-// 	}
-// 	free(save);
-// 	return (0);
-// }
 
 int		ft_env_condition(char *str, char *ref)
 {

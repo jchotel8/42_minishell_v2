@@ -28,16 +28,20 @@ int		count_signs(char quote, char *read, int *i, int *s)
 	return (0);
 }
 
-int		ft_checkredir(char *read, int *i, int *s)
+int		ft_checkredir(char *read, int *i, int *s, char prev)
 {
 	while (ft_isspace(read[*i]))
 		(*i)++;
-	if (ft_isulsign(read[*i]) || read[*i] == 0)
+	if ((read[*i] == 0 || ft_isulsign(read[*i])) || prev == '\\')
 	{
 		if (read[*i] != 0)
 			miniprintf("minishell : "ERR_MSG_C, read[*i]);
-		else
+		else if (prev != '\\')
 			miniprintf("minishell : "ERR_MSG_S, "newline");
+		else if (prev == '\\') {
+			miniprintf("NEED TO UPDATE\n");
+			return (1);
+		}
 		free(read);
 		return (1);
 	}
@@ -95,12 +99,12 @@ int		ft_checkread(char *read)
 	s = 0;
 	i = 0;
 	quote = 0;
-	while (read[i])
+	while (read[i] && read)
 	{
 		quote_inside(&quote, read[i], prev);
 		if (count_signs(quote, read, &i, &s))
 			return (0);
-		else if (s > 0 && ft_checkredir(read, &i, &s))
+		else if (s > 0 && ft_checkredir(read, &i, &s, prev))
 			return (0);
 		if (ft_checkpipe(read, &i))
 			return (0);

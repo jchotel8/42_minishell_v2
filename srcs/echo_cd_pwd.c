@@ -81,6 +81,7 @@ int		ft_cd(char **cmd, t_list **env)
 	else if (cmd[1] == NULL)
 	{
 		tild = ft_env_value("HOME", *env);
+		tild = ft_strrep(tild, ft_strdup("\""), ft_strdup(""));
 		if (chdir(tild))
 		{
 			miniprinte("cd: no such file or directory : %s\n", tild);

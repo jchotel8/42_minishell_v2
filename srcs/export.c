@@ -34,7 +34,7 @@ int		check_export(char *s)
 	return (1);
 }
 
-char	*set_to_export(char *str)
+char	*set_to_export(char *str, int flag)
 {
 	char	*new;
 	char	*add;
@@ -46,8 +46,14 @@ char	*set_to_export(char *str)
 	key = ft_substr(str, 0, ft_strfind(str, '=') + 1);
 	val = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
 	add = ft_reverse_quote(val);
-	new = ft_strjoinf(key, add);
-	//miniprintf("set to export : %s\n", new);
+	if (flag == 0)
+		new = ft_strjoinf(key, add);
+	else
+	{	
+		new= ft_strjoinf(key, "\"");
+		new = ft_strjoinf(new, add);
+		new = ft_strjoinf(new, "\"");
+	}
 	free(str);
 	free(add);
 	free(val);
@@ -64,7 +70,7 @@ void	ft_export_print(t_list **env)
 	tmp = cpy;
 	while (tmp)
 	{
-		tmp->content = set_to_export(tmp->content);
+		tmp->content = set_to_export(tmp->content, 1);
 		miniprintf("declare -x %s\n", tmp->content);
 		tmp = tmp->next;
 	}
@@ -131,11 +137,11 @@ int		handle_export(char *cmd, t_list **env, char *tmp)
 		while(lst && (i = ft_env_condition(lst->content, key)) == 2)
 			lst = lst->next;
 		if (i == 2)
-			ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd))));
+			ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd, 0))));
 		if (i == 1)
 		{
 			free(lst->content);
-			lst->content = ft_strtrim_quote(set_to_export(cmd));
+			lst->content = ft_strtrim_quote(set_to_export(cmd, 0));
 		}
 		if (i == 0)
 			free(cmd);

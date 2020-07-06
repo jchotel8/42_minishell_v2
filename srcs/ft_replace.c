@@ -24,6 +24,12 @@ char	*ft_env_value(char *str, t_list *env)
 			tmp = ft_substr(env->content, ft_strlen(str),
 			ft_strlen(env->content));
 			free(str);
+			str = tmp;
+			tmp = ft_reverse_quote(str);
+			free(str);
+			str = ft_strjoin("\"", tmp);
+			free(tmp);
+			tmp = ft_strjoinf(str, "\"");
 			return (tmp);
 		}
 		env = env->next;

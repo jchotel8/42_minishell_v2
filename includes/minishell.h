@@ -52,6 +52,11 @@ typedef struct	s_pipe
 	t_list		*typeg;
 }				t_pipe;
 
+typedef struct	s_sig
+{
+	char 		*read;
+}				t_sig;
+
 int				g_rep;
 
 /*

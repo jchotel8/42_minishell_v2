@@ -18,6 +18,8 @@
 */
 
 int		g_rep;
+struct s_sig	g_sig;
+
 
 void	ft_prompt(void)
 {
@@ -53,10 +55,12 @@ void	sig_handler(int sig)
 		g_rep = 130;
 		ft_prompt();
 	}
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && (!g_sig.read || (g_sig.read && ft_strlen(g_sig.read) == 0)))
+		miniprintf("\b\b  \b\b");
+	else if (sig == SIGQUIT && g_sig.read && ft_strlen(g_sig.read) > 0)
 	{
 		kill(1, SIGINT);
-		miniprintf("Quitter (core dumped)\n");
+		miniprintf("Quitter (core dumped) [%s]\n", g_sig.read);
 	}
 }
 
@@ -82,8 +86,6 @@ void	parse_read(char *read, t_list **env)
 int		main(int ac, char **av, char **env)
 {
 	t_list	*lst_env;
-	char	*read;
-	int ret;
 
 	g_rep = 0;
 	signal(SIGINT, sig_handler);
@@ -95,19 +97,19 @@ int		main(int ac, char **av, char **env)
 		ft_prompt();
 		while (1)
 		{
-			if ((ret = get_next_line(0, &read)) == 1)
+			if (get_next_line(0, &g_sig.read) == 1)
 			{
-				if (ft_checkread(read))
-					parse_read(read, &lst_env);
+				if (ft_checkread(g_sig.read))
+					parse_read(g_sig.read, &lst_env);
 				ft_prompt();
 			}
-			else if (ft_strlen(read) == 0)
+			else if (ft_strlen(g_sig.read) == 0)
 				break;
 			else
-				free(read);
+				free(g_sig.read);
 		}
 		ft_lstclear(&lst_env, *free);
-		free(read);
+		free(g_sig.read);
 		miniprintf("exit\n");
 	}
 }

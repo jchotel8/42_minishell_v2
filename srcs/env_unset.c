@@ -40,7 +40,6 @@ int		ft_unset(char **cmd, t_list **env)
 			if (tmp != NULL)
 				free(tmp);
 			return (8);
-		
 		}
 		if (tmp != NULL)
 			free(tmp);

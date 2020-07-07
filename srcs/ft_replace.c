@@ -47,7 +47,8 @@ char	*ft_find_toreplace(char *str)
 	quote = 0;
 	prev = 0;
 	k = 1;
-	if (prev != '\\' && (!ft_strlcmp("~", str) || !ft_strncmp(str, "~/", 2)) && quote != '\'')
+	if (prev != '\\' && (!ft_strlcmp("~", str)
+	|| !ft_strncmp(str, "~/", 2)) && quote != '\'')
 		return (ft_substr(str, 0, 1));
 	while (*str)
 	{

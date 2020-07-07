@@ -74,36 +74,37 @@ char	*get_wd(void)
 		return (ft_strdup("no WD"));
 }
 
+int		try_repo(char *cmd, char *to_free)
+{
+	if (chdir(cmd) != 0)
+	{
+		miniprinte("cd: no such file or directory : %s\n", cmd);
+		free(to_free);
+		return (1);
+	}
+	return (0);
+}
+
 int		ft_cd(char **cmd, t_list **env)
 {
 	char *tild;
 
-	tild = "-";
-	if (cmd[2])
-		miniprinte("cd: too many arguments\n");
-	else if ((cmd[1] == NULL || !ft_strcmp(cmd[1], "-")) && (tild = ft_env_value("HOME", *env)))
+	tild = "_";
+	if (cmd[2] || (!(tild = ft_env_value("HOME", *env)) && cmd[1]))
 	{
-		free(tild);
-		tild = ft_strtrim_quote(ft_env_value("HOME", *env));
-		if (!ft_strcmp(cmd[1], "-"))
-			miniprintf("%s\n", tild);
-		if (chdir(tild))
-		{
-			miniprinte("cd: no such file or directory : %s\n", tild);
-			free(tild);
+		cmd[2] ? miniprinte("minishell: cd: too many arguments\n") : 0;
+		!cmd[2] ? miniprinte("minishell: cd: \"HOME\" non défini\n") : 0;
+		return (8);
+	}
+	else if ((!cmd[1] || !ft_strcmp(cmd[1], "-")))
+	{
+		tild = ft_strtrim_quote(tild);
+		(cmd[1] && !ft_strcmp(cmd[1], "-")) ? miniprintf("%s\n", tild) : 0;
+		if (try_repo(tild, tild) == 1)
 			return (8);
-		}
-		free(tild);
 	}
-	else if (tild == NULL)
-	{
-		miniprinte("minishell: cd: \" HOME \" non défini\n");
+	else if (try_repo(cmd[1], tild) == 1)
 		return (8);
-	}
-	else if (chdir(cmd[1]) != 0)
-	{
-		miniprinte("cd: no such file or directory : %s\n", cmd[1]);
-		return (8);
-	}
+	free(tild);
 	return (0);
 }

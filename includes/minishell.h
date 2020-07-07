@@ -41,6 +41,7 @@
 # define ERR_MSG_C "erreur de syntaxe près du symbole inattendu « %c »\n"
 # define ERR_MSG_S "erreur de syntaxe près du symbole inattendu « %s »\n"
 # define ERR_MSG_R "minishell : %s : Aucun fichier ou dossier de ce type\n"
+# define ERR_MSG_CD "minishell: cd: no such file or directory : %s\n"
 
 typedef struct	s_pipe
 {
@@ -76,7 +77,7 @@ int				ft_exec2(char **cmd, t_list **env);
 int				ft_cd(char **cmd, t_list **env);
 int				ft_echo(char **cmd);
 int				check_export(char *s);
-int				handle_export(char *cmd, t_list **env, char *tmp);
+int				handle_export(char *cmd, t_list **env);
 int				ft_export(char **cmd, t_list **env);
 /*
 ** FT_PARSE
@@ -122,6 +123,7 @@ int				ft_strfind(char *str, char c);
 int				check_binary(char *file);
 void			handle_shlvl(t_list **env);
 int				is_onlychar(char *str, char c);
+int				check_export(char *s);
 
 /*
 ** ***********BONUS*******************

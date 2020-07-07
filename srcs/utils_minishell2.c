@@ -57,12 +57,12 @@ void	handle_shlvl(t_list **env)
 
 	shlvl = ft_env_value("SHLVL", *env);
 	newval = ft_itoa(ft_atoi(shlvl) + 1);
-	handle_export(ft_strjoin("SHLVL=", newval), env, NULL);
+	handle_export(ft_strjoin("SHLVL=", newval), env);
 	free(shlvl);
 	free(newval);
 }
 
-int 	is_onlychar(char *str, char c)
+int		is_onlychar(char *str, char c)
 {
 	int i;
 
@@ -72,5 +72,27 @@ int 	is_onlychar(char *str, char c)
 		{
 			return (0);
 		}
+	return (1);
+}
+
+int		check_export(char *s)
+{
+	int flag;
+
+	flag = 0;
+	if (!(ft_isalpha(*s) || *s == '_'))
+	{
+		return (0);
+	}
+	while (*s && !flag)
+	{
+		if (*s == '=')
+			flag = 1;
+		if (!flag && (!(ft_isalnum(*s) || *s == '_')))
+		{
+			return (0);
+		}
+		s++;
+	}
 	return (1);
 }

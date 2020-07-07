@@ -39,7 +39,7 @@ void	ft_wildcard(t_list **lst)
 	while (tmp)
 	{
 		str = tmp->content;
-		if(is_onlychar(str, '*'))
+		if (is_onlychar(str, '*'))
 		{
 			dir = ft_getdir();
 			tmp = ft_lstrep(prev, dir, tmp);

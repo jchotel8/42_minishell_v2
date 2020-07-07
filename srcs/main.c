@@ -40,9 +40,9 @@ void	ft_prompt(void)
 **  ctrl-C : ecriture  -> retour a la ligne (et ^C)
 **  ctrl-C : prog      -> quitte le programme
 **  ctrl-C : rien      -> retour a la ligne (et ^C)
-**  ctrl-\ : ecriture  -> ?
+**  ctrl-\ : ecriture  -> rien
 **  ctrl-\ : prog      -> "Quitter (core dumped)"
-**  ctrl-\ : rien      -> ?
+**  ctrl-\ : rien      -> rien
 */
 
 void	sig_handler(int sig)
@@ -92,11 +92,16 @@ int		main(int ac, char **av, char **env)
 		lst_env = ft_ato_lst(env);
 		handle_shlvl(&lst_env);
 		ft_prompt();
-		while (get_next_line(0, &read))
+		while (1)
 		{
-			if (ft_checkread(read))
-				parse_read(read, &lst_env);
-			ft_prompt();
+			if (get_next_line(0, &read) == 1)
+			{
+				if (ft_checkread(read))
+					parse_read(read, &lst_env);
+				ft_prompt();
+			}
+			else
+				free(read);
 		}
 		ft_lstclear(&lst_env, *free);
 		free(read);

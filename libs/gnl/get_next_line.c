@@ -52,7 +52,11 @@ int		get_next_line(int fd, char **line)
 		return (ret);
 	*line = ft_substr(rest[fd], 0, get_next_char(rest[fd], '\n'));
 	if (get_next_char(rest[fd], '\n') < 0)
-		return (fnr(rest[fd], 0));
+	{
+		// free(rest[fd]);
+		// rest[fd = NULL;
+		return (fnr(NULL, 0));
+	}
 	tmp = rest[fd];
 	rest[fd] = ft_substr(rest[fd], get_next_char(rest[fd], '\n')
 	+ 1, get_next_char(rest[fd], '\0'));

@@ -29,7 +29,7 @@
 
 int		get_next_char(char *str, char c);
 int		get_next_line(int fd, char **line);
-int		fnr(void *mem, int code);
+int		fnr(char *mem, int code);
 char	*ft_strjoin_g(char *s1, char *s2);
 
 #endif

@@ -12,9 +12,10 @@
 
 #include "../../includes/get_next_line.h"
 
-int		fnr(void *mem, int code)
+int		fnr(char *mem, int code)
 {
 	free(mem);
+	mem = NULL;
 	return (code);
 }
 

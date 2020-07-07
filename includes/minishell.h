@@ -51,7 +51,7 @@ typedef struct	s_pipe
 	t_list		*typeg;
 }				t_pipe;
 
-int				rep;
+int				g_rep;
 
 /*
 ** FT_PIPES

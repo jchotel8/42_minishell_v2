@@ -91,13 +91,13 @@ int		ft_exec(char **cmd, t_list **env)
 	int ret;
 
 	if (!(ret = ft_mybin(cmd, env)) || ret == 8)
-		rep = ret;
+		g_rep = ret;
 	else
-		rep = ft_bin(cmd, *env);
-	rep <= 0 ? exit(0) : 0;
-	rep == 8 ? exit(1) : 0;
-	rep == 127 ? exit(3) : 0;
-	return (rep);
+		g_rep = ft_bin(cmd, *env);
+	g_rep <= 0 ? exit(0) : 0;
+	g_rep == 8 ? exit(1) : 0;
+	g_rep == 127 ? exit(3) : 0;
+	return (g_rep);
 }
 
 int		ft_exec2(char **cmd, t_list **env)

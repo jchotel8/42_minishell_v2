@@ -77,20 +77,20 @@ void	do_pipe(t_list *line, int nb_cmd, t_list **env)
 	start_pipe(&flag, &j, nb_cmd, pipes);
 	while (++j < nb_cmd)
 	{
-		if ((rep = parse_redir(line->content, &p, *env)) == 0)
+		if ((g_rep = parse_redir(line->content, &p, *env)) == 0)
 		{
 			pipe_condi(0, &p, nb_cmd) ? flag = 1 : 0;
 			if (flag == 0 && pipe_condi(2, &p, nb_cmd) && !(pid[j] = fork()))
 			{
 				do_dup(j, nb_cmd, pipes, &p) ? exit(1) : 0;
-				rep = ft_exec(p.cmd, env);
+				g_rep = ft_exec(p.cmd, env);
 			}
 			else if (pipe_condi(1, &p, nb_cmd))
-				(rep = ft_exec2(p.cmd, env)) == 127 ? exit(3) : 0;
+				(g_rep = ft_exec2(p.cmd, env)) == 127 ? exit(3) : 0;
 		}
 		free_pipe(&p);
 		line = line->next;
 	}
-	wait_pipes(nb_cmd, pid, &rep, pipes);
+	wait_pipes(nb_cmd, pid, &g_rep, pipes);
 	flag == 1 ? exit(0) : 0;
 }

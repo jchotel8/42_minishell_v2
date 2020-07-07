@@ -79,15 +79,15 @@ char	*ft_replace_env(char *str, t_list *env)
 {
 	char *to_rep;
 
-	rep = (rep == 2 ? 130 : rep);
-	rep = (rep == 768 ? 127 : rep);
-	rep = (rep == 256 ? 1 : rep);
-	rep = (rep == 512 ? 2 : rep);
-	rep = (rep == 8 ? 1 : rep);
+	g_rep = (g_rep == 2 ? 130 : g_rep);
+	g_rep = (g_rep == 768 ? 127 : g_rep);
+	g_rep = (g_rep == 256 ? 1 : g_rep);
+	g_rep = (g_rep == 512 ? 2 : g_rep);
+	g_rep = (g_rep == 8 ? 1 : g_rep);
 	while ((to_rep = ft_find_toreplace(str)))
 	{
 		if (!ft_strcmp(to_rep, "$?"))
-			str = ft_strrep(str, to_rep, ft_itoa(rep));
+			str = ft_strrep(str, to_rep, ft_itoa(g_rep));
 		else if (!ft_strcmp(to_rep, "$"))
 			return (str);
 		else if (!ft_strcmp(to_rep, "~"))

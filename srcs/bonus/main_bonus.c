@@ -17,15 +17,15 @@
 ** - ctrl-C, ctrl-D, ctrl-/
 */
 
-int		rep;
+int		g_rep;
 
 void	ft_prompt(void)
 {
 	char *dir;
 
 	dir = get_wd();
-	if (rep != 2)
-		miniprintf((rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
+	if (g_rep != 2)
+		miniprintf((g_rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
 		RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
 	if (dir != NULL)
 		free(dir);
@@ -50,7 +50,7 @@ void	sig_handler(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
-		rep = 130;
+		g_rep = 130;
 		ft_prompt();
 	}
 	if (sig == SIGQUIT)
@@ -84,7 +84,7 @@ int		main(int ac, char **av, char **env)
 	t_list	*lst_env;
 	char	*read;
 
-	rep = 0;
+	g_rep = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	if (ac > 0 && av[0])

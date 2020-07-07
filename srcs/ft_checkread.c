@@ -14,7 +14,7 @@
 
 int		count_signs(char quote, char *read, int *i, int *s)
 {
-	while (!quote && (read[*i] == '<' || read[*i] == '>'))
+	while (!quote && (read[*i] == '<' || read[*i] == '>') && read[*i + 1])
 	{
 		(*s)++;
 		(*i)++;
@@ -30,19 +30,17 @@ int		count_signs(char quote, char *read, int *i, int *s)
 
 int		ft_checkredir(char *read, int *i, int *s, char prev)
 {
-	while (ft_isspace(read[*i]))
-		(*i)++;
-	if ((read[*i] == 0 || ft_isulsign(read[*i])) || prev == '\\')
+	int j;
+
+	j = *i;
+	while (read[j] && ft_isspace(read[j]))
+		j++;
+	if ((read[j] == 0 || ft_isulsign(read[j])) && prev != '\\')
 	{
-		if (read[*i] != 0)
+		if (ft_isulsign(read[j]))
 			miniprintf("minishell : "ERR_MSG_C, read[*i]);
-		else if (prev != '\\')
+		else if (read[j] == 0)
 			miniprintf("minishell : "ERR_MSG_S, "newline");
-		else if (prev == '\\') {
-			miniprintf("NEED TO UPDATE\n");
-			*s = 0;
-			return (2);
-		}
 		free(read);
 		return (1);
 	}
@@ -99,6 +97,7 @@ int		ft_checkread(char *read)
 
 	s = 0;
 	i = 0;
+	prev = 0;
 	quote = 0;
 	while (read[i] && read)
 	{
@@ -111,10 +110,6 @@ int		ft_checkread(char *read)
 			return (0);
 		if (ft_checkparent(quote, read, &i, prev))
 			return (0);
-		if (ft_checkredir(read, &i, &s, prev) == 2) {
-			miniprintf("OK\n");
-			return (1);
-		}
 		prev = read[i];
 		i++;
 	}

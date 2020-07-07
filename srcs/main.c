@@ -56,6 +56,7 @@ void	sig_handler(int sig)
 	}
 	if (sig == SIGQUIT)
 		kill(1, SIGINT);
+	miniprintf("my sig :%d\n", sig);
 }
 
 void	parse_read(char *read, t_list **env)

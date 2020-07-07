@@ -40,7 +40,8 @@ int		ft_checkredir(char *read, int *i, int *s, char prev)
 			miniprintf("minishell : "ERR_MSG_S, "newline");
 		else if (prev == '\\') {
 			miniprintf("NEED TO UPDATE\n");
-			return (1);
+			*s = 0;
+			return (2);
 		}
 		free(read);
 		return (1);
@@ -110,6 +111,10 @@ int		ft_checkread(char *read)
 			return (0);
 		if (ft_checkparent(quote, read, &i, prev))
 			return (0);
+		if (ft_checkredir(read, &i, &s, prev) == 2) {
+			miniprintf("OK\n");
+			return (1);
+		}
 		prev = read[i];
 		i++;
 	}

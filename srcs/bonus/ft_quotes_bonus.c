@@ -69,7 +69,7 @@ char	*ft_strtrim_quote(char *s)
 	j = 0;
 	prev = 0;
 	quote = 0;
-	if (!(new = ft_calloc(ft_strlen(s), sizeof(char))))
+	if (!(new = ft_calloc(ft_strlen(s) + 1, sizeof(char))))
 		return (NULL);
 	while (s[i])
 	{

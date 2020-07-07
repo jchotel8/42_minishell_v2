@@ -105,14 +105,14 @@ $(NAME):	lib_make ${OBJS} ${OBJS2}
 			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
 			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"
-			@echo ${NAME}".a generated successfully." ${WHITE}
+			@echo ${NAME}" generated successfully." ${WHITE}
 
 bonus:		lib_make ${OBJS2} ${OBJSB}
 			@${CC} -I ${INC} ${FLAGS} ${OBJS2} ${OBJSB} ${LIBS} -o ${NAME}
 			@echo ${GREEN}${CR}"┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐"
 			@echo 		  	   "└─┐│ ││  │  ├┤ └─┐└─┐"
 			@echo 		  	   "└─┘└─┘└─┘└─┘└─┘└─┘└─┘"
-			@echo ${NAME}".a generated successfully with bonus." ${WHITE}
+			@echo ${NAME}" generated successfully with bonus." ${WHITE}
 
 run:
 			@make

@@ -83,6 +83,7 @@ int		main(int ac, char **av, char **env)
 {
 	t_list	*lst_env;
 	char	*read;
+	int ret;
 
 	g_rep = 0;
 	signal(SIGINT, sig_handler);
@@ -94,12 +95,14 @@ int		main(int ac, char **av, char **env)
 		ft_prompt();
 		while (1)
 		{
-			if (get_next_line(0, &read) == 1)
+			if ((ret = get_next_line(0, &read)) == 1)
 			{
 				if (ft_checkread(read))
 					parse_read(read, &lst_env);
 				ft_prompt();
 			}
+			else if (ft_strlen(read) == 0)
+				break;
 			else
 				free(read);
 		}

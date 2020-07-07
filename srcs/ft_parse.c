@@ -26,8 +26,16 @@ int		is_redir_out(char *mot, t_list **t, t_list *p1, t_list *p2)
 {
 	if ((!ft_strncmp(mot, ">", 1) || (p1 && !ft_strlcmp(p1->content, ">")))
 	&& ft_strlcmp(mot, ">"))
-		ft_lstadd_back(t, ft_lstnew(
-			ft_strdup((p2 && !ft_strlcmp(p2->content, ">") ? "2" : "1"))));
+	{
+		if ((p2 && !ft_strlcmp(p2->content, ">") 
+		&& p1 && !ft_strlcmp(p1->content, ">")) ||
+		(p1 && !ft_strlcmp(p1->content, ">") && !ft_strncmp(mot, ">", 1)))
+		{
+			ft_lstadd_back(t, ft_lstnew(ft_strdup("2")));
+		}
+		else 
+			ft_lstadd_back(t, ft_lstnew(ft_strdup("1")));
+	}
 	return ((!ft_strncmp(mot, ">", 1) || (p1 && !ft_strlcmp(p1->content, ">")))
 	&& ft_strlcmp(mot, ">"));
 }

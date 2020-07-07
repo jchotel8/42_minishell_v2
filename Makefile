@@ -36,6 +36,7 @@ SRCS		= ft_pipes.c\
 
 SRCB		= ft_pipes.c\
 			  ft_replace.c \
+			  ft_checkread.c \
 			  echo_cd_pwd.c \
 			  env_unset.c\
 			  bin_exec.c \
@@ -49,7 +50,7 @@ SRCB		= ft_pipes.c\
 			  bonus/ft_parse_bonus.c\
 			  bonus/ft_quotes_bonus.c\
 			  bonus/ft_wildcard_bonus.c \
-			  bonus/ft_checkread_bonus.c
+			  bonus/ft_checkquotes_bonus.c
 
 GNLDIR 		= libs/gnl
 GNL 		= get_next_line.c \

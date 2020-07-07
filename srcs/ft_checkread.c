@@ -28,18 +28,15 @@ int		count_signs(char quote, char *read, int *i, int *s)
 	return (0);
 }
 
-int		ft_checkredir(char *read, int *i, int *s, char prev)
+int		ft_checkredir(char *read, int i, int *s, char prev)
 {
-	int j;
-
-	j = *i;
-	while (read[j] && ft_isspace(read[j]))
-		j++;
-	if ((read[j] == 0 || ft_isulsign(read[j])) && prev != '\\')
+	while (read[i] && ft_isspace(read[i]))
+		i++;
+	if ((read[i] == 0 || ft_isulsign(read[i])) && prev != '\\')
 	{
-		if (ft_isulsign(read[j]))
-			miniprintf("minishell : "ERR_MSG_C, read[*i]);
-		else if (read[j] == 0)
+		if (ft_isulsign(read[i]))
+			miniprintf("minishell : "ERR_MSG_C, read[i]);
+		else if (read[i] == 0)
 			miniprintf("minishell : "ERR_MSG_S, "newline");
 		free(read);
 		return (1);
@@ -49,12 +46,12 @@ int		ft_checkredir(char *read, int *i, int *s, char prev)
 	return (0);
 }
 
-int		ft_checkpipe(char *read, int *i)
+int		ft_checkpipe(char *read, int i)
 {
 	int j;
 
-	j = *i - 1;
-	if (read[*i] == '|')
+	j = i - 1;
+	if (read[i] == '|')
 	{
 		while (j >= 0 && ft_isspace(read[j]))
 			j--;
@@ -64,7 +61,7 @@ int		ft_checkpipe(char *read, int *i)
 			free(read);
 			return (1);
 		}
-		j = *i + 1;
+		j = i + 1;
 		while (read[j] && ft_isspace(read[j]))
 			j++;
 		if (read[j] == ';')
@@ -77,11 +74,11 @@ int		ft_checkpipe(char *read, int *i)
 	return (0);
 }
 
-int		ft_checkparent(char quote, char *read, int *i, char prev)
+int		ft_checkparent(char quote, char *read, int i, char prev)
 {
-	if ((read[*i] == '(' || read[*i] == ')') && (!quote && prev != '\\'))
+	if ((read[i] == '(' || read[i] == ')') && (!quote && prev != '\\'))
 	{
-		miniprinte("minishell : "ERR_MSG_C, read[*i]);
+		miniprinte("minishell : "ERR_MSG_C, read[i]);
 		free(read);
 		return (1);
 	}
@@ -104,11 +101,11 @@ int		ft_checkread(char *read)
 		quote_inside(&quote, read[i], prev);
 		if (count_signs(quote, read, &i, &s))
 			return (0);
-		else if (s > 0 && ft_checkredir(read, &i, &s, prev))
+		else if (s > 0 && ft_checkredir(read, i, &s, prev))
 			return (0);
-		if (ft_checkpipe(read, &i))
+		if (ft_checkpipe(read, i))
 			return (0);
-		if (ft_checkparent(quote, read, &i, prev))
+		if (ft_checkparent(quote, read, i, prev))
 			return (0);
 		prev = read[i];
 		i++;

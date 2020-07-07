@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wildcard.c                                      :+:      :+:    :+:   */
+/*   ft_checkread.c	                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchotel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,17 @@
 
 #include "minishell.h"
 
-t_list	*ft_getdir(void)
+char	*ft_checkquotes(char *read)
 {
-	struct dirent	*var;
-	DIR				*dir;
-	t_list			*lst;
+	char	*next;
 
-	dir = opendir(".");
-	lst = NULL;
-	while ((var = readdir(dir)))
-		if (var->d_name[0] != '.')
-			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(var->d_name)));
-	closedir(dir);
-	return (lst);
-}
-
-void	ft_wildcard(t_list **lst)
-{
-	t_list	*tmp;
-	t_list	*prev;
-	t_list	*dir;
-	char	*str;
-
-	tmp = *lst;
-	prev = NULL;
-	while (tmp)
+	while (ft_countquote(read) % 2)
 	{
-		str = tmp->content;
-		if(is_onlychar(str, '*'))
-		{
-			dir = ft_getdir();
-			tmp = ft_lstrep(prev, dir, tmp);
-		}
-		!prev ? *lst = tmp : 0;
-		prev = tmp;
-		tmp = (tmp ? tmp->next : NULL);
+		miniprintf(">");
+		get_next_line(0, &next);
+		read = ft_strjoinf(read, "\n");
+		read = ft_strjoinf(read, next);
+		free(next);
 	}
+	return (read);
 }

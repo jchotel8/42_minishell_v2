@@ -61,3 +61,16 @@ void	handle_shlvl(t_list **env)
 	free(shlvl);
 	free(newval);
 }
+
+int 	is_onlychar(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		if (str[i++] != c)
+		{
+			return (0);
+		}
+	return (1);
+}

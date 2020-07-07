@@ -27,19 +27,6 @@ t_list	*ft_getdir(void)
 	return (lst);
 }
 
-int 	is_wildcard(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		if (str[i++] != '*')
-		{
-			return (0);
-		}
-	return (1);
-}
-
 void	ft_wildcard(t_list **lst)
 {
 	t_list	*tmp;
@@ -52,7 +39,7 @@ void	ft_wildcard(t_list **lst)
 	while (tmp)
 	{
 		str = tmp->content;
-		if(is_wildcard(str))
+		if(is_onlychar(str))
 		{
 			dir = ft_getdir();
 			tmp = ft_lstrep(prev, dir, tmp);

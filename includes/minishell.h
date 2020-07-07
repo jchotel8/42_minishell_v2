@@ -121,6 +121,7 @@ t_list			*ft_lstrep(t_list *prev, t_list *add, t_list *rep);
 int				ft_strfind(char *str, char c);
 int				check_binary(char *file);
 void			handle_shlvl(t_list **env);
+int				is_onlychar(char *str, char c);
 
 /*
 ** ***********BONUS*******************

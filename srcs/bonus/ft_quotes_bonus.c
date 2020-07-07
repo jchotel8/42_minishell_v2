@@ -52,7 +52,8 @@ int		trim_condition(char quote, char *s, int i, char prev)
 {
 	return ((!quote && s[i] == '\\' && prev != '\\') ||
 		(quote == '"' && s[i] == '\\' &&
-		((s[i + 1] == '\\' && prev != '\\') || s[i + 1] == '"')) ||
+		((s[i + 1] == '\\' && prev != '\\') ||
+		(prev != '\\' && s[i + 1] == '"'))) ||
 		(prev == '"' && s[i] == '"'));
 }
 

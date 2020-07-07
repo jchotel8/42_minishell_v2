@@ -15,18 +15,20 @@
 int		ft_echo(char **cmd)
 {
 	size_t	i;
+	size_t	j;
 	int		n_flag;
 
 	i = 1;
 	n_flag = 0;
-	if (cmd[1] && !ft_strcmp(cmd[1], "-n"))
+	while (cmd[i] && cmd[i][0] == '-' && is_onlychar(cmd[i] + 1, 'n'))
 	{
-		i = 2;
+		i++;
 		n_flag = 1;
 	}
+	j = i;
 	while (cmd[i])
 	{
-		if ((i >= 2 && n_flag == 0) || (n_flag == 1 && i >= 3))
+		if (i > j)
 			ft_putchar(' ');
 		ft_putstr(cmd[i++]);
 	}
@@ -76,11 +78,15 @@ int		ft_cd(char **cmd, t_list **env)
 {
 	char *tild;
 
+	tild = "-";
 	if (cmd[2])
 		miniprinte("cd: too many arguments\n");
-	else if (cmd[1] == NULL)
+	else if ((cmd[1] == NULL || !ft_strcmp(cmd[1], "-")) && (tild = ft_env_value("HOME", *env)))
 	{
+		free(tild);
 		tild = ft_strtrim_quote(ft_env_value("HOME", *env));
+		if (!ft_strcmp(cmd[1], "-"))
+			miniprintf("%s\n", tild);
 		if (chdir(tild))
 		{
 			miniprinte("cd: no such file or directory : %s\n", tild);
@@ -88,6 +94,11 @@ int		ft_cd(char **cmd, t_list **env)
 			return (8);
 		}
 		free(tild);
+	}
+	else if (tild == NULL)
+	{
+		miniprinte("minishell: cd: \" HOME \" non défini\n");
+		return (8);
 	}
 	else if (chdir(cmd[1]) != 0)
 	{

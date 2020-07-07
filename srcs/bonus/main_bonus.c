@@ -24,8 +24,9 @@ void	ft_prompt(void)
 	char *dir;
 
 	dir = get_wd();
-	miniprintf((rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
-	RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
+	if (rep != 2)
+		miniprintf((rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
+		RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
 	if (dir != NULL)
 		free(dir);
 }
@@ -46,14 +47,17 @@ void	ft_prompt(void)
 
 void	sig_handler(int sig)
 {
-	rep = 130;
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
+		rep = 130;
 		ft_prompt();
 	}
 	if (sig == SIGQUIT)
-		miniprintf("BONJOUR");
+	{
+		kill(1, SIGINT);
+		miniprintf("Quitter (core dumped)\n");
+	}
 }
 
 void	parse_read(char *read, t_list **env)
@@ -86,6 +90,7 @@ int		main(int ac, char **av, char **env)
 	if (ac > 0 && av[0])
 	{
 		lst_env = ft_ato_lst(env);
+		handle_shlvl(&lst_env);
 		ft_prompt();
 		while (get_next_line(0, &read))
 		{

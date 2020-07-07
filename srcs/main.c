@@ -47,7 +47,6 @@ void	ft_prompt(void)
 
 void	sig_handler(int sig)
 {
-	(void) sig;
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
@@ -55,8 +54,10 @@ void	sig_handler(int sig)
 		ft_prompt();
 	}
 	if (sig == SIGQUIT)
+	{
 		kill(1, SIGINT);
-	miniprintf("my sig :%d\n", sig);
+		miniprintf("Quitter (core dumped)\n");
+	}
 }
 
 void	parse_read(char *read, t_list **env)

@@ -35,6 +35,7 @@ char	*set_to_export(char *str, int flag)
 	free(str);
 	free(add);
 	free(val);
+	//miniprintf("set to export : %s\n", new);
 	return (new);
 }
 
@@ -88,7 +89,10 @@ int		handle_export(char *cmd, t_list **env)
 	while (lst && (i = ft_env_condition(lst->content, key)) == 2)
 		lst = lst->next;
 	if (i == 2)
+	{
+		//miniprintf("export : %s.\n", ft_strtrim_quote(set_to_export(cmd, 0)));
 		ft_lstadd_back(env, ft_lstnew(ft_strtrim_quote(set_to_export(cmd, 0))));
+	}
 	if (i == 1)
 	{
 		free(lst->content);

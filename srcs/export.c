@@ -23,7 +23,7 @@ char	*set_to_export(char *str, int flag)
 		return (str);
 	key = ft_substr(str, 0, ft_strfind(str, '=') + 1);
 	val = ft_substr(str, ft_strfind(str, '=') + 1, ft_strlen(str));
-	add = ft_reverse_quote(val);
+	add = ft_reverse_quote(val, 0);
 	if (flag == 0)
 		new = ft_strjoinf(key, add);
 	else
@@ -79,7 +79,7 @@ int		handle_export(char *cmd, t_list **env)
 
 	if (!check_export(cmd) && (j = 0))
 	{
-		miniprinte("export: '%s': not a valid identifier\n", cmd);
+		miniprinte("export: \" %s \": not a valid identifier\n", cmd);
 		return (8);
 	}
 	if (ft_strfind(cmd, '=') >= 0 && (j = 1))
@@ -107,7 +107,12 @@ int		ft_export(char **cmd, t_list **env)
 	if (cmd && cmd[i + 1])
 	{
 		while (cmd[++i])
-			if (handle_export(ft_strdup(cmd[i]), env) == 8)
+			if (ft_strlen(cmd[i]) == 0)
+			{
+				miniprintf(ERR_MSG_EX, cmd[i]);
+				return (8);
+			}
+			else if (handle_export(ft_strdup(cmd[i]), env) == 8)
 				return (8);
 	}
 	else

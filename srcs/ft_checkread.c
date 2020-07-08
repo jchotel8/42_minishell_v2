@@ -46,12 +46,12 @@ int		ft_checkredir(char *read, int i, int *s, char prev)
 	return (0);
 }
 
-int		ft_checkpipe(char *read, int i)
+int		ft_checkpipe(char quote, char *read, int i, char prev)
 {
 	int j;
 
 	j = i - 1;
-	if (read[i] == '|')
+	if (read[i] == '|' && !quote && prev != '\\')
 	{
 		while (j >= 0 && ft_isspace(read[j]))
 			j--;
@@ -103,7 +103,7 @@ int		ft_checkread(char *read)
 			return (0);
 		else if (s > 0 && ft_checkredir(read, i, &s, prev))
 			return (0);
-		if (ft_checkpipe(read, i))
+		if (ft_checkpipe(quote, read, i, prev))
 			return (0);
 		if (ft_checkparent(quote, read, i, prev))
 			return (0);

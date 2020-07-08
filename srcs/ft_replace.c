@@ -25,7 +25,7 @@ char	*ft_env_value(char *str, t_list *env)
 			ft_strlen(env->content));
 			free(str);
 			str = tmp;
-			tmp = ft_reverse_quote(str);
+			tmp = ft_reverse_quote(str, 0);
 			free(str);
 			str = ft_strjoin("\"", tmp);
 			free(tmp);
@@ -76,10 +76,32 @@ char	*ft_find_toreplace(char *str)
 ** XXX - 130 ^C
 */
 
+char	*ft_strtrim_2(char *s1, char *rm)
+{
+	char	*trim;
+	size_t	start;
+	size_t	end;
+
+	if (!s1)
+		return (0);
+	if (!rm)
+		return (ft_strdup(s1));
+	start = 0;
+	end = ft_strlen((char *)s1);
+	if(ft_strchr(rm, s1[start]))
+		start++;
+	if (start == end)
+		return (ft_strdup(""));
+	if(ft_strchr(rm, s1[end - 1]))
+		end--;
+	trim = ft_substr(s1, start, end - start);
+	return (trim);
+}
+
 char	*ft_replace_env(char *str, t_list *env)
 {
-	char *to_rep;
-	char *tmp;
+	char	*to_rep;
+	char	*tmp;
 
 	g_rep = (g_rep == 768 ? 127 : g_rep);
 	g_rep = (g_rep == 256 ? 1 : g_rep);
@@ -87,7 +109,8 @@ char	*ft_replace_env(char *str, t_list *env)
 	g_rep = (g_rep == 8 ? 1 : g_rep);
 	while ((to_rep = ft_find_toreplace(str)))
 	{
-		if (!ft_strcmp(to_rep, "$?"))
+
+		if (!ft_strlcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(g_rep));
 		else if (!ft_strcmp(to_rep, "$"))
 			return (str);
@@ -95,8 +118,9 @@ char	*ft_replace_env(char *str, t_list *env)
 			str = ft_strrep(str, to_rep, ft_env_value("HOME", env));
 		else
 		{
-			tmp = ft_env_value(to_rep + 1, env);
-			str = ft_strrep(str, to_rep, ft_strtrim(set_to_export(tmp, 1), "\""));
+			tmp = ft_strtrim_quote(ft_env_value(to_rep + 1, env));
+			!tmp ? tmp = ft_strdup("") : 0;
+			str = ft_strrep(str, to_rep, ft_reverse_quote(tmp, 1));
 			free(tmp);
 		}
 	}

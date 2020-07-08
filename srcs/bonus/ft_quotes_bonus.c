@@ -86,7 +86,7 @@ char	*ft_strtrim_quote(char *s)
 	return (new);
 }
 
-char	*ft_reverse_quote(char *s)
+char	*ft_reverse_quote(char *s, int flag)
 {
 	int		i;
 	int		j;
@@ -97,7 +97,7 @@ char	*ft_reverse_quote(char *s)
 	new = ft_calloc(ft_strlen(s) * 2 + 2, sizeof(char));
 	while (s[i])
 	{
-		if (s[i] == '\\' || s[i] == '\"')
+		if (s[i] == '\\' || s[i] == '\"'  || (flag && s[i] == '\''))
 			new[j++] = '\\';
 		new[j++] = s[i++];
 	}

@@ -42,6 +42,8 @@
 # define ERR_MSG_S "erreur de syntaxe près du symbole inattendu « %s »\n"
 # define ERR_MSG_R "minishell : %s : Aucun fichier ou dossier de ce type\n"
 # define ERR_MSG_CD "minishell: cd: no such file or directory : %s\n"
+# define ERR_MSG_EX "minishell: export: « %s » : identifiant non valable\n"
+# define ERR_MSG_UN "minishell: unset: « %s » : identifiant non valable\n"
 
 typedef struct	s_pipe
 {
@@ -65,7 +67,7 @@ void			do_pipe(t_list *line, int nb_cmd, t_list **env);
 */
 char			quote_inside(char *quote, char new, char prev);
 char			*ft_strtrim_quote(char *s);
-char			*ft_reverse_quote(char *s);
+char			*ft_reverse_quote(char *s, int flag);
 /*
 ** COMMANDES
 */

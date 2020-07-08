@@ -29,11 +29,11 @@ int		ft_unset(char **cmd, t_list **env)
 	size_t	i;
 
 	i = 1;
-	while (cmd[i] && ft_strcmp(cmd[i], ""))
+	while (cmd[i])
 	{
-		if (!check_export(cmd[i]))
+		if (ft_strlen(cmd[i]) == 0 || !check_export(cmd[i]))
 		{
-			miniprinte("unset: '%s': not a valid identifier\n", cmd[i]);
+			miniprinte(ERR_MSG_UN, cmd[i]);
 			return (8);
 		}
 		ft_lstremove_if(env, cmd[i], ft_strcmp);

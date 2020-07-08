@@ -22,7 +22,7 @@ char	*ft_itoa(int i)
 	n = c ? -(long)i : i;
 	while (i /= 10)
 		c++;
-	s = ft_calloc(c + 1, 1);
+	s = ft_calloc(c + 1, sizeof(int));
 	*s = '-';
 	while ((s[c] = n % 10 + '0') && (n /= 10))
 		c--;

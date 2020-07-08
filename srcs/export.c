@@ -77,9 +77,10 @@ int		handle_export(char *cmd, t_list **env)
 	char	*key;
 	int		j;
 
-	if (!check_export(cmd) && (j = 0))
+	if (!check_export(cmd) && !(j = 0))
 	{
 		miniprinte("export: \" %s \": not a valid identifier\n", cmd);
+		free(cmd);
 		return (8);
 	}
 	if (ft_strfind(cmd, '=') >= 0 && (j = 1))

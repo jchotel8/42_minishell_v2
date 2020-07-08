@@ -81,9 +81,7 @@ int		check_export(char *s)
 
 	flag = 0;
 	if (!(ft_isalpha(*s) || *s == '_'))
-	{
 		return (0);
-	}
 	while (*s && !flag)
 	{
 		if (*s == '=')

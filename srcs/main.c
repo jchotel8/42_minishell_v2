@@ -100,6 +100,8 @@ int		main(int ac, char **av, char **env)
 			{
 				if (ft_checkread(g_read))
 					parse_read(g_read, &lst_env);
+				else
+					g_rep = 512;
 				ft_prompt();
 			}
 			else if (ft_strlen(g_read) == 0)

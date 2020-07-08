@@ -79,6 +79,7 @@ char	*ft_find_toreplace(char *str)
 char	*ft_replace_env(char *str, t_list *env)
 {
 	char *to_rep;
+	char *tmp;
 
 	g_rep = (g_rep == 768 ? 127 : g_rep);
 	g_rep = (g_rep == 256 ? 1 : g_rep);
@@ -93,8 +94,11 @@ char	*ft_replace_env(char *str, t_list *env)
 		else if (!ft_strcmp(to_rep, "~"))
 			str = ft_strrep(str, to_rep, ft_env_value("HOME", env));
 		else
-			str = ft_strrep(str, to_rep, ft_strtrim(set_to_export(
-				ft_env_value(to_rep + 1, env), 1), "\""));
+		{
+			tmp = ft_env_value(to_rep + 1, env);
+			str = ft_strrep(str, to_rep, ft_strtrim(set_to_export(tmp, 1), "\""));
+			free(tmp);
+		}
 	}
 	return (str);
 }

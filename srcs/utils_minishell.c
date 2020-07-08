@@ -60,8 +60,7 @@ char	*ft_strrep(char *str, char *to_rep, char *rep)
 
 int		ft_isend(char c)
 {
-	return (ft_isspace(c) || !c || c == '"' || c == '\'' ||
-	c == '$' || c == '=');
+	return (!ft_isalnum(c) && c != '_');
 }
 
 int		ft_isulsign(char c)

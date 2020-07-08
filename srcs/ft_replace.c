@@ -93,8 +93,8 @@ char	*ft_replace_env(char *str, t_list *env)
 		else if (!ft_strcmp(to_rep, "~"))
 			str = ft_strrep(str, to_rep, ft_env_value("HOME", env));
 		else
-			str = ft_strrep(str, to_rep, ft_strtrim(set_to_export
-			(ft_env_value(to_rep + 1, env), 1), "\""));
+			str = ft_strrep(str, to_rep, ft_strtrim(set_to_export(
+				ft_env_value(to_rep + 1, env), 1), "\""));
 	}
 	return (str);
 }

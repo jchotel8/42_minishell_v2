@@ -27,22 +27,17 @@ int		ft_env(char **cmd, t_list **env)
 int		ft_unset(char **cmd, t_list **env)
 {
 	size_t	i;
-	char	*tmp;
 
 	i = 1;
 	while (cmd[i] && ft_strcmp(cmd[i], ""))
 	{
-		tmp = ft_strdup(cmd[i]);
-		cmd[i] = ft_strjoinf(cmd[i], "=");
 		if (!check_export(cmd[i]))
 		{
-			miniprinte("unset: '%s': not a valid identifier\n", tmp);
-			if (tmp != NULL)
-				free(tmp);
+			miniprinte("unset: '%s': not a valid identifier\n", cmd[i]);
 			return (8);
 		}
-		if (tmp != NULL)
-			free(tmp);
+		ft_lstremove_if(env, cmd[i], ft_strcmp);
+		cmd[i] = ft_strjoinf(cmd[i], "=");
 		ft_lstremove_if(env, cmd[i], ft_strlcmp);
 		i++;
 	}

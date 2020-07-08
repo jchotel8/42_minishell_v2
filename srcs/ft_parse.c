@@ -114,7 +114,6 @@ int		parse_redir(char *str, t_pipe *pipe, t_list *env)
 		ft_lstclear(&pipe->redird, *free);
 		return (1);
 	}
-	//ft_lst_print(lst_cmd, 1);
 	ft_lstiter2(lst_cmd, ft_strtrim_quote);
 	ft_lstiter2(pipe->redirg, ft_strtrim_quote);
 	ft_lstiter2(pipe->redird, ft_strtrim_quote);

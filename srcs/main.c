@@ -19,6 +19,8 @@
 
 int		g_rep;
 char	*g_read;
+int		g_sta;
+
 
 void	ft_prompt(void)
 {
@@ -52,6 +54,7 @@ void	sig_handler(int sig)
 	{
 		ft_putstr("\n");
 		g_rep = 130;
+		g_sta = 1;
 		ft_prompt();
 	}
 	if (sig == SIGQUIT && (!g_read || (g_read
@@ -103,6 +106,8 @@ int		main(int ac, char **av, char **env)
 				else
 					g_rep = 512;
 				ft_prompt();
+				g_rep = (g_sta == 1 ? 130 : g_rep);
+				g_sta = 0;
 			}
 			else if (ft_strlen(g_read) == 0)
 				break ;

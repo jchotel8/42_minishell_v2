@@ -26,8 +26,14 @@ int		is_redir_out(char *mot, t_list **t, t_list *p1, t_list *p2)
 {
 	if ((!ft_strncmp(mot, ">", 1) || (p1 && !ft_strlcmp(p1->content, ">")))
 	&& ft_strlcmp(mot, ">"))
-		ft_lstadd_back(t, ft_lstnew(
-			ft_strdup((p2 && !ft_strlcmp(p2->content, ">") ? "2" : "1"))));
+	{
+		if ((p2 && !ft_strlcmp(p2->content, ">")
+		&& p1 && !ft_strlcmp(p1->content, ">")) ||
+		(p1 && !ft_strlcmp(p1->content, ">") && !ft_strncmp(mot, ">", 1)))
+			ft_lstadd_back(t, ft_lstnew(ft_strdup("2")));
+		else
+			ft_lstadd_back(t, ft_lstnew(ft_strdup("1")));
+	}
 	return ((!ft_strncmp(mot, ">", 1) || (p1 && !ft_strlcmp(p1->content, ">")))
 	&& ft_strlcmp(mot, ">"));
 }
@@ -50,12 +56,13 @@ void	sort_redir(char *str, t_pipe *p, t_list **cmd)
 			ft_lstadd_back(&p->redirg, ft_lstnew(ft_strtrim(r->content, "< ")));
 		else if (is_redir_out(r->content, &p->typed, p1, p2))
 			ft_lstadd_back(&p->redird, ft_lstnew(ft_strtrim(r->content, "> ")));
-		else if (ft_strlcmp(r->content, ">") && ft_strlcmp(r->content, "<")
-		&& ft_strlcmp(r->content, " "))
+		else if (ft_strlcmp(r->content, ">") && ft_strlcmp(r->content, "<"))
 			ft_lstadd_back(cmd, ft_lstnew(ft_strtrim(r->content, " ")));
 		p2 = p1;
 		p1 = r;
 		r = r->next;
+		while (r && !ft_strcmp(r->content, " "))
+			r = r->next;
 	}
 	ft_lstclear(&start, *free);
 }

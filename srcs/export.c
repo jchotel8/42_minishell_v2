@@ -103,7 +103,7 @@ int		ft_export(char **cmd, t_list **env)
 	if (cmd && cmd[i + 1])
 	{
 		while (cmd[++i])
-			if (ft_strlen(cmd[i]) == 0 || !check_export(cmd))
+			if (ft_strlen(cmd[i]) == 0 || !check_export(cmd[i]))
 			{
 				miniprintf(ERR_MSG_EX, cmd[i]);
 				return (8);

@@ -77,12 +77,7 @@ int		handle_export(char *cmd, t_list **env)
 	char	*key;
 	int		j;
 
-	if (!check_export(cmd) && !(j = 0))
-	{
-		miniprinte("export: \" %s \": not a valid identifier\n", cmd);
-		free(cmd);
-		return (8);
-	}
+	j = 0;
 	if (ft_strfind(cmd, '=') >= 0 && (j = 1))
 		key = ft_substr(cmd, 0, ft_strfind(cmd, '=') + 1);
 	lst = *env;
@@ -108,7 +103,7 @@ int		ft_export(char **cmd, t_list **env)
 	if (cmd && cmd[i + 1])
 	{
 		while (cmd[++i])
-			if (ft_strlen(cmd[i]) == 0)
+			if (ft_strlen(cmd[i]) == 0 || !check_export(cmd))
 			{
 				miniprintf(ERR_MSG_EX, cmd[i]);
 				return (8);

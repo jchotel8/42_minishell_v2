@@ -60,7 +60,7 @@ char	*ft_strrep(char *str, char *to_rep, char *rep)
 
 int		ft_isend(char c)
 {
-	return (!ft_isalnum(c) && c != '_' && c!= '?');
+	return (!ft_isalnum(c) && c != '_' && c != '?');
 }
 
 int		ft_isulsign(char c)

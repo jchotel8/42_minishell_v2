@@ -88,11 +88,11 @@ char	*ft_strtrim_2(char *s1, char *rm)
 		return (ft_strdup(s1));
 	start = 0;
 	end = ft_strlen((char *)s1);
-	if(ft_strchr(rm, s1[start]))
+	if (ft_strchr(rm, s1[start]))
 		start++;
 	if (start == end)
 		return (ft_strdup(""));
-	if(ft_strchr(rm, s1[end - 1]))
+	if (ft_strchr(rm, s1[end - 1]))
 		end--;
 	trim = ft_substr(s1, start, end - start);
 	return (trim);
@@ -109,7 +109,6 @@ char	*ft_replace_env(char *str, t_list *env)
 	g_rep = (g_rep == 8 ? 1 : g_rep);
 	while ((to_rep = ft_find_toreplace(str)))
 	{
-
 		if (!ft_strlcmp(to_rep, "$?"))
 			str = ft_strrep(str, to_rep, ft_itoa(g_rep));
 		else if (!ft_strcmp(to_rep, "$"))

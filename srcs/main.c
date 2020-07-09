@@ -21,7 +21,6 @@ int		g_rep;
 char	*g_read;
 int		g_sta;
 
-
 void	ft_prompt(void)
 {
 	char *dir;
@@ -87,6 +86,17 @@ void	parse_read(char *read, t_list **env)
 	g_read = NULL;
 }
 
+void	do_read(t_list **lst_env)
+{
+	if (ft_checkread(g_read))
+		parse_read(g_read, lst_env);
+	else
+		g_rep = 512;
+	ft_prompt();
+	g_rep = (g_sta == 1 ? 130 : g_rep);
+	g_sta = 0;
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_list	*lst_env;
@@ -94,28 +104,20 @@ int		main(int ac, char **av, char **env)
 	g_rep = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	if (ac > 0 && av[0])
-	{
-		lst_env = ft_ato_lst(env);
-		handle_shlvl(&lst_env);
-		ft_prompt();
-		while (1)
-			if (get_next_line(0, &g_read) == 1)
-			{
-				if (ft_checkread(g_read))
-					parse_read(g_read, &lst_env);
-				else
-					g_rep = 512;
-				ft_prompt();
-				g_rep = (g_sta == 1 ? 130 : g_rep);
-				g_sta = 0;
-			}
-			else if (ft_strlen(g_read) == 0)
-				break ;
-			else
-				free(g_read);
-		ft_lstclear(&lst_env, *free);
-		free(g_read);
-		miniprintf("exit\n");
-	}
+	if (ac <= 0 || !av[0])
+		return (1);
+	lst_env = ft_ato_lst(env);
+	handle_shlvl(&lst_env);
+	ft_prompt();
+	while (1)
+		if (get_next_line(0, &g_read) == 1)
+			do_read(&lst_env);
+		else if (ft_strlen(g_read) == 0)
+			break ;
+		else
+			free(g_read);
+	ft_lstclear(&lst_env, *free);
+	free(g_read);
+	miniprintf("exit\n");
+	return (0);
 }

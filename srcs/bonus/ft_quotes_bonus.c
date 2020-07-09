@@ -97,7 +97,7 @@ char	*ft_reverse_quote(char *s, int flag)
 	new = ft_calloc(ft_strlen(s) * 2 + 2, sizeof(char));
 	while (s[i])
 	{
-		if (s[i] == '\\' || s[i] == '\"'  || (flag && s[i] == '\''))
+		if (s[i] == '\\' || s[i] == '\"' || (flag && s[i] == '\''))
 			new[j++] = '\\';
 		new[j++] = s[i++];
 	}

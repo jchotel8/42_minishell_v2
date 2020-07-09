@@ -62,8 +62,8 @@ void	sig_handler(int sig)
 		miniprintf("\b\b  \b\b");
 	else if (sig == SIGQUIT && g_read && ft_strlen(g_read) > 0)
 	{
+		miniprintf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
-		miniprintf("Quitter (core dumped) [%s]\n", g_read);
 	}
 }
 
@@ -84,6 +84,7 @@ void	parse_read(char *read, t_list **env)
 	}
 	ft_lstclear(&start, *free);
 	free(read);
+	g_read = NULL;
 }
 
 int		main(int ac, char **av, char **env)
